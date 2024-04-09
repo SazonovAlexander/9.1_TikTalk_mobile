@@ -1,16 +1,7 @@
-//
-//  AppDelegate.swift
-//  9.1_TikTalk_mobile
-//
-//  Created by Александр Сазонов on 09.04.2024.
-//
-
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
