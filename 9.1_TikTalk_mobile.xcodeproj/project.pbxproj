@@ -15,6 +15,7 @@
 		009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A172BC65AB800F17741 /* PodcastView.swift */; };
 		009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A192BC65D2500F17741 /* PodcastViewController.swift */; };
 		009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1C2BC72EEF00F17741 /* BandViewController.swift */; };
+		009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1F2BC733FB00F17741 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		009D9A172BC65AB800F17741 /* PodcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastView.swift; sourceTree = "<group>"; };
 		009D9A192BC65D2500F17741 /* PodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewController.swift; sourceTree = "<group>"; };
 		009D9A1C2BC72EEF00F17741 /* BandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandViewController.swift; sourceTree = "<group>"; };
+		009D9A1F2BC733FB00F17741 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				009D9A1E2BC733D300F17741 /* TabBar */,
 				009D9A1B2BC72EDD00F17741 /* Band */,
 				009D9A162BC65AA900F17741 /* Podcast */,
 				009D9A152BC6592D00F17741 /* Application */,
@@ -95,6 +98,14 @@
 				009D9A1C2BC72EEF00F17741 /* BandViewController.swift */,
 			);
 			path = Band;
+			sourceTree = "<group>";
+		};
+		009D9A1E2BC733D300F17741 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A1F2BC733FB00F17741 /* TabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +182,7 @@
 				009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */,
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
+				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 			);
