@@ -11,6 +11,8 @@ final class PodcastView: UIView {
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView(image: .logo)
         imageView.layer.cornerRadius = 16
+        imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return imageView
     }()
     
@@ -91,6 +93,7 @@ final class PodcastView: UIView {
     
     private lazy var slider: UISlider = {
         let slider = UISlider()
+        slider.minimumTrackTintColor = .white
         return slider
     }()
     
@@ -158,29 +161,28 @@ private extension PodcastView {
     
     func activateConstraints() {
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: topAnchor),
-            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
-            logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
-            logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
-            buttonStack.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
-            buttonStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            buttonStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            logoImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            buttonStack.topAnchor.constraint(greaterThanOrEqualTo: logoImageView.bottomAnchor, constant: 30),
+            buttonStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            buttonStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             countLikeLabel.topAnchor.constraint(equalTo: buttonStack.bottomAnchor),
             countLikeLabel.centerXAnchor.constraint(equalTo: likeButton.centerXAnchor),
             nameLabel.topAnchor.constraint(equalTo: countLikeLabel.bottomAnchor, constant: 15),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            nameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             authorNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             authorNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             slider.topAnchor.constraint(equalTo: authorNameLabel.bottomAnchor, constant: 15),
-            slider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            slider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            slider.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            slider.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             playerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             playerButton.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 20),
             currentTime.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
             currentTime.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
             totalTime.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
-            totalTime.trailingAnchor.constraint(equalTo: slider.trailingAnchor)
+            totalTime.trailingAnchor.constraint(equalTo: slider.trailingAnchor),
+            playerButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
