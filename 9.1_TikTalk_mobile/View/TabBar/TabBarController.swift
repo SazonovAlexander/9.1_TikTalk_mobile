@@ -34,7 +34,7 @@ private extension TabBarController {
             selectedImage: nil
         )
         
-        let profileViewController = PodcastViewController() //временно здесь подкаст
+        let profileViewController = ProfileViewController()
         profileViewController.tabBarItem = UITabBarItem(
             title: "Профиль",
             image: UIImage(systemName: "person.fill"),

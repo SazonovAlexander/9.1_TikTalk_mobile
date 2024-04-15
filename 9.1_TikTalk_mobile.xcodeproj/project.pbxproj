@@ -17,7 +17,7 @@
 		009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1F2BC733FB00F17741 /* TabBarController.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
-		1D9A5F882BCDB9B700BAC8E6 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F872BCDB9B700BAC8E6 /* Podcast.swift */; };
+		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		009D9A1F2BC733FB00F17741 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
-		1D9A5F872BCDB9B700BAC8E6 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
+		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +122,7 @@
 		1D9A5F842BCDB98F00BAC8E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1D9A5F862BCDB9AD00BAC8E6 /* Model */,
+				1D9A5F892BCDC41900BAC8E6 /* Profile */,
 				009D9A162BC65AA900F17741 /* Podcast */,
 				009D9A1B2BC72EDD00F17741 /* Band */,
 				009D9A1E2BC733D300F17741 /* TabBar */,
@@ -138,12 +138,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1D9A5F862BCDB9AD00BAC8E6 /* Model */ = {
+		1D9A5F892BCDC41900BAC8E6 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				1D9A5F872BCDB9B700BAC8E6 /* Podcast.swift */,
+				1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */,
 			);
-			path = Model;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,8 +221,8 @@
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
-				1D9A5F882BCDB9B700BAC8E6 /* Podcast.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 			);
