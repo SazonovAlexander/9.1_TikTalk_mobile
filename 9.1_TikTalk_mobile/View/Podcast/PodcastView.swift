@@ -9,7 +9,7 @@ final class PodcastView: UIView {
     private lazy var stopImage = UIImage(systemName: "play.fill", withConfiguration: symbolPlayerButtonConfiguration)
     
     private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView(image: .logo)
+        let imageView = UIImageView(image: UIImage(named: "Logo"))
         imageView.layer.cornerRadius = 16
         imageView.contentMode = .scaleAspectFit
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)

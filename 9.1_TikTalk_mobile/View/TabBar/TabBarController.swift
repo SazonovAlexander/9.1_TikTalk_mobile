@@ -27,8 +27,8 @@ private extension TabBarController {
             selectedImage: nil
         )
         
-        let searchViewController = PodcastViewController() //временно здесь подкаст
-        searchViewController.tabBarItem = UITabBarItem(
+        let albumViewController = AlbumViewController() //временно здесь альбом
+        albumViewController.tabBarItem = UITabBarItem(
             title: "Поиск",
             image: UIImage(systemName: "magnifyingglass"),
             selectedImage: nil
@@ -43,7 +43,7 @@ private extension TabBarController {
    
         self.viewControllers = [
             bandViewController,
-            searchViewController,
+            albumViewController,
             profileViewController
         ]
     }

@@ -24,7 +24,7 @@ private extension PodcastViewController {
     }
     
     func setupAppearance() {
-        view.backgroundColor = .background
+        view.backgroundColor = UIColor(named: "Background")
     }
     
     func addSubviews() {
