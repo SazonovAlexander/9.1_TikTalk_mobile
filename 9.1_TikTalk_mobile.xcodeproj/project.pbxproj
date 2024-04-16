@@ -9,19 +9,31 @@
 /* Begin PBXBuildFile section */
 		007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */; };
 		007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */; };
-		007EC1C02BC5C97A00066A9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BF2BC5C97A00066A9E /* ViewController.swift */; };
 		007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C42BC5C97B00066A9E /* Assets.xcassets */; };
 		007EC1C82BC5C97B00066A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C62BC5C97B00066A9E /* LaunchScreen.storyboard */; };
+		009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A172BC65AB800F17741 /* PodcastView.swift */; };
+		009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A192BC65D2500F17741 /* PodcastViewController.swift */; };
+		009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1C2BC72EEF00F17741 /* BandViewController.swift */; };
+		009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1F2BC733FB00F17741 /* TabBarController.swift */; };
+		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
+		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
+		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9.1_TikTalk_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		007EC1BF2BC5C97A00066A9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		007EC1C42BC5C97B00066A9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		007EC1C72BC5C97B00066A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		007EC1C92BC5C97B00066A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		009D9A172BC65AB800F17741 /* PodcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastView.swift; sourceTree = "<group>"; };
+		009D9A192BC65D2500F17741 /* PodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewController.swift; sourceTree = "<group>"; };
+		009D9A1C2BC72EEF00F17741 /* BandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandViewController.swift; sourceTree = "<group>"; };
+		009D9A1F2BC733FB00F17741 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
+		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +66,84 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */,
-				007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */,
-				007EC1BF2BC5C97A00066A9E /* ViewController.swift */,
+				1D9A5F852BCDB9A000BAC8E6 /* Model */,
+				1D9A5F842BCDB98F00BAC8E6 /* View */,
+				009D9A152BC6592D00F17741 /* Application */,
 				007EC1C42BC5C97B00066A9E /* Assets.xcassets */,
 				007EC1C62BC5C97B00066A9E /* LaunchScreen.storyboard */,
 				007EC1C92BC5C97B00066A9E /* Info.plist */,
 			);
 			path = 9.1_TikTalk_mobile;
+			sourceTree = "<group>";
+		};
+		009D9A152BC6592D00F17741 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */,
+				007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		009D9A162BC65AA900F17741 /* Podcast */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A172BC65AB800F17741 /* PodcastView.swift */,
+				009D9A192BC65D2500F17741 /* PodcastViewController.swift */,
+				1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */,
+			);
+			path = Podcast;
+			sourceTree = "<group>";
+		};
+		009D9A1B2BC72EDD00F17741 /* Band */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A1C2BC72EEF00F17741 /* BandViewController.swift */,
+			);
+			path = Band;
+			sourceTree = "<group>";
+		};
+		009D9A1E2BC733D300F17741 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A1F2BC733FB00F17741 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		1D9A5F842BCDB98F00BAC8E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D9A5F892BCDC41900BAC8E6 /* Profile */,
+				009D9A162BC65AA900F17741 /* Podcast */,
+				009D9A1B2BC72EDD00F17741 /* Band */,
+				009D9A1E2BC733D300F17741 /* TabBar */,
+				1D9A5F7F2BCDB47800BAC8E6 /* Album */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1D9A5F852BCDB9A000BAC8E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1D9A5F892BCDC41900BAC8E6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,7 +216,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				007EC1C02BC5C97A00066A9E /* ViewController.swift in Sources */,
+				009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */,
+				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
+				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
+				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
+				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
+				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 			);
@@ -285,7 +373,8 @@
 				INFOPLIST_FILE = 9.1_TikTalk_mobile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,7 +406,8 @@
 				INFOPLIST_FILE = 9.1_TikTalk_mobile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
