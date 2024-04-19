@@ -19,52 +19,32 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var changeProfileButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Редактировать профиль", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Редактировать профиль", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var createPodcastButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Создать подкаст", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Создать подкаст", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var subsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Подписки", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Подписки", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var likeButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Понравившееся", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Понравившееся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var myPodcastsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Мои подкасты", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Мои подкасты", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     

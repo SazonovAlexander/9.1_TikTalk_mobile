@@ -12,12 +12,8 @@ final class EditProfileViewController: UIViewController {
     }()
     
     private lazy var subsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.green
-        button.setTitle("Сохранить", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 12
+        let button = BaseButtonView()
+        button.config(text: "Сохранить", backgroundColor: .green)
         return button
     }()
     
