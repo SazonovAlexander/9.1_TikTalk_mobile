@@ -15,6 +15,8 @@
 		009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A192BC65D2500F17741 /* PodcastViewController.swift */; };
 		009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1C2BC72EEF00F17741 /* BandViewController.swift */; };
 		009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A1F2BC733FB00F17741 /* TabBarController.swift */; };
+		009D9A222BD3156500F17741 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A212BD3156500F17741 /* EditProfileViewController.swift */; };
+		009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009D9A232BD316A100F17741 /* ValidatedTextField.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -31,6 +33,8 @@
 		009D9A192BC65D2500F17741 /* PodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewController.swift; sourceTree = "<group>"; };
 		009D9A1C2BC72EEF00F17741 /* BandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandViewController.swift; sourceTree = "<group>"; };
 		009D9A1F2BC733FB00F17741 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		009D9A212BD3156500F17741 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		009D9A232BD316A100F17741 /* ValidatedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedTextField.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +70,6 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				1D9A5F852BCDB9A000BAC8E6 /* Model */,
 				1D9A5F842BCDB98F00BAC8E6 /* View */,
 				009D9A152BC6592D00F17741 /* Application */,
 				007EC1C42BC5C97B00066A9E /* Assets.xcassets */,
@@ -127,21 +130,16 @@
 				009D9A1B2BC72EDD00F17741 /* Band */,
 				009D9A1E2BC733D300F17741 /* TabBar */,
 				1D9A5F7F2BCDB47800BAC8E6 /* Album */,
+				009D9A232BD316A100F17741 /* ValidatedTextField.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1D9A5F852BCDB9A000BAC8E6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1D9A5F892BCDC41900BAC8E6 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */,
+				009D9A212BD3156500F17741 /* EditProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -221,7 +219,9 @@
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
+				009D9A222BD3156500F17741 /* EditProfileViewController.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,

@@ -24,7 +24,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("Редактировать профиль", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -34,7 +34,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("Создать подкаст", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -44,7 +44,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("Подписки", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -54,7 +54,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("Понравившееся", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -64,7 +64,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("Мои подкасты", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = 12
         return button
     }()
     
