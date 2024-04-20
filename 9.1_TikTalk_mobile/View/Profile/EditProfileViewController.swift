@@ -61,8 +61,8 @@ private extension EditProfileViewController {
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
             avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
             subsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            subsButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            subsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            subsButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            subsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             subsButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
