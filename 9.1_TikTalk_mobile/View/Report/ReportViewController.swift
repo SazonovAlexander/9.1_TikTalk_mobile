@@ -3,8 +3,6 @@ import UIKit
 
 final class ReportViewController: UIViewController {
     
-    private let placeholder = "Сообщение (необязательно)"
-    
     private lazy var authorNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white

@@ -14,7 +14,7 @@ final class ValidatedTextField: UIView {
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.backgroundColor = .background
         textField.font = .systemFont(ofSize: 17, weight: .regular)
         textField.textColor = .white
