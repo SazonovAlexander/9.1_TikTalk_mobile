@@ -3,6 +3,16 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -19,52 +29,32 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var changeProfileButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Редактировать профиль", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        let button = BaseButtonView()
+        button.config(text: "Редактировать профиль", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var createPodcastButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Создать подкаст", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        let button = BaseButtonView()
+        button.config(text: "Создать подкаст", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var subsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Подписки", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        let button = BaseButtonView()
+        button.config(text: "Подписки", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var likeButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Понравившееся", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        let button = BaseButtonView()
+        button.config(text: "Понравившееся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
     private lazy var myPodcastsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "ProfileButtonBackgorund")
-        button.setTitle("Мои подкасты", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
-        button.layer.cornerRadius = 8
+        let button = BaseButtonView()
+        button.config(text: "Мои подкасты", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
@@ -106,29 +96,42 @@ private extension ProfileViewController {
     }
     
     func addSubviews() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         [nameLabel,
         stackView,
         avatarImageView
         ].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
     func activateConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.superview?.bottomAnchor ?? view.bottomAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            nameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 40),
             avatarImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 30),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            avatarImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
             stackView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor),
             changeProfileButton.heightAnchor.constraint(equalToConstant: 50),
             createPodcastButton.heightAnchor.constraint(equalToConstant: 50),
             subsButton.heightAnchor.constraint(equalToConstant: 50),

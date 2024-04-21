@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class AlbumViewController: UIViewController {
+final class MyAlbumViewController: UIViewController {
     
     private let symbolButtonStackConfiguration = UIImage.SymbolConfiguration(pointSize: 44)
     
@@ -11,14 +11,8 @@ final class AlbumViewController: UIViewController {
         label.font = .systemFont(ofSize: 24, weight: .medium)
         label.text = "Название альбома" //название альбома
         label.textAlignment = .center
+        label.numberOfLines = 1
         return label
-    }()
-    
-    private lazy var authorButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "person.crop.circle", withConfiguration: symbolButtonStackConfiguration), for: .normal)
-        button.imageView?.tintColor = .white
-        return button
     }()
     
     private lazy var descriptionButton: UIButton = {
@@ -28,11 +22,16 @@ final class AlbumViewController: UIViewController {
         return button
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [authorButton, descriptionButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 20
-        return stackView
+    private lazy var editButton: BaseButtonView = {
+        let button = BaseButtonView()
+        button.config(text: "Редактировать", backgroundColor: UIColor(named: "ProfileButtonBackground") ?? .blue)
+        return button
+    }()
+    
+    private lazy var deleteButton: BaseButtonView = {
+        let button = BaseButtonView()
+        button.config(text: "Удалить", backgroundColor: UIColor(named: "ButtonRed") ?? .red)
+        return button
     }()
     
     private lazy var titleLabel: UILabel = {
@@ -59,7 +58,7 @@ final class AlbumViewController: UIViewController {
     }
 }
 
-private extension AlbumViewController {
+private extension MyAlbumViewController {
     
     func setup() {
         setupAppearance()
@@ -73,7 +72,9 @@ private extension AlbumViewController {
     
     func addSubviews() {
         [nameLabel,
-        stackView,
+        descriptionButton,
+        editButton,
+        deleteButton,
         titleLabel,
         tableView].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -83,12 +84,20 @@ private extension AlbumViewController {
     
     func activateConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
-            titleLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            descriptionButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: descriptionButton.leadingAnchor),
+            descriptionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            nameLabel.centerYAnchor.constraint(equalTo: descriptionButton.centerYAnchor),
+            editButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
+            editButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            editButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            deleteButton.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 20),
+            deleteButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            deleteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            deleteButton.heightAnchor.constraint(equalToConstant: 50),
+            editButton.heightAnchor.constraint(equalToConstant: 50),
+            titleLabel.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
@@ -99,11 +108,11 @@ private extension AlbumViewController {
     }
 }
 
-extension AlbumViewController: UITableViewDelegate {
+extension MyAlbumViewController: UITableViewDelegate {
     
 }
 
-extension AlbumViewController: UITableViewDataSource {
+extension MyAlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10 //заменить на датасорс
     }
