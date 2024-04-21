@@ -4,9 +4,6 @@ import UIKit
 final class PodcastView: UIView {
     
     private let symbolButtonStackConfiguration = UIImage.SymbolConfiguration(pointSize: 44)
-    private let symbolPlayerButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 60)
-    private lazy var playImage = UIImage(systemName: "pause.circle.fill", withConfiguration: symbolPlayerButtonConfiguration)
-    private lazy var stopImage = UIImage(systemName: "play.fill", withConfiguration: symbolPlayerButtonConfiguration)
     
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Logo"))
