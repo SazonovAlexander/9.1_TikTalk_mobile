@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class ThemeReportButton: UIButton {
+final class SelectButtonView: UIButton {
     
     private lazy var label: UILabel = {
         let label = UILabel()
@@ -31,7 +31,7 @@ final class ThemeReportButton: UIButton {
     }
 }
 
-private extension ThemeReportButton {
+private extension SelectButtonView {
     
     func setup() {
         backgroundColor = .clear

@@ -3,7 +3,7 @@ import UIKit
 
 final class CreateEditAlbumViewController: UIViewController {
     
-    private lazy var nameTextField = ValidatedTextField(placeholder: "Имя")
+    private lazy var nameTextField = ValidatedTextField(placeholder: "Название")
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
@@ -26,7 +26,7 @@ final class CreateEditAlbumViewController: UIViewController {
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Сохранить", backgroundColor: .green)
+        button.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
     

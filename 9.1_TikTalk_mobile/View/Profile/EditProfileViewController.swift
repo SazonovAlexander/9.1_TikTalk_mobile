@@ -13,7 +13,7 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var subsButton: UIButton = {
         let button = BaseButtonView()
-        button.config(text: "Сохранить", backgroundColor: .green)
+        button.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
     

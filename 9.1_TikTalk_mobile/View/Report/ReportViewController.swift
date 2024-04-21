@@ -21,8 +21,8 @@ final class ReportViewController: UIViewController {
         return label
     }()
     
-    private lazy var reportThemeButton: ThemeReportButton = {
-        let button = ThemeReportButton()
+    private lazy var reportThemeButton: SelectButtonView = {
+        let button = SelectButtonView()
         button.config(text: "Тема жалобы")
         return button
     }()
@@ -49,7 +49,7 @@ final class ReportViewController: UIViewController {
     
     private lazy var sendButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Отправить", backgroundColor: .green)
+        button.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
     
