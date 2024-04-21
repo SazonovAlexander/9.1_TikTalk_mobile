@@ -3,7 +3,7 @@ import UIKit
 
 final class CreateEditAlbumViewController: UIViewController {
     
-    private lazy var nameTextField = ValidatedTextField(placeholder: "Имя")
+    private lazy var nameTextField = ValidatedTextField(placeholder: "Название")
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
