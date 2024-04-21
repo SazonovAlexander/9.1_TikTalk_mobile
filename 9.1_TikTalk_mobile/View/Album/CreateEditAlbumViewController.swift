@@ -26,7 +26,7 @@ final class CreateEditAlbumViewController: UIViewController {
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Сохранить", backgroundColor: .green)
+        button.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
     

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */; };
+		007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */; };
+		007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26902BD5B9160040C0F4 /* CutterView.swift */; };
+		007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 007A26932BD5BEAA0040C0F4 /* LookinServer */; };
 		007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */; };
 		007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */; };
 		007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C42BC5C97B00066A9E /* Assets.xcassets */; };
@@ -43,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastViewController.swift; sourceTree = "<group>"; };
+		007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		007A26902BD5B9160040C0F4 /* CutterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterView.swift; sourceTree = "<group>"; };
 		007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9.1_TikTalk_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,12 +88,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		007A268F2BD5B8F20040C0F4 /* Cutter */ = {
+			isa = PBXGroup;
+			children = (
+				007A26902BD5B9160040C0F4 /* CutterView.swift */,
+			);
+			path = Cutter;
+			sourceTree = "<group>";
+		};
 		007EC1AF2BC5C97A00066A9E = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +148,7 @@
 				1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */,
 				009D9A252BD3210C00F17741 /* DescriptionViewController.swift */,
 				007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */,
+				007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */,
 			);
 			path = Podcast;
 			sourceTree = "<group>";
@@ -212,6 +227,7 @@
 		1D9A5F842BCDB98F00BAC8E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
 				009D9A362BD41E3E00F17741 /* Report */,
 				009D9A332BD4196B00F17741 /* Search */,
@@ -257,6 +273,9 @@
 			dependencies = (
 			);
 			name = 9.1_TikTalk_mobile;
+			packageProductDependencies = (
+				007A26932BD5BEAA0040C0F4 /* LookinServer */,
+			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
 			productType = "com.apple.product-type.application";
@@ -285,6 +304,9 @@
 				Base,
 			);
 			mainGroup = 007EC1AF2BC5C97A00066A9E;
+			packageReferences = (
+				007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */,
+			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -333,12 +355,14 @@
 				009D9A402BD42F0800F17741 /* LikedPodcastsViewController.swift in Sources */,
 				009D9A352BD4197B00F17741 /* SearchViewController.swift in Sources */,
 				009D9A422BD42FF300F17741 /* AuthorProfileViewCell.swift in Sources */,
+				007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */,
 				1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */,
 				009D9A262BD3210C00F17741 /* DescriptionViewController.swift in Sources */,
 				009D9A2B2BD3260600F17741 /* AuthorProfileViewController.swift in Sources */,
 				009D9A4F2BD5428800F17741 /* PlayerView.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
+				007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
 			);
@@ -565,6 +589,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QMUI/LookinServer/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		007A26932BD5BEAA0040C0F4 /* LookinServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */;
+			productName = LookinServer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 007EC1B02BC5C97A00066A9E /* Project object */;
 }

@@ -49,7 +49,7 @@ final class ReportViewController: UIViewController {
     
     private lazy var sendButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Отправить", backgroundColor: .green)
+        button.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
     
