@@ -91,36 +91,7 @@ final class PodcastView: UIView {
         return label
     }()
     
-    private lazy var slider: UISlider = {
-        let slider = UISlider()
-        slider.minimumTrackTintColor = .white
-        return slider
-    }()
-    
-    private lazy var playerButton: UIButton = {
-        let button = UIButton()
-        button.setImage(playImage, for: .normal)
-        button.imageView?.tintColor = .white
-        return button
-    }()
-    
-    private lazy var currentTime: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 20, weight: .regular)
-        label.numberOfLines = 1
-        label.text = "0:45" //текущее время
-        return label
-    }()
-    
-    private lazy var totalTime: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 20, weight: .regular)
-        label.numberOfLines = 1
-        label.text = "2:10" //полное время
-        return label
-    }()
+    private lazy var player = PlayerView()
     
     init() {
         super.init(frame: .zero)
@@ -150,10 +121,8 @@ private extension PodcastView {
         countLikeLabel,
         nameLabel,
         authorNameLabel,
-        slider,
-        playerButton,
-        currentTime,
-        totalTime].forEach {
+        player
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
@@ -173,16 +142,10 @@ private extension PodcastView {
             nameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             authorNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             authorNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            slider.topAnchor.constraint(equalTo: authorNameLabel.bottomAnchor, constant: 15),
-            slider.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            slider.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            playerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            playerButton.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 20),
-            currentTime.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
-            currentTime.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
-            totalTime.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
-            totalTime.trailingAnchor.constraint(equalTo: slider.trailingAnchor),
-            playerButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            player.topAnchor.constraint(equalTo: authorNameLabel.bottomAnchor, constant: 15),
+            player.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            player.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            player.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
