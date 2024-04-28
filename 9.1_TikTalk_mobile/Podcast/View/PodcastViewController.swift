@@ -24,20 +24,19 @@ final class PodcastViewController: UIViewController {
         super.viewDidLoad()
         setup()
     }
+    
+    func config(podcast: Podcast) {
+        podcastView.config(podcast: podcast)
+    }
 }
 
 private extension PodcastViewController {
-    
-    func config() {
-        if let podcast = presenter.getPodcast() {
-            podcastView.config(podcast: podcast)
-        }
-    }
     
     func setup() {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        presenter.getPodcast()
     }
     
     func setupAppearance() {
@@ -55,5 +54,28 @@ private extension PodcastViewController {
             podcastView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             podcastView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension PodcastViewController: PodcastDelegate {
+    
+    func tapLikeButton() {
+        presenter.liked()
+    }
+    
+    func tapAuthorButton() {
+        presenter.author()
+    }
+    
+    func tapDescriptionButton() {
+        presenter.description()
+    }
+    
+    func tapReportButton() {
+        presenter.report()
+    }
+    
+    func tapAlbumButton() {
+        presenter.album()
     }
 }

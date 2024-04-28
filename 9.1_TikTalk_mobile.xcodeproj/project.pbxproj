@@ -23,6 +23,10 @@
 		007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */; };
 		007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B72BDE51940040C0F4 /* PodcastRouter.swift */; };
 		007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B92BDE52C50040C0F4 /* PodcastDelegate.swift */; };
+		007A26BD2BDE56E50040C0F4 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26BC2BDE56E50040C0F4 /* Description.swift */; };
+		007A26C02BDE57710040C0F4 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26BF2BDE57710040C0F4 /* Album.swift */; };
+		007A26C22BDE579F0040C0F4 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26C12BDE579F0040C0F4 /* AlbumModel.swift */; };
+		007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26C42BDE588C0040C0F4 /* AlbumService.swift */; };
 		007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */; };
 		007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */; };
 		007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C42BC5C97B00066A9E /* Assets.xcassets */; };
@@ -71,6 +75,10 @@
 		007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		007A26B72BDE51940040C0F4 /* PodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRouter.swift; sourceTree = "<group>"; };
 		007A26B92BDE52C50040C0F4 /* PodcastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDelegate.swift; sourceTree = "<group>"; };
+		007A26BC2BDE56E50040C0F4 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		007A26BF2BDE57710040C0F4 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		007A26C12BDE579F0040C0F4 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
+		007A26C42BDE588C0040C0F4 /* AlbumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumService.swift; sourceTree = "<group>"; };
 		007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9.1_TikTalk_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +147,7 @@
 		007A26972BDD8EE60040C0F4 /* Description */ = {
 			isa = PBXGroup;
 			children = (
+				007A26BB2BDE56DC0040C0F4 /* Model */,
 				009D9A252BD3210C00F17741 /* DescriptionViewController.swift */,
 			);
 			path = Description;
@@ -215,6 +224,32 @@
 				007A26B12BDE46850040C0F4 /* AuthorService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		007A26BB2BDE56DC0040C0F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				007A26BC2BDE56E50040C0F4 /* Description.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		007A26BE2BDE57670040C0F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				007A26C32BDE58820040C0F4 /* AlbumService */,
+				007A26BF2BDE57710040C0F4 /* Album.swift */,
+				007A26C12BDE579F0040C0F4 /* AlbumModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		007A26C32BDE58820040C0F4 /* AlbumService */ = {
+			isa = PBXGroup;
+			children = (
+				007A26C42BDE588C0040C0F4 /* AlbumService.swift */,
+			);
+			path = AlbumService;
 			sourceTree = "<group>";
 		};
 		007EC1AF2BC5C97A00066A9E = {
@@ -343,6 +378,7 @@
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				007A26BE2BDE57670040C0F4 /* Model */,
 				1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */,
 				009D9A472BD4327500F17741 /* AlbumViewCell.swift */,
 				009D9A492BD53F1F00F17741 /* CreateEditAlbumViewController.swift */,
@@ -451,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				009D9A512BD548E900F17741 /* MyAlbumViewController.swift in Sources */,
+				007A26C22BDE579F0040C0F4 /* AlbumModel.swift in Sources */,
 				009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */,
 				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
 				009D9A322BD4159600F17741 /* MyPodcastsViewController.swift in Sources */,
@@ -464,6 +501,7 @@
 				009D9A4C2BD541D200F17741 /* MyPodcastViewController.swift in Sources */,
 				007A269B2BDD8F360040C0F4 /* PodcastPresenter.swift in Sources */,
 				009D9A3E2BD42BC900F17741 /* ThemeReportViewCell.swift in Sources */,
+				007A26C02BDE57710040C0F4 /* Album.swift in Sources */,
 				009D9A222BD3156500F17741 /* EditProfileViewController.swift in Sources */,
 				007A26B22BDE46850040C0F4 /* AuthorService.swift in Sources */,
 				007A26B42BDE46C90040C0F4 /* AuthorModel.swift in Sources */,
@@ -474,10 +512,12 @@
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
+				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
 				007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */,
 				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				009D9A292BD3242300F17741 /* BaseButtonView.swift in Sources */,
+				007A26BD2BDE56E50040C0F4 /* Description.swift in Sources */,
 				007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */,
 				009D9A402BD42F0800F17741 /* LikedPodcastsViewController.swift in Sources */,
 				009D9A352BD4197B00F17741 /* SearchViewController.swift in Sources */,

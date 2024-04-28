@@ -11,27 +11,72 @@ final class PodcastPresenter {
     
     private let podcastService: PodcastService
     private let authorService: AuthorService
+    private let albumService: AlbumService
+    private let router: PodcastRouter
     
-    private var podcast: PodcastModel
+    private var podcast: PodcastModel {
+        didSet {
+            getPodcast()
+        }
+    }
     
     init(
         podcast: PodcastModel,
         podcastService: PodcastService = PodcastService(),
-        authorService: AuthorService = AuthorService()
+        authorService: AuthorService = AuthorService(),
+        albumService: AlbumService = AlbumService()
     ) {
         self.podcast = podcast
         self.podcastService = podcastService
         self.authorService = authorService
     }
     
-    func getPodcast() -> Podcast? {
-        var podcast: Podcast?
+    func getPodcast() {
         do {
-            podcast = try castPodcastModelToPodcast(self.podcast)
+            let podcast = try castPodcastModelToPodcast(self.podcast)
+            viewController?.config(podcast: podcast)
         } catch (let error) {
             viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
         }
-        return podcast
+    }
+    
+    func liked() {
+        let newPodcast = PodcastModel(
+            id: podcast.id,
+            name: podcast.name,
+            authorId: podcast.authorId,
+            description: podcast.description,
+            albumId: podcast.albumId,
+            logoUrl: podcast.logoUrl,
+            audioUrl: podcast.audioUrl,
+            countLike: podcast.countLike + (podcast.isLiked ? -1 : 1),
+            isLiked: !podcast.isLiked
+        )
+        self.podcast = newPodcast
+    }
+    
+    func album() {
+        if let viewController {
+            router.showAlbumFrom(viewController, album: albumService.getAlbumById(podcast.albumId))
+        }
+    }
+    
+    func author() {
+        if let viewController {
+            router.showAuthorFrom(viewController, author: authorService.getAuthorById(podcast.authorId))
+        }
+    }
+    
+    func description() {
+        if let viewController {
+            router.showDescriptionFrom(viewController, description: Description(podcastName: podcast.name, description: podcast.description))
+        }
+    }
+    
+    func report() {
+        if let viewController {
+            router.showReportFrom(viewController)
+        }
     }
     
     private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
