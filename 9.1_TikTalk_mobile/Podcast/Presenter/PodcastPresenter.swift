@@ -24,11 +24,14 @@ final class PodcastPresenter {
         podcast: PodcastModel,
         podcastService: PodcastService = PodcastService(),
         authorService: AuthorService = AuthorService(),
-        albumService: AlbumService = AlbumService()
+        albumService: AlbumService = AlbumService(),
+        router: PodcastRouter = PodcastRouter()
     ) {
         self.podcast = podcast
         self.podcastService = podcastService
         self.authorService = authorService
+        self.albumService = albumService
+        self.router = router
     }
     
     func getPodcast() {
@@ -82,22 +85,23 @@ final class PodcastPresenter {
     private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
         let authorModel = authorService.getAuthorById(podcastModel.authorId)
         
-        if let logoUrl = URL(string: podcastModel.logoUrl),
-           let audioUrl = URL(string: podcastModel.audioUrl) {
+        if let logoUrl = URL(string: podcastModel.logoUrl)
+           //let audioUrl = URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
+        {
             return Podcast(
                         name: podcastModel.name,
                         author: authorModel.name,
                         countLike: normalizeCountLike(podcastModel.countLike),
                         isLiked: podcastModel.isLiked,
                         logoUrl: logoUrl,
-                        audioUrl: audioUrl
+                        audioUrl: URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
                     )
         } else {
             throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
         }
     }
     
-    private func normalizeCountLike(_ count: UInt) -> String {
+    private func normalizeCountLike(_ count: Int) -> String {
         if count < 10000 {
             return "\(count)"
         } else {

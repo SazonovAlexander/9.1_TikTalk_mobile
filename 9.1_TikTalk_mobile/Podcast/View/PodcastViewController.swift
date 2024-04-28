@@ -5,6 +5,7 @@ final class PodcastViewController: UIViewController {
     
     private lazy var podcastView: PodcastView = {
         let podcastView = PodcastView()
+        podcastView.delegate = self
         podcastView.translatesAutoresizingMaskIntoConstraints = false
         return podcastView
     }()
@@ -52,7 +53,7 @@ private extension PodcastViewController {
             podcastView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             podcastView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             podcastView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            podcastView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor)
+            podcastView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
 }

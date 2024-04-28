@@ -11,6 +11,7 @@ final class PodcastView: UIView {
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 16
+        imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return imageView
@@ -88,8 +89,8 @@ final class PodcastView: UIView {
         return label
     }()
     
-    private lazy var playerView = PlayerView()
-    private lazy var player = Player(playerView: playerView)
+    private lazy var playerView = PlayerView(player: player)
+    private lazy var player = Player()
     
     init() {
         super.init(frame: .zero)
@@ -102,17 +103,22 @@ final class PodcastView: UIView {
     
     func config(podcast: Podcast) {
         player.setAudioFromUrl(podcast.audioUrl)
-        logoImageView.kf.setImage(with: podcast.logoUrl)
+        logoImageView.kf.setImage(with: podcast.logoUrl, placeholder: UIImage(named: "Logo"))
         countLikeLabel.text = podcast.countLike
         nameLabel.text = podcast.name
         authorNameLabel.text = podcast.author
-        likeButton.tintColor = podcast.isLiked ? UIColor(named: "ButtonRed") : .white
+        likeButton.imageView?.tintColor = podcast.isLiked ? UIColor(named: "ButtonRed") : .white
+    }
+    
+    func startPlayer() {
+        player.play()
     }
 }
 
 private extension PodcastView {
     
     func setup() {
+        player.playerView = playerView
         setupAppearance()
         addSubviews()
         activateConstraints()
@@ -139,7 +145,8 @@ private extension PodcastView {
     func activateConstraints() {
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            logoImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            logoImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            logoImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             buttonStack.topAnchor.constraint(greaterThanOrEqualTo: logoImageView.bottomAnchor, constant: 30),
             buttonStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             buttonStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
