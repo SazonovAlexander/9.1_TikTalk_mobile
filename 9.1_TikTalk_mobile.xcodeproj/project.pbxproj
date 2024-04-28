@@ -22,6 +22,7 @@
 		007A26B42BDE46C90040C0F4 /* AuthorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B32BDE46C90040C0F4 /* AuthorModel.swift */; };
 		007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */; };
 		007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B72BDE51940040C0F4 /* PodcastRouter.swift */; };
+		007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26B92BDE52C50040C0F4 /* PodcastDelegate.swift */; };
 		007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */; };
 		007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */; };
 		007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C42BC5C97B00066A9E /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		007A26B32BDE46C90040C0F4 /* AuthorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorModel.swift; sourceTree = "<group>"; };
 		007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		007A26B72BDE51940040C0F4 /* PodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRouter.swift; sourceTree = "<group>"; };
+		007A26B92BDE52C50040C0F4 /* PodcastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDelegate.swift; sourceTree = "<group>"; };
 		007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9.1_TikTalk_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		007A26A32BDD92490040C0F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				007A26B92BDE52C50040C0F4 /* PodcastDelegate.swift */,
 				009D9A172BC65AB800F17741 /* PodcastView.swift */,
 				009D9A192BC65D2500F17741 /* PodcastViewController.swift */,
 				1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */,
@@ -472,6 +475,7 @@
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
+				007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */,
 				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				009D9A292BD3242300F17741 /* BaseButtonView.swift in Sources */,
 				007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */,

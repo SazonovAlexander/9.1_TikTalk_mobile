@@ -1,7 +1,10 @@
 import UIKit
 import Kingfisher
 
+
 final class PodcastView: UIView {
+    
+    weak var delegate: PodcastDelegate?
     
     private let symbolButtonStackConfiguration = UIImage.SymbolConfiguration(pointSize: 44)
     
@@ -113,6 +116,7 @@ private extension PodcastView {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
     }
     
     func setupAppearance() {
@@ -151,5 +155,38 @@ private extension PodcastView {
             playerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             playerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func addActions() {
+        likeButton.addTarget(self, action: #selector(Self.didTapLikeButton), for: .touchUpInside)
+        authorButton.addTarget(self, action: #selector(Self.didTapAuthorButton), for: .touchUpInside)
+        descriptionButton.addTarget(self, action: #selector(Self.didTapDescriptionButton), for: .touchUpInside)
+        albumButton.addTarget(self, action: #selector(Self.didTapAlbumButton), for: .touchUpInside)
+        reportButton.addTarget(self, action: #selector(Self.didTapReportButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapAuthorButton() {
+        delegate?.tapAuthorButton()
+    }
+    
+    @objc
+    func didTapLikeButton() {
+        delegate?.tapLikeButton()
+    }
+    
+    @objc
+    func didTapDescriptionButton() {
+        delegate?.tapDescriptionButton()
+    }
+    
+    @objc
+    func didTapAlbumButton() {
+        delegate?.tapAlbumButton()
+    }
+    
+    @objc
+    func didTapReportButton() {
+        delegate?.tapReportButton()
     }
 }
