@@ -85,8 +85,8 @@ final class PodcastPresenter {
     private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
         let authorModel = authorService.getAuthorById(podcastModel.authorId)
         
-        if let logoUrl = URL(string: podcastModel.logoUrl)
-           //let audioUrl = URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
+        if let logoUrl = URL(string: podcastModel.logoUrl),
+           let audioUrl = URL(string: podcastModel.audioUrl)
         {
             return Podcast(
                         name: podcastModel.name,
@@ -94,7 +94,8 @@ final class PodcastPresenter {
                         countLike: normalizeCountLike(podcastModel.countLike),
                         isLiked: podcastModel.isLiked,
                         logoUrl: logoUrl,
-                        audioUrl: URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
+                        audioUrl: audioUrl
+                                //URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
                     )
         } else {
             throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
@@ -105,7 +106,7 @@ final class PodcastPresenter {
         if count < 10000 {
             return "\(count)"
         } else {
-            let formattedString = String(format: "%.1f", count / 1000)
+            let formattedString = String(format: "%.1f", Float(count) / 1000.0)
             return "\(formattedString)K"
         }
     }

@@ -28,6 +28,7 @@ final class Player {
     private func reset() {
         if let audioUrl {
             avPlayer = AVPlayer(url: audioUrl)
+            avPlayer?.automaticallyWaitsToMinimizeStalling = false
             avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) { time in
                 self.updateTime(currentTime: time)
             }
@@ -35,8 +36,15 @@ final class Player {
     }
     
     private func updateTime(currentTime: CMTime) {
-        if let total = avPlayer?.currentItem?.duration.seconds {
-            let current = "\(Int(currentTime.seconds) / 60):\(Int(currentTime.seconds) % 60)"
+        if let total = avPlayer?.currentItem?.duration.seconds,
+           total.isNormal {
+            let seconds = Int(currentTime.seconds) % 60
+            let current: String
+            if seconds < 10 {
+                current = "\(Int(currentTime.seconds) / 60):0\(seconds)"
+            } else {
+                current = "\(Int(currentTime.seconds) / 60):\(seconds)"
+            }
             let totalTime = "\(Int(total) / 60):\(Int(total) % 60)"
             playerView?.updateTime(currentTime: current, totalTime: totalTime, sliderValue: currentTime.seconds, maxValue: total)
         }
