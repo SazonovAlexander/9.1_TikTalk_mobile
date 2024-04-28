@@ -27,6 +27,7 @@
 		007A26C02BDE57710040C0F4 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26BF2BDE57710040C0F4 /* Album.swift */; };
 		007A26C22BDE579F0040C0F4 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26C12BDE579F0040C0F4 /* AlbumModel.swift */; };
 		007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26C42BDE588C0040C0F4 /* AlbumService.swift */; };
+		007A26C72BDE5E180040C0F4 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 007A26C62BDE5E180040C0F4 /* music.mp3 */; };
 		007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */; };
 		007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */; };
 		007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007EC1C42BC5C97B00066A9E /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		007A26BF2BDE57710040C0F4 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		007A26C12BDE579F0040C0F4 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		007A26C42BDE588C0040C0F4 /* AlbumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumService.swift; sourceTree = "<group>"; };
+		007A26C62BDE5E180040C0F4 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9.1_TikTalk_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007EC1BB2BC5C97A00066A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007EC1BD2BC5C97A00066A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				007A26C62BDE5E180040C0F4 /* music.mp3 */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
 				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
@@ -476,6 +479,7 @@
 			files = (
 				007EC1C82BC5C97B00066A9E /* LaunchScreen.storyboard in Resources */,
 				007EC1C52BC5C97B00066A9E /* Assets.xcassets in Resources */,
+				007A26C72BDE5E180040C0F4 /* music.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
