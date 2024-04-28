@@ -19,6 +19,7 @@ final class PlayerView: UIView {
         let button = UIButton()
         button.setImage(playImage, for: .normal)
         button.imageView?.tintColor = .white
+        button.contentMode = .scaleAspectFit
         return button
     }()
     
@@ -27,7 +28,6 @@ final class PlayerView: UIView {
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 1
-        label.text = "0:45" //текущее время
         return label
     }()
     
@@ -36,17 +36,32 @@ final class PlayerView: UIView {
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 1
-        label.text = "2:10" //полное время
         return label
     }()
     
-    init() {
+    private var isPlayed: Bool = true {
+        didSet {
+            playerButton.setImage(self.isPlayed ? playImage : stopImage, for: .normal)
+        }
+    }
+    
+    private let player: Player
+    
+    init(player: Player) {
+        self.player = player
         super.init(frame: .zero)
         setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateTime(currentTime: String, totalTime: String, sliderValue: Double, maxValue: Double) {
+        self.currentTime.text = currentTime
+        self.totalTime.text = totalTime
+        self.slider.value = Float(sliderValue)
+        self.slider.maximumValue = Float(maxValue)
     }
 }
 
@@ -56,6 +71,7 @@ private extension PlayerView {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
     }
     
     func setupAppearance() {
@@ -83,8 +99,38 @@ private extension PlayerView {
             currentTime.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
             totalTime.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
             totalTime.trailingAnchor.constraint(equalTo: slider.trailingAnchor),
-            playerButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            heightAnchor.constraint(equalToConstant: 125),
         ])
     }
+    
+    func addActions() {
+        playerButton.addTarget(self, action: #selector(Self.didTapPlayButton), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(Self.changedSliderValue), for: [.touchUpInside, .touchUpOutside])
+        slider.addTarget(self, action: #selector(Self.startChangeValue), for: .touchDown)
+    }
+    
+    @objc
+    func didTapPlayButton() {
+        if isPlayed {
+            player.stop()
+        } else {
+            player.play()
+        }
+        isPlayed.toggle()
+    }
+    
+    @objc
+    func changedSliderValue() {
+        player.updateValue(slider.value)
+        if isPlayed {
+            player.play()
+        }
+    }
+    
+    @objc
+    func startChangeValue() {
+        player.stop()
+    }
+    
 }
 

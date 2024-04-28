@@ -55,7 +55,8 @@ final class MyPodcastViewController: UIViewController {
         return label
     }()
     
-    private lazy var player = PlayerView()
+    private lazy var player = Player()
+    private lazy var playerView = PlayerView(player: player)
     
     private lazy var editButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -78,6 +79,7 @@ final class MyPodcastViewController: UIViewController {
 private extension MyPodcastViewController {
     
     func setup() {
+        player.playerView = playerView
         setupAppearance()
         addSubviews()
         activateConstraints()
@@ -92,7 +94,7 @@ private extension MyPodcastViewController {
         buttonStack,
         countLikeLabel,
         nameLabel,
-        player,
+        playerView,
         editButton,
         deleteButton
         ].forEach {
@@ -113,10 +115,10 @@ private extension MyPodcastViewController {
             countLikeLabel.centerXAnchor.constraint(equalTo: likeButton.centerXAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             nameLabel.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
-            player.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 15),
-            player.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            player.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            editButton.topAnchor.constraint(equalTo: player.bottomAnchor, constant: 20),
+            playerView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 15),
+            playerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            editButton.topAnchor.constraint(equalTo: playerView.bottomAnchor, constant: 20),
             editButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             editButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             deleteButton.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 20),

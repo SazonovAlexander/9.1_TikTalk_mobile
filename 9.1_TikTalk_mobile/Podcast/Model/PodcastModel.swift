@@ -9,6 +9,6 @@ struct PodcastModel: Decodable {
     let albumId: UUID
     let logoUrl: String
     let audioUrl: String
-    let countLike: UInt
+    let countLike: Int
     let isLiked: Bool
 }

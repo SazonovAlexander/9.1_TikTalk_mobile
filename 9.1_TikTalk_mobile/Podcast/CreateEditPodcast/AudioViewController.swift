@@ -27,7 +27,8 @@ final class AudioViewController: UIViewController {
         return button
     }()
     
-    private lazy var player = PlayerView()
+    private lazy var player = Player()
+    private lazy var playerView = PlayerView(player: player)
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -44,6 +45,7 @@ final class AudioViewController: UIViewController {
 private extension AudioViewController {
     
     func setup() {
+        player.playerView = playerView
         setupAppearance()
         addSubviews()
         activateConstraints()
@@ -59,7 +61,7 @@ private extension AudioViewController {
         cutterView,
         fileButton,
         recordButton,
-        player,
+        playerView,
         saveButton].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -82,12 +84,12 @@ private extension AudioViewController {
             recordButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             recordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             recordButton.topAnchor.constraint(equalTo: fileButton.bottomAnchor, constant: 20),
-            player.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            player.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            player.topAnchor.constraint(equalTo: recordButton.bottomAnchor, constant: 30),
+            playerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            playerView.topAnchor.constraint(equalTo: recordButton.bottomAnchor, constant: 30),
             saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            saveButton.topAnchor.constraint(greaterThanOrEqualTo: player.bottomAnchor, constant: 20),
+            saveButton.topAnchor.constraint(greaterThanOrEqualTo: playerView.bottomAnchor, constant: 20),
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             recordButton.heightAnchor.constraint(equalToConstant: 50),
