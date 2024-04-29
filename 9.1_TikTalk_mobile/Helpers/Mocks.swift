@@ -27,7 +27,7 @@ struct Mocks {
         description: "12312332132132112321",
         albumId: albumId,
         logoUrl: "https://img.freepik.com/free-photo/beautiful-kitten-with-colorful-clouds_23-2150752964.jpg?size=626&ext=jpg&ga=GA1.1.1127989224.1714388347&semt=ais",
-        audioUrl: "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
+        audioUrl: "https://drive.usercontent.google.com/u/0/uc?id=1H6WBaOQLgQsrYrWazeCAcypHBu6aFiVb&export=download",
         countLike: 3,
         isLiked: false
     )

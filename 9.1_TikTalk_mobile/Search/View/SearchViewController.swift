@@ -13,15 +13,33 @@ final class SearchViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .none
         tableView.separatorColor = .lightGray
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(PodcastViewCell.self, forCellReuseIdentifier: PodcastViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
     
+    private let presenter: SearchPresenter
+    private var podcasts: [PodcastCell] = []
+    
+    init(presenter: SearchPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func update(podcasts: [PodcastCell]) {
+        self.podcasts = podcasts
+        tableView.reloadData()
     }
 }
 
@@ -31,6 +49,7 @@ private extension SearchViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
     }
     
     func setupAppearance() {
@@ -57,15 +76,26 @@ private extension SearchViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    func addActions() {
+        searchTextField.addTarget(self, action: #selector(Self.searchTextUpdate), for: .allEditingEvents)
+    }
+    
+    @objc
+    func searchTextUpdate() {
+        presenter.search(searchTextField.text ?? "")
+    }
 }
 
 extension SearchViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showPodcast(index: indexPath.row)
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,7 +105,8 @@ extension SearchViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        //podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        podcastCell.config(podcast: podcasts[indexPath.row
+                                            ])
 
         return podcastCell
     }

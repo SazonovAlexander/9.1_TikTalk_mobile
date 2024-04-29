@@ -45,7 +45,7 @@ final class Player {
     private func updateTime(currentTime: CMTime) {
         if let total = avPlayer.currentItem?.duration.seconds,
            total.isNormal {
-                if currentTime.seconds.isEqual(to: total) {
+            if (total - currentTime.seconds < 0.1) {
                     endHandler?()
                     audioUrl = nil
                     avPlayer.replaceCurrentItem(with: nil)
