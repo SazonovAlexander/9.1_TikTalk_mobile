@@ -111,7 +111,15 @@ final class PodcastView: UIView {
     }
     
     func startPlayer() {
-        player.play()
+        player.play(changeIcon: true)
+    }
+    
+    func stopPlayer() {
+        player.stop(changeIcon: true)
+    }
+    
+    func addPlayerHandeler(_ handler: @escaping () -> Void) {
+        player.endHandler = handler
     }
 }
 
@@ -175,6 +183,7 @@ private extension PodcastView {
     @objc
     func didTapAuthorButton() {
         delegate?.tapAuthorButton()
+        stopPlayer()
     }
     
     @objc
@@ -190,10 +199,12 @@ private extension PodcastView {
     @objc
     func didTapAlbumButton() {
         delegate?.tapAlbumButton()
+        stopPlayer()
     }
     
     @objc
     func didTapReportButton() {
         delegate?.tapReportButton()
+        stopPlayer()
     }
 }

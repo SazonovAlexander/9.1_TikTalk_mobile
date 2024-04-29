@@ -21,7 +21,10 @@ private extension TabBarController {
         tabBar.standardAppearance = UITabBarAppearance(barAppearance: UIBarAppearance(idiom: .phone))
         tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         
-        let bandViewController = BandViewController()
+        
+        let bandPresenter = BandPresenter()
+        let bandViewController = BandViewController(bandPresenter: bandPresenter)
+        bandPresenter.viewController = bandViewController
         let nav = UINavigationController(rootViewController: bandViewController)
         nav.tabBarItem = UITabBarItem(
             title: "Лента",
