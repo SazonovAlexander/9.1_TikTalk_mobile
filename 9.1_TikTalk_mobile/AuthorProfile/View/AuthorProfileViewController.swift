@@ -132,7 +132,7 @@ extension AuthorProfileViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        //podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
 
         return podcastCell
     }

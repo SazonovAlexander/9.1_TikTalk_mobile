@@ -36,7 +36,7 @@ final class DescriptionViewController: UIViewController {
     }
     
     func config(_ description: Description) {
-        nameLabel.text = description.podcastName
+        nameLabel.text = description.name
         descriptionText.text = description.description
     }
 }

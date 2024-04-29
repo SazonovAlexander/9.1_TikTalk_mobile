@@ -3,13 +3,17 @@ import Foundation
 
 struct Mocks {
     
+    private static let authorId = UUID()
+    private static let podcastId = UUID()
+    private static let albumId = UUID()
+    
     static let podcast = PodcastModel(
-        id: UUID(),
+        id: podcastId,
         name: "1232432",
-        authorId: UUID(),
+        authorId: authorId,
         description: "12312312321",
-        albumId: UUID(),
-        logoUrl: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fru.freepik.com%2Fphotos%2F%25D0%25BA%25D1%2580%25D0%25B0%25D1%2581%25D0%25B8%25D0%25B2%25D1%258B%25D0%25B5-%25D0%25BA%25D0%25B0%25D1%2580%25D1%2582%25D0%25B8%25D0%25BD%25D0%25BA%25D0%25B8&psig=AOvVaw2BcdUWw14Um6MAk-MEfPb-&ust=1714422510735000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMjBo9ff5YUDFQAAAAAdAAAAABAE",
+        albumId: albumId,
+        logoUrl: "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060",
         audioUrl: "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
         countLike: 12421,
         isLiked: true
@@ -26,4 +30,7 @@ struct Mocks {
         "Тема 8",
     ]
     
+    static let author = AuthorModel(id: authorId, name: "Алексей Петрович")
+    
+    static let album = AlbumModel(id: albumId, authorId: authorId, name: "12421432432", description: "1231231221312", podcasts: [podcastId, podcastId, podcastId])
 }

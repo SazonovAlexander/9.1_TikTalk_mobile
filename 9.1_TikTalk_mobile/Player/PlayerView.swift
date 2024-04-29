@@ -17,7 +17,7 @@ final class PlayerView: UIView {
     
     private lazy var playerButton: UIButton = {
         let button = UIButton()
-        button.setImage(playImage, for: .normal)
+        button.setImage(stopImage, for: .normal)
         button.imageView?.tintColor = .white
         button.contentMode = .scaleAspectFit
         return button
@@ -39,7 +39,7 @@ final class PlayerView: UIView {
         return label
     }()
     
-    private var isPlayed: Bool = true {
+    var isPlayed: Bool = false {
         didSet {
             playerButton.setImage(self.isPlayed ? playImage : stopImage, for: .normal)
         }
@@ -116,7 +116,6 @@ private extension PlayerView {
         } else {
             player.play()
         }
-        isPlayed.toggle()
     }
     
     @objc

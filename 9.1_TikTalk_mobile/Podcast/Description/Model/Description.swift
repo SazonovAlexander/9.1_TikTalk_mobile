@@ -2,6 +2,6 @@ import Foundation
 
 
 struct Description {
-    let podcastName: String
+    let name: String
     let description: String
 }
