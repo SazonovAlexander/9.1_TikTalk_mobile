@@ -4,47 +4,61 @@ import AVFoundation
 final class Player {
     
     weak var playerView: PlayerView?
+    var endHandler: (() -> Void)?
     private var audioUrl: URL?
-    private var avPlayer: AVPlayer?
+    private lazy var avPlayer: AVPlayer = {
+        let player = AVPlayer()
+        player.automaticallyWaitsToMinimizeStalling = false
+        player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) {time in
+            self.updateTime(currentTime: time)
+        }
+        return player
+    }()
     
     func setAudioFromUrl(_ url: URL) {
         guard audioUrl != url else { return }
+        playerView?.updateTime(currentTime: "0:0", totalTime: "0:0", sliderValue: 0, maxValue: 1)
         audioUrl = url
         if let audioUrl {
-            avPlayer = AVPlayer(url: audioUrl)
-            avPlayer?.automaticallyWaitsToMinimizeStalling = false
-            avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) { time in
-                self.updateTime(currentTime: time)
-            }
+            avPlayer.replaceCurrentItem(with: AVPlayerItem(url: audioUrl))
         }
     }
     
-    func play() {
-        avPlayer?.play()
-        playerView?.isPlayed = true
+    func play(changeIcon: Bool = false) {
+        avPlayer.play()
+        if changeIcon {
+            playerView?.isPlayed = true
+        }
     }
     
-    func stop() {
-        avPlayer?.pause()
-        playerView?.isPlayed = false
+    func stop(changeIcon: Bool = false) {
+        avPlayer.pause()
+        if changeIcon {
+            playerView?.isPlayed = false
+        }
     }
     
     func updateValue(_ value: Float) {
-        avPlayer?.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
+        avPlayer.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
     }
   
     private func updateTime(currentTime: CMTime) {
-        if let total = avPlayer?.currentItem?.duration.seconds,
+        if let total = avPlayer.currentItem?.duration.seconds,
            total.isNormal {
-            let seconds = Int(currentTime.seconds) % 60
-            let current: String
-            if seconds < 10 {
-                current = "\(Int(currentTime.seconds) / 60):0\(seconds)"
-            } else {
-                current = "\(Int(currentTime.seconds) / 60):\(seconds)"
-            }
-            let totalTime = "\(Int(total) / 60):\(Int(total) % 60)"
-            playerView?.updateTime(currentTime: current, totalTime: totalTime, sliderValue: currentTime.seconds, maxValue: total)
+                if currentTime.seconds.isEqual(to: total) {
+                    endHandler?()
+                    audioUrl = nil
+                    avPlayer.replaceCurrentItem(with: nil)
+                }
+                let seconds = Int(currentTime.seconds) % 60
+                let current: String
+                if seconds < 10 {
+                    current = "\(Int(currentTime.seconds) / 60):0\(seconds)"
+                } else {
+                    current = "\(Int(currentTime.seconds) / 60):\(seconds)"
+                }
+                let totalTime = "\(Int(total) / 60):\(Int(total) % 60)"
+                playerView?.updateTime(currentTime: current, totalTime: totalTime, sliderValue: currentTime.seconds, maxValue: total)
         }
     }
 }

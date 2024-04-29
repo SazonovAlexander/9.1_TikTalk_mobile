@@ -5,6 +5,7 @@ struct Mocks {
     
     private static let authorId = UUID()
     private static let podcastId = UUID()
+    private static let podcastId1 = UUID()
     private static let albumId = UUID()
     
     static let podcast = PodcastModel(
@@ -17,6 +18,18 @@ struct Mocks {
         audioUrl: "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
         countLike: 12421,
         isLiked: true
+    )
+    
+    static let podcast1 = PodcastModel(
+        id: podcastId1,
+        name: "12324232132132132",
+        authorId: authorId,
+        description: "12312332132132112321",
+        albumId: albumId,
+        logoUrl: "https://img.freepik.com/free-photo/beautiful-kitten-with-colorful-clouds_23-2150752964.jpg?size=626&ext=jpg&ga=GA1.1.1127989224.1714388347&semt=ais",
+        audioUrl: "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
+        countLike: 3,
+        isLiked: false
     )
     
     static let themes = [

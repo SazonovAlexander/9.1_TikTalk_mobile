@@ -26,6 +26,11 @@ final class PodcastViewController: UIViewController {
         setup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        podcastView.stopPlayer()
+    }
+    
     func config(podcast: Podcast) {
         podcastView.config(podcast: podcast)
     }

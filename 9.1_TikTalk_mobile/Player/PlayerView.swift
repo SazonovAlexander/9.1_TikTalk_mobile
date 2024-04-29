@@ -116,6 +116,7 @@ private extension PlayerView {
         } else {
             player.play()
         }
+        isPlayed.toggle()
     }
     
     @objc

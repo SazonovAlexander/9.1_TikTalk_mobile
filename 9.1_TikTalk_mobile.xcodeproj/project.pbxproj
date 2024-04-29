@@ -68,6 +68,12 @@
 		00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B8D2BDFCDD800DA7951 /* AuthorRouter.swift */; };
 		00B60B902BDFCDE200DA7951 /* AuthorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B8F2BDFCDE200DA7951 /* AuthorPresenter.swift */; };
 		00B60B922BDFE61F00DA7951 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B912BDFE61F00DA7951 /* Album.swift */; };
+		00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B962BE0060900DA7951 /* BandPresenter.swift */; };
+		00B60B992BE0061900DA7951 /* BandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B982BE0061900DA7951 /* BandType.swift */; };
+		00B60B9B2BE006C600DA7951 /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B9A2BE006C600DA7951 /* Band.swift */; };
+		00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B9D2BE0072200DA7951 /* BandFactory.swift */; };
+		00B60BA02BE0073100DA7951 /* BandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B9F2BE0073100DA7951 /* BandService.swift */; };
+		00B60BA42BE0503E00DA7951 /* BandRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BA32BE0503E00DA7951 /* BandRouter.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -135,6 +141,12 @@
 		00B60B8D2BDFCDD800DA7951 /* AuthorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorRouter.swift; sourceTree = "<group>"; };
 		00B60B8F2BDFCDE200DA7951 /* AuthorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPresenter.swift; sourceTree = "<group>"; };
 		00B60B912BDFE61F00DA7951 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		00B60B962BE0060900DA7951 /* BandPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandPresenter.swift; sourceTree = "<group>"; };
+		00B60B982BE0061900DA7951 /* BandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandType.swift; sourceTree = "<group>"; };
+		00B60B9A2BE006C600DA7951 /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
+		00B60B9D2BE0072200DA7951 /* BandFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandFactory.swift; sourceTree = "<group>"; };
+		00B60B9F2BE0073100DA7951 /* BandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandService.swift; sourceTree = "<group>"; };
+		00B60BA32BE0503E00DA7951 /* BandRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +245,7 @@
 		007A26AA2BDD94D40040C0F4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				00B60B6D2BDEE7ED00DA7951 /* Mocks.swift */,
 				007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */,
 			);
 			path = Helpers;
@@ -299,7 +312,6 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				00B60B6D2BDEE7ED00DA7951 /* Mocks.swift */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
 				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
@@ -312,7 +324,7 @@
 				009D9A1B2BC72EDD00F17741 /* Band */,
 				009D9A1E2BC733D300F17741 /* TabBar */,
 				1D9A5F7F2BCDB47800BAC8E6 /* Album */,
-				1D9A5F842BCDB98F00BAC8E6 /* Views */,
+				1D9A5F842BCDB98F00BAC8E6 /* BaseViews */,
 				009D9A152BC6592D00F17741 /* Application */,
 				007EC1C42BC5C97B00066A9E /* Assets.xcassets */,
 				007EC1C62BC5C97B00066A9E /* LaunchScreen.storyboard */,
@@ -345,7 +357,9 @@
 		009D9A1B2BC72EDD00F17741 /* Band */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A1C2BC72EEF00F17741 /* BandViewController.swift */,
+				00B60B952BE005E500DA7951 /* Model */,
+				00B60B932BE005DB00DA7951 /* View */,
+				00B60B942BE005E000DA7951 /* Presenter */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -487,6 +501,42 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		00B60B932BE005DB00DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A1C2BC72EEF00F17741 /* BandViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60B942BE005E000DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60B962BE0060900DA7951 /* BandPresenter.swift */,
+				00B60BA32BE0503E00DA7951 /* BandRouter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		00B60B952BE005E500DA7951 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00B60B9C2BE0071800DA7951 /* Service */,
+				00B60B982BE0061900DA7951 /* BandType.swift */,
+				00B60B9A2BE006C600DA7951 /* Band.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00B60B9C2BE0071800DA7951 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00B60B9D2BE0072200DA7951 /* BandFactory.swift */,
+				00B60B9F2BE0073100DA7951 /* BandService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,14 +547,14 @@
 			path = Album;
 			sourceTree = "<group>";
 		};
-		1D9A5F842BCDB98F00BAC8E6 /* Views */ = {
+		1D9A5F842BCDB98F00BAC8E6 /* BaseViews */ = {
 			isa = PBXGroup;
 			children = (
 				009D9A232BD316A100F17741 /* ValidatedTextField.swift */,
 				009D9A282BD3242300F17741 /* BaseButtonView.swift */,
 				009D9A392BD4226F00F17741 /* SelectButtonView.swift */,
 			);
-			path = Views;
+			path = BaseViews;
 			sourceTree = "<group>";
 		};
 		1D9A5F892BCDC41900BAC8E6 /* Profile */ = {
@@ -603,6 +653,8 @@
 				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
 				009D9A322BD4159600F17741 /* MyPodcastsViewController.swift in Sources */,
 				009D9A442BD430A000F17741 /* SubsViewController.swift in Sources */,
+				00B60B9B2BE006C600DA7951 /* Band.swift in Sources */,
+				00B60BA42BE0503E00DA7951 /* BandRouter.swift in Sources */,
 				00B60B902BDFCDE200DA7951 /* AuthorPresenter.swift in Sources */,
 				009D9A462BD4313B00F17741 /* AlbumsViewController.swift in Sources */,
 				007A26AC2BDD96300040C0F4 /* PodcastModel.swift in Sources */,
@@ -611,6 +663,7 @@
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
+				00B60B992BE0061900DA7951 /* BandType.swift in Sources */,
 				007A26AF2BDE465A0040C0F4 /* PodcastService.swift in Sources */,
 				009D9A4C2BD541D200F17741 /* MyPodcastViewController.swift in Sources */,
 				007A269B2BDD8F360040C0F4 /* PodcastPresenter.swift in Sources */,
@@ -632,12 +685,14 @@
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */,
 				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
+				00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
 				007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */,
 				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				009D9A292BD3242300F17741 /* BaseButtonView.swift in Sources */,
 				007A26BD2BDE56E50040C0F4 /* Description.swift in Sources */,
 				007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */,
+				00B60BA02BE0073100DA7951 /* BandService.swift in Sources */,
 				009D9A402BD42F0800F17741 /* LikedPodcastsViewController.swift in Sources */,
 				009D9A352BD4197B00F17741 /* SearchViewController.swift in Sources */,
 				00B60B6E2BDEE7ED00DA7951 /* Mocks.swift in Sources */,
@@ -651,6 +706,7 @@
 				00B60B862BDFABC000DA7951 /* AlbumPresenter.swift in Sources */,
 				009D9A2B2BD3260600F17741 /* AuthorProfileViewController.swift in Sources */,
 				009D9A4F2BD5428800F17741 /* PlayerView.swift in Sources */,
+				00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */,
