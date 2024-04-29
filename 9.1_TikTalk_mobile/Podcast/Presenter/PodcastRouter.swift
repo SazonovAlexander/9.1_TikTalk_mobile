@@ -16,7 +16,10 @@ final class PodcastRouter {
     }
     
     func showAlbumFrom(_ viewController: UIViewController, album: AlbumModel) {
-        
+        let presenter = AlbumPresenter(album: album)
+        let albumViewController = AlbumViewController(presenter: presenter)
+        presenter.viewController = albumViewController
+        viewController.navigationController?.pushViewController(albumViewController, animated: true)
     }
     
     func showReportFrom(_ viewController: UIViewController, podcast: PodcastModel) {

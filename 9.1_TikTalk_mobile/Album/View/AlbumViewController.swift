@@ -9,7 +9,6 @@ final class AlbumViewController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.text = "Название альбома" //название альбома
         label.textAlignment = .center
         return label
     }()
@@ -47,15 +46,32 @@ final class AlbumViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .none
         tableView.separatorColor = .lightGray
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(PodcastViewCell.self, forCellReuseIdentifier: PodcastViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
     
+    private let presenter: AlbumPresenter
+    private var podcasts: [PodcastCell] = []
+    
+    init(presenter: AlbumPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(name: String) {
+        nameLabel.text = name
     }
 }
 
@@ -65,6 +81,8 @@ private extension AlbumViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        podcasts = presenter.getPodcasts()
     }
     
     func setupAppearance() {
@@ -97,15 +115,32 @@ private extension AlbumViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    func addActions() {
+        descriptionButton.addTarget(self, action: #selector(Self.didTapDescriptionButton), for: .touchUpInside)
+        authorButton.addTarget(self, action: #selector(Self.didTapAuthorButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapDescriptionButton() {
+        presenter.showDescription()
+    }
+    
+    @objc
+    func didTapAuthorButton() {
+        presenter.showAuthor()
+    }
 }
 
 extension AlbumViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showPodcast(index: indexPath.row)
+    }
 }
 
 extension AlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +150,7 @@ extension AlbumViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        podcastCell.config(podcast: podcasts[indexPath.row])
 
         return podcastCell
     }

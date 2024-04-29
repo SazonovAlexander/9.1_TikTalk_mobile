@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 
 final class PodcastViewCell: UITableViewCell {
@@ -37,9 +38,11 @@ final class PodcastViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(name: String, image: UIImage) {
-        nameLabel.text = name
-        logoImageView.image = image
+    func config(podcast: PodcastCell) {
+        nameLabel.text = podcast.name
+        if let url = podcast.logoUrl {
+            logoImageView.kf.setImage(with: url, placeholder: UIImage(named: "Logo"))
+        }
     }
 }
 
@@ -47,6 +50,7 @@ private extension PodcastViewCell {
     
     func setup() {
         backgroundColor = UIColor(named: "Background")
+        selectionStyle = .none
         
         [logoImageView,
          nameLabel,

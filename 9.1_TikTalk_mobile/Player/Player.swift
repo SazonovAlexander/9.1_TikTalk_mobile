@@ -21,10 +21,12 @@ final class Player {
     
     func play() {
         avPlayer?.play()
+        playerView?.isPlayed = true
     }
     
     func stop() {
         avPlayer?.pause()
+        playerView?.isPlayed = false
     }
     
     func updateValue(_ value: Float) {

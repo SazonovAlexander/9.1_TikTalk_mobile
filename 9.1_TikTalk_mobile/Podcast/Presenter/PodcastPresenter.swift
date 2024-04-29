@@ -72,7 +72,7 @@ final class PodcastPresenter {
     
     func description() {
         if let viewController {
-            router.showDescriptionFrom(viewController, description: Description(podcastName: podcast.name, description: podcast.description))
+            router.showDescriptionFrom(viewController, description: Description(name: podcast.name, description: podcast.description))
         }
     }
     
