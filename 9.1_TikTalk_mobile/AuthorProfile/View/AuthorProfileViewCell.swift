@@ -62,13 +62,13 @@ private extension AuthorProfileViewCell {
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             logoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 8),
             arrowImageView.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
             arrowImageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }

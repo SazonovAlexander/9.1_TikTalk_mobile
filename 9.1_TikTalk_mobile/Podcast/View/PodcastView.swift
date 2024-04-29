@@ -12,7 +12,7 @@ final class PodcastView: UIView {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 16
         imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return imageView
     }()

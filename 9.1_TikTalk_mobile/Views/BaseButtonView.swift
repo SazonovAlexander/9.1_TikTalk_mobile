@@ -12,10 +12,12 @@ final class BaseButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(text: String, backgroundColor: UIColor, isEnabled: Bool = true) {
-        setTitle(text, for: .normal)
-        self.backgroundColor = backgroundColor
-        self.isEnabled = isEnabled
+    func config(text: String, backgroundColor: UIColor, isEnabled: Bool = true, animated: Bool = false) {
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: [.curveEaseOut], animations: {
+            self.setTitle(text, for: .normal)
+            self.backgroundColor = backgroundColor
+            self.isEnabled = isEnabled
+        })
     }
 }
 
