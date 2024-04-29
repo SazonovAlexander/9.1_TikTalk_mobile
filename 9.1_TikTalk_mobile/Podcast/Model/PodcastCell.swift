@@ -1,7 +1,7 @@
 import Foundation
 
 
-struct Album {
+struct PodcastCell {
     let name: String
-    let podcasts: [Podcast]
+    let logoUrl: URL?
 }
