@@ -74,6 +74,11 @@
 		00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B9D2BE0072200DA7951 /* BandFactory.swift */; };
 		00B60BA02BE0073100DA7951 /* BandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B9F2BE0073100DA7951 /* BandService.swift */; };
 		00B60BA42BE0503E00DA7951 /* BandRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BA32BE0503E00DA7951 /* BandRouter.swift */; };
+		00B60BB02BE055DE00DA7951 /* Analytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BAF2BE055DE00DA7951 /* Analytic.swift */; };
+		00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB22BE0561300DA7951 /* AppMetricaAdSupport */; };
+		00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB42BE0561300DA7951 /* AppMetricaCore */; };
+		00B60BB72BE0561300DA7951 /* AppMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB62BE0561300DA7951 /* AppMetricaCrashes */; };
+		00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB82BE0561300DA7951 /* AppMetricaWebKit */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -147,6 +152,7 @@
 		00B60B9D2BE0072200DA7951 /* BandFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandFactory.swift; sourceTree = "<group>"; };
 		00B60B9F2BE0073100DA7951 /* BandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandService.swift; sourceTree = "<group>"; };
 		00B60BA32BE0503E00DA7951 /* BandRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandRouter.swift; sourceTree = "<group>"; };
+		00B60BAF2BE055DE00DA7951 /* Analytic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytic.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +164,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				007A26A92BDD94380040C0F4 /* Kingfisher in Frameworks */,
+				00B60BB72BE0561300DA7951 /* AppMetricaCrashes in Frameworks */,
+				00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */,
+				00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */,
+				00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */,
 				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +322,7 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				00B60BAE2BE055D100DA7951 /* Analytic */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
 				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
@@ -537,6 +548,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		00B60BAE2BE055D100DA7951 /* Analytic */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BAF2BE055DE00DA7951 /* Analytic.swift */,
+			);
+			path = Analytic;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +607,10 @@
 			packageProductDependencies = (
 				007A26932BD5BEAA0040C0F4 /* LookinServer */,
 				007A26A82BDD94380040C0F4 /* Kingfisher */,
+				00B60BB22BE0561300DA7951 /* AppMetricaAdSupport */,
+				00B60BB42BE0561300DA7951 /* AppMetricaCore */,
+				00B60BB62BE0561300DA7951 /* AppMetricaCrashes */,
+				00B60BB82BE0561300DA7951 /* AppMetricaWebKit */,
 			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
@@ -620,6 +643,7 @@
 			packageReferences = (
 				007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
 			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
@@ -661,6 +685,7 @@
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
+				00B60BB02BE055DE00DA7951 /* Analytic.swift in Sources */,
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
 				00B60B992BE0061900DA7951 /* BandType.swift in Sources */,
@@ -955,6 +980,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appmetrica/appmetrica-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -967,6 +1000,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		00B60BB22BE0561300DA7951 /* AppMetricaAdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */;
+			productName = AppMetricaAdSupport;
+		};
+		00B60BB42BE0561300DA7951 /* AppMetricaCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */;
+			productName = AppMetricaCore;
+		};
+		00B60BB62BE0561300DA7951 /* AppMetricaCrashes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */;
+			productName = AppMetricaCrashes;
+		};
+		00B60BB82BE0561300DA7951 /* AppMetricaWebKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */;
+			productName = AppMetricaWebKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
