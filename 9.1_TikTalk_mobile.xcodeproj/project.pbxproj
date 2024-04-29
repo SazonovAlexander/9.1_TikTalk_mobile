@@ -79,6 +79,8 @@
 		00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB42BE0561300DA7951 /* AppMetricaCore */; };
 		00B60BB72BE0561300DA7951 /* AppMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB62BE0561300DA7951 /* AppMetricaCrashes */; };
 		00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60BB82BE0561300DA7951 /* AppMetricaWebKit */; };
+		00B60BBE2BE0591F00DA7951 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BBD2BE0591F00DA7951 /* SearchPresenter.swift */; };
+		00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BC02BE0593400DA7951 /* SearchRouter.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -153,6 +155,8 @@
 		00B60B9F2BE0073100DA7951 /* BandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandService.swift; sourceTree = "<group>"; };
 		00B60BA32BE0503E00DA7951 /* BandRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandRouter.swift; sourceTree = "<group>"; };
 		00B60BAF2BE055DE00DA7951 /* Analytic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytic.swift; sourceTree = "<group>"; };
+		00B60BBD2BE0591F00DA7951 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		00B60BC02BE0593400DA7951 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -406,7 +410,8 @@
 		009D9A332BD4196B00F17741 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A342BD4197B00F17741 /* SearchViewController.swift */,
+				00B60BBA2BE0588A00DA7951 /* View */,
+				00B60BBC2BE058BC00DA7951 /* Presenter */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -556,6 +561,23 @@
 			path = Analytic;
 			sourceTree = "<group>";
 		};
+		00B60BBA2BE0588A00DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A342BD4197B00F17741 /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BBC2BE058BC00DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BBD2BE0591F00DA7951 /* SearchPresenter.swift */,
+				00B60BC02BE0593400DA7951 /* SearchRouter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,6 +707,7 @@
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
+				00B60BBE2BE0591F00DA7951 /* SearchPresenter.swift in Sources */,
 				00B60BB02BE055DE00DA7951 /* Analytic.swift in Sources */,
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
@@ -706,6 +729,7 @@
 				007A26A62BDD93210040C0F4 /* Player.swift in Sources */,
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */,
 				00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */,
