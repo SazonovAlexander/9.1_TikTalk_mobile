@@ -3,11 +3,12 @@ import UIKit
 
 final class ReportViewController: UIViewController {
     
+    private var presenter: ReportPresenter
+    
     private lazy var authorNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.text = "Имя профиля" //имя профиля
         label.numberOfLines = 1
         return label
     }()
@@ -16,7 +17,6 @@ final class ReportViewController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.text = "Название подкаста" //имя профиля
         label.numberOfLines = 1
         return label
     }()
@@ -49,17 +49,34 @@ final class ReportViewController: UIViewController {
     
     private lazy var sendButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
+        button.config(text: "Выберите тему", backgroundColor: .gray, isEnabled: false)
         return button
     }()
+    
+    private var report: Report?
+    
+    init(presenter: ReportPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    func config(authorName: String, podcastName: String, theme: String?) {
+        authorNameLabel.text = authorName
+        podcastNameLabel.text = podcastName
+        if let theme {
+            reportThemeButton.config(text: theme)
+            report = Report(theme: theme, message: textField.text)
+            sendButton.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
+        }
     }
 }
 
@@ -69,6 +86,8 @@ private extension ReportViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -114,5 +133,22 @@ private extension ReportViewController {
             sendButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             sendButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func addActions() {
+        sendButton.addTarget(self, action: #selector(Self.didTapSendButton), for: .touchUpInside)
+        reportThemeButton.addTarget(self, action: #selector(Self.didTapSelectThemeButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapSendButton() {
+        if let report {
+            presenter.sendReport(report)
+        }
+    }
+    
+    @objc
+    func didTapSelectThemeButton() {
+        presenter.selectTheme()
     }
 }

@@ -28,15 +28,22 @@ final class ThemeReportViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(text: String) {
+    func config(text: String, isSelected: Bool) {
         label.text = text
+        if isSelected {
+            backgroundColor = .gray
+        } else {
+            backgroundColor = .clear
+        }
     }
 }
 
 private extension ThemeReportViewCell {
     
     func setup() {
-        backgroundColor = .clear
+        selectionStyle = .none
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
         
         [label,
          arrowImageView].forEach{
@@ -46,10 +53,10 @@ private extension ThemeReportViewCell {
         
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             label.trailingAnchor.constraint(lessThanOrEqualTo: arrowImageView.leadingAnchor),
             arrowImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
         ])
     }
 }
