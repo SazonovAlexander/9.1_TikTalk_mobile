@@ -64,6 +64,8 @@
 		00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B7C2BDF8D0400DA7951 /* ReportRouter.swift */; };
 		00B60B802BDF8DBC00DA7951 /* ReportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B7F2BDF8DBC00DA7951 /* ReportService.swift */; };
 		00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B812BDF8E8F00DA7951 /* SelectThemePresenter.swift */; };
+		00B60B862BDFABC000DA7951 /* AlbumPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B852BDFABC000DA7951 /* AlbumPresenter.swift */; };
+		00B60B882BDFABC900DA7951 /* AlbumRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60B872BDFABC900DA7951 /* AlbumRouter.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -127,6 +129,8 @@
 		00B60B7C2BDF8D0400DA7951 /* ReportRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportRouter.swift; sourceTree = "<group>"; };
 		00B60B7F2BDF8DBC00DA7951 /* ReportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportService.swift; sourceTree = "<group>"; };
 		00B60B812BDF8E8F00DA7951 /* SelectThemePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectThemePresenter.swift; sourceTree = "<group>"; };
+		00B60B852BDFABC000DA7951 /* AlbumPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPresenter.swift; sourceTree = "<group>"; };
+		00B60B872BDFABC900DA7951 /* AlbumRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 		00B60B842BDFAAF400DA7951 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				00B60B852BDFABC000DA7951 /* AlbumPresenter.swift */,
+				00B60B872BDFABC900DA7951 /* AlbumRouter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -624,8 +630,10 @@
 				007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */,
 				00B60B802BDF8DBC00DA7951 /* ReportService.swift in Sources */,
 				007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */,
+				00B60B882BDFABC900DA7951 /* AlbumRouter.swift in Sources */,
 				1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */,
 				009D9A262BD3210C00F17741 /* DescriptionViewController.swift in Sources */,
+				00B60B862BDFABC000DA7951 /* AlbumPresenter.swift in Sources */,
 				009D9A2B2BD3260600F17741 /* AuthorProfileViewController.swift in Sources */,
 				009D9A4F2BD5428800F17741 /* PlayerView.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
