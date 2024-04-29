@@ -89,6 +89,11 @@ final class BandViewController: UIViewController {
         setup()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        podcastView.stopPlayer()
+    }
+    
     func config(podcast: Podcast, animation: BandAnimation) {
         if animation == .none {
             podcastView.config(podcast: podcast)
