@@ -10,7 +10,13 @@ final class Player {
     func setAudioFromUrl(_ url: URL) {
         guard audioUrl != url else { return }
         audioUrl = url
-        reset()
+        if let audioUrl {
+            avPlayer = AVPlayer(url: audioUrl)
+            avPlayer?.automaticallyWaitsToMinimizeStalling = false
+            avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) { time in
+                self.updateTime(currentTime: time)
+            }
+        }
     }
     
     func play() {
@@ -24,17 +30,7 @@ final class Player {
     func updateValue(_ value: Float) {
         avPlayer?.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1000), toleranceBefore: .zero, toleranceAfter: .zero)
     }
-    
-    private func reset() {
-        if let audioUrl {
-            avPlayer = AVPlayer(url: audioUrl)
-            avPlayer?.automaticallyWaitsToMinimizeStalling = false
-            avPlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) { time in
-                self.updateTime(currentTime: time)
-            }
-        }
-    }
-    
+  
     private func updateTime(currentTime: CMTime) {
         if let total = avPlayer?.currentItem?.duration.seconds,
            total.isNormal {
