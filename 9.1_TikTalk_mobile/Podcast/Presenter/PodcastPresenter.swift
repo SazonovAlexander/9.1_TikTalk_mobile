@@ -78,7 +78,7 @@ final class PodcastPresenter {
     
     func report() {
         if let viewController {
-            router.showReportFrom(viewController)
+            router.showReportFrom(viewController, podcast: podcast)
         }
     }
     

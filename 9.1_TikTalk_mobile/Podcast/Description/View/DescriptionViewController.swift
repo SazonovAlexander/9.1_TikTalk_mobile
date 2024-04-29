@@ -17,6 +17,7 @@ final class DescriptionViewController: UIViewController {
         let textView = UITextView()
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 16, weight: .regular)
+        textView.isEditable = false
         return textView
     }()
     

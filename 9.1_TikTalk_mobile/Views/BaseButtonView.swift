@@ -12,9 +12,10 @@ final class BaseButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(text: String, backgroundColor: UIColor) {
+    func config(text: String, backgroundColor: UIColor, isEnabled: Bool = true) {
         setTitle(text, for: .normal)
         self.backgroundColor = backgroundColor
+        self.isEnabled = isEnabled
     }
 }
 
