@@ -28,9 +28,11 @@ private extension TabBarController {
             image: UIImage(systemName: "mic.fill"),
             selectedImage: nil
         )
-        
-        let albumViewController = SearchViewController()
-        albumViewController.tabBarItem = UITabBarItem(
+        let presenter = PodcastPresenter(podcast: Mocks.podcast)
+        let albumViewController = PodcastViewController(presenter: presenter)
+        presenter.viewController = albumViewController
+        let nc = UINavigationController(rootViewController: albumViewController)
+        nc.tabBarItem = UITabBarItem(
             title: "Поиск",
             image: UIImage(systemName: "magnifyingglass"),
             selectedImage: nil
@@ -45,7 +47,7 @@ private extension TabBarController {
    
         self.viewControllers = [
             nav,
-            albumViewController,
+            nc,
             profileViewController
         ]
     }
