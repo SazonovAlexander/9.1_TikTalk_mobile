@@ -578,6 +578,46 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		00B60BC22BE0686000DA7951 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A452BD4313B00F17741 /* AlbumsViewController.swift */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		00B60BC32BE0686A00DA7951 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A212BD3156500F17741 /* EditProfileViewController.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		00B60BC42BE0687E00DA7951 /* Liked */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A3F2BD42F0800F17741 /* LikedPodcastsViewController.swift */,
+			);
+			path = Liked;
+			sourceTree = "<group>";
+		};
+		00B60BC52BE0688500DA7951 /* Subs */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A432BD430A000F17741 /* SubsViewController.swift */,
+			);
+			path = Subs;
+			sourceTree = "<group>";
+		};
+		00B60BC62BE068A300DA7951 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,11 +641,11 @@
 		1D9A5F892BCDC41900BAC8E6 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A452BD4313B00F17741 /* AlbumsViewController.swift */,
-				1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */,
-				009D9A212BD3156500F17741 /* EditProfileViewController.swift */,
-				009D9A3F2BD42F0800F17741 /* LikedPodcastsViewController.swift */,
-				009D9A432BD430A000F17741 /* SubsViewController.swift */,
+				00B60BC62BE068A300DA7951 /* Profile */,
+				00B60BC52BE0688500DA7951 /* Subs */,
+				00B60BC42BE0687E00DA7951 /* Liked */,
+				00B60BC32BE0686A00DA7951 /* Edit */,
+				00B60BC22BE0686000DA7951 /* Albums */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
