@@ -1,7 +1,7 @@
 import Foundation
 
 
-struct AlbumModel {
+struct AlbumModel: Hashable {
     let id: UUID
     let authorId: UUID
     let name: String
