@@ -82,6 +82,10 @@ final class MyAlbumViewController: UIViewController {
         }))
         present(alert, animated: true)
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension MyAlbumViewController {

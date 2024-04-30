@@ -8,7 +8,8 @@ final class MyPodcastViewController: UIViewController {
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Logo"))
         imageView.layer.cornerRadius = 16
-        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return imageView
     }()
@@ -42,7 +43,6 @@ final class MyPodcastViewController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 1
-        label.text = "100" //прописать сокращения
         return label
     }()
     
@@ -51,7 +51,6 @@ final class MyPodcastViewController: UIViewController {
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
         label.numberOfLines = 2
-        label.text = "Подкаст" // название + альбом
         return label
     }()
     
@@ -70,9 +69,40 @@ final class MyPodcastViewController: UIViewController {
         return button
     }()
     
+    private let presenter: MyPodcastPresenter
+    
+    init(presenter: MyPodcastPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(podcast: Podcast) {
+        player.setAudioFromUrl(podcast.audioUrl)
+        logoImageView.kf.setImage(with: podcast.logoUrl, placeholder: UIImage(named: "Logo"))
+        countLikeLabel.text = podcast.countLike
+        nameLabel.text = podcast.name
+    }
+    
+    func showConfirmAlert() {
+        let alert = UIAlertController(title: "Подтвердите удаление", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { [weak self] _ in
+            self?.presenter.confirmedDelete()
+        }))
+        present(alert, animated: true)
+    }
+    
+    func exit() {
+        dismiss(animated: true)
     }
 }
 
@@ -83,6 +113,8 @@ private extension MyPodcastViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getPodcast()
     }
     
     func setupAppearance() {
@@ -107,7 +139,8 @@ private extension MyPodcastViewController {
         nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            logoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            logoImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            logoImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             buttonStack.topAnchor.constraint(greaterThanOrEqualTo: logoImageView.bottomAnchor, constant: 30),
             buttonStack.leadingAnchor.constraint(greaterThanOrEqualTo: nameLabel.trailingAnchor, constant: 20),
             buttonStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -128,6 +161,27 @@ private extension MyPodcastViewController {
             deleteButton.heightAnchor.constraint(equalToConstant: 50),
             editButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func addActions() {
+        descriptionButton.addTarget(self, action: #selector(Self.didTapDescriptionButton), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(Self.didTapDeleteButton), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(Self.didTapEditButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapDescriptionButton() {
+        presenter.description()
+    }
+    
+    @objc
+    func didTapDeleteButton() {
+        presenter.delete()
+    }
+    
+    @objc
+    func didTapEditButton() {
+        presenter.edit()
     }
 }
 
