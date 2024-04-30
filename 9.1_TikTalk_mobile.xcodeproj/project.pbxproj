@@ -423,9 +423,9 @@
 		009D9A2E2BD4157500F17741 /* MyPodcasts */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A312BD4159600F17741 /* MyPodcastsViewController.swift */,
-				009D9A4B2BD541D200F17741 /* MyPodcastViewController.swift */,
-				009D9A502BD548E900F17741 /* MyAlbumViewController.swift */,
+				00B60BEA2BE0EFF400DA7951 /* Album */,
+				00B60BE92BE0EFE800DA7951 /* Podcast */,
+				00B60BE82BE0EFDD00DA7951 /* Podcasts */,
 			);
 			path = MyPodcasts;
 			sourceTree = "<group>";
@@ -729,6 +729,54 @@
 				00B60BE62BE0E86400DA7951 /* EditProfilePresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		00B60BE82BE0EFDD00DA7951 /* Podcasts */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BED2BE0F00F00DA7951 /* View */,
+			);
+			path = Podcasts;
+			sourceTree = "<group>";
+		};
+		00B60BE92BE0EFE800DA7951 /* Podcast */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BEC2BE0F00A00DA7951 /* View */,
+			);
+			path = Podcast;
+			sourceTree = "<group>";
+		};
+		00B60BEA2BE0EFF400DA7951 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BEB2BE0F00400DA7951 /* View */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		00B60BEB2BE0F00400DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A502BD548E900F17741 /* MyAlbumViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BEC2BE0F00A00DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A4B2BD541D200F17741 /* MyPodcastViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BED2BE0F00F00DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A312BD4159600F17741 /* MyPodcastsViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
