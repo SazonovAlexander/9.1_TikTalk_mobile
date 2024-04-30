@@ -8,7 +8,10 @@ final class MyAlbumRouter {
     }
     
     func showDescriptionFrom(_ viewController: UIViewController, description: Description) {
-        
+        let presenter = DescriptionPresenter(description: description)
+        let descriptionViewController = DescriptionViewController(presenter: presenter)
+        presenter.viewController = descriptionViewController
+        viewController.present(descriptionViewController, animated: true)
     }
     
     func showMyPodcast(_ viewController: UIViewController, podcast: PodcastModel) {

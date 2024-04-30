@@ -3,7 +3,7 @@ import Foundation
 
 final class MyAlbumPresenter {
     
-    weak var viewContoller: MyAlbumViewController?
+    weak var viewController: MyAlbumViewController?
     
     private var album: AlbumModel
     private let albumService: AlbumService
@@ -31,25 +31,31 @@ final class MyAlbumPresenter {
             }
         })
         let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
-        viewContoller?.config(album: albumWithPodcasts)
+        viewController?.config(album: albumWithPodcasts)
     }
     
     func description() {
         let description = Description(name: album.name, description: album.description)
-        if let viewContoller {
-            router.showDescriptionFrom(viewContoller, description: description)
+        if let viewController {
+            router.showDescriptionFrom(viewController, description: description)
         }
     }
     
     func podcast(index: Int) {
         let podcast = podcastService.getPodcastById(album.podcasts[index])
-        if let viewContoller {
-            router.showMyPodcast(viewContoller, podcast: podcast)
+        if let viewController {
+            router.showMyPodcast(viewController, podcast: podcast)
+        }
+    }
+    
+    func edit() {
+        if let viewController {
+            router.showEditAlbumFrom(viewController, album: album)
         }
     }
     
     func delete() {
-        viewContoller?.showConfirmAlert()
+        viewController?.showConfirmAlert()
     }
     
     func confirmedDelete() {
