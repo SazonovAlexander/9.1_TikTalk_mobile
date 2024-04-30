@@ -6,7 +6,7 @@ final class MyPodcastsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
-        tableView.separatorColor = .lightGray
+        tableView.separatorStyle = .none
         tableView.register(PodcastViewCell.self, forCellReuseIdentifier: PodcastViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
@@ -16,9 +16,26 @@ final class MyPodcastsViewController: UIViewController {
         return tableView
     }()
     
+    private let presenter: MyPodcastsPresenter
+    private var albums: [Album] = []
+    
+    init(presenter: MyPodcastsPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(albums: [Album]) {
+        self.albums = albums
+        tableView.reloadData()
     }
 }
 
@@ -28,6 +45,7 @@ private extension MyPodcastsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -51,16 +69,23 @@ private extension MyPodcastsViewController {
 }
 
 extension MyPodcastsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showPodcast(indexPath: indexPath)
+    }
     
+    @objc func headerTapped(_ gesture: UITapGestureRecognizer) {
+        guard let section = gesture.view?.tag else { return }
+        presenter.showAlbum(section: section)
+    }
 }
 
 extension MyPodcastsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        albums.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Альбом \(section)"
+        albums[section].name
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -71,6 +96,9 @@ extension MyPodcastsViewController: UITableViewDataSource {
         headerView.textLabel?.font = .systemFont(ofSize: 24, weight: .medium)
         headerView.layer.masksToBounds = true
         headerView.backgroundView?.tintColor = .clear
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
+        headerView.addGestureRecognizer(tapGesture)
+        headerView.tag = section
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -78,7 +106,7 @@ extension MyPodcastsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        albums[section].podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,7 +116,10 @@ extension MyPodcastsViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        //podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        let podcast = albums[indexPath.section].podcasts[indexPath.row]
+        if let url = podcast.logoUrl {
+            podcastCell.config(podcast: podcast, separator: indexPath.row != albums[indexPath.section].podcasts.count - 1)
+        }
 
         return podcastCell
     }

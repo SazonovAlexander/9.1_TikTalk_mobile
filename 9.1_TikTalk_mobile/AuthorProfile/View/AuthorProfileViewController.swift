@@ -166,7 +166,7 @@ extension AuthorProfileViewController: UITableViewDataSource {
         guard let podcastCell = cell as? PodcastViewCell else {
            return UITableViewCell()
         }
-        let podcast = albums[indexPath.row].podcasts[indexPath.row]
+        let podcast = albums[indexPath.section].podcasts[indexPath.row]
         if let url = podcast.logoUrl {
             podcastCell.config(podcast: podcast, separator: indexPath.row != albums[indexPath.section].podcasts.count - 1)
         }

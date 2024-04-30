@@ -92,6 +92,8 @@
 		00B60BE12BE0E14600DA7951 /* SubsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BE02BE0E14600DA7951 /* SubsRouter.swift */; };
 		00B60BE32BE0E23700DA7951 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BE22BE0E23700DA7951 /* AuthorCell.swift */; };
 		00B60BE72BE0E86400DA7951 /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BE62BE0E86400DA7951 /* EditProfilePresenter.swift */; };
+		00B60BF02BE0F05500DA7951 /* MyPodcastsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BEF2BE0F05500DA7951 /* MyPodcastsPresenter.swift */; };
+		00B60BF22BE0F12700DA7951 /* MyPodcastsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BF12BE0F12700DA7951 /* MyPodcastsRouter.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -179,6 +181,8 @@
 		00B60BE02BE0E14600DA7951 /* SubsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsRouter.swift; sourceTree = "<group>"; };
 		00B60BE22BE0E23700DA7951 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 		00B60BE62BE0E86400DA7951 /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
+		00B60BEF2BE0F05500DA7951 /* MyPodcastsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastsPresenter.swift; sourceTree = "<group>"; };
+		00B60BF12BE0F12700DA7951 /* MyPodcastsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastsRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -735,6 +739,7 @@
 			isa = PBXGroup;
 			children = (
 				00B60BED2BE0F00F00DA7951 /* View */,
+				00B60BEE2BE0F04500DA7951 /* Presenter */,
 			);
 			path = Podcasts;
 			sourceTree = "<group>";
@@ -777,6 +782,15 @@
 				009D9A312BD4159600F17741 /* MyPodcastsViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BEE2BE0F04500DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BEF2BE0F05500DA7951 /* MyPodcastsPresenter.swift */,
+				00B60BF12BE0F12700DA7951 /* MyPodcastsRouter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
@@ -896,6 +910,7 @@
 			files = (
 				009D9A512BD548E900F17741 /* MyAlbumViewController.swift in Sources */,
 				007A26C22BDE579F0040C0F4 /* AlbumModel.swift in Sources */,
+				00B60BF02BE0F05500DA7951 /* MyPodcastsPresenter.swift in Sources */,
 				009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */,
 				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
 				009D9A322BD4159600F17741 /* MyPodcastsViewController.swift in Sources */,
@@ -926,6 +941,7 @@
 				009D9A222BD3156500F17741 /* EditProfileViewController.swift in Sources */,
 				007A26B22BDE46850040C0F4 /* AuthorService.swift in Sources */,
 				007A26B42BDE46C90040C0F4 /* AuthorModel.swift in Sources */,
+				00B60BF22BE0F12700DA7951 /* MyPodcastsRouter.swift in Sources */,
 				009D9A3C2BD42B2000F17741 /* SelectThemeViewController.swift in Sources */,
 				00B60B772BDF8B3F00DA7951 /* Report.swift in Sources */,
 				00B60BD12BE06A2C00DA7951 /* ProfileRouter.swift in Sources */,
