@@ -31,7 +31,11 @@ final class ProfileRouter {
     }
     
     func showMyPodcastsFrom(_ viewController: UIViewController, profile: ProfileModel) {
-        
+        let presenter = MyPodcastsPresenter(profile: profile)
+        let myPodcastsViewController = MyPodcastsViewController(presenter: presenter)
+        presenter.viewController = myPodcastsViewController
+        let navController = UINavigationController(rootViewController: myPodcastsViewController)
+        viewController.present(navController, animated: true)
     }
     
     func exit() {
