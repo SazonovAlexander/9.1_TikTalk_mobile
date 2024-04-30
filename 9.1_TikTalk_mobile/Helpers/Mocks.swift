@@ -7,6 +7,7 @@ struct Mocks {
     private static let podcastId = UUID()
     private static let podcastId1 = UUID()
     private static let albumId = UUID()
+    private static let profileId = UUID()
     
     static let podcast = PodcastModel(
         id: podcastId,
@@ -46,4 +47,13 @@ struct Mocks {
     static let author = AuthorModel(id: authorId, name: "Алексей Петрович", avatarUrl: "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060", isSubscribe: false, albums: [albumId, albumId, albumId])
     
     static let album = AlbumModel(id: albumId, authorId: authorId, name: "12421432432", description: "1231231221312", podcasts: [podcastId, podcastId, podcastId])
+    
+    static let profile = ProfileModel(
+        id: profileId,
+        name: "Сергей",
+        avatarUrl: "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060",
+        subscriptions: [authorId],
+        liked: [podcastId1],
+        albums: [albumId]
+    )
 }

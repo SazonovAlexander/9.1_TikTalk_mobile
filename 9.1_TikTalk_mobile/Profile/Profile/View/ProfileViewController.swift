@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 
 final class ProfileViewController: UIViewController {
@@ -17,14 +18,14 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.text = "Имя профиля" //имя профиля
         label.textAlignment = .center
         return label
     }()
     
     private lazy var avatarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.circle.fill"))
-        imageView.contentMode = .scaleAspectFit
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -58,19 +59,37 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
+    private lazy var exitButton: BaseButtonView = {
+        let button = BaseButtonView()
+        button.config(text: "Выйти", backgroundColor: UIColor(named: "ButtonRed") ?? .red)
+        return button
+    }()
+    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             changeProfileButton,
             createPodcastButton,
             subsButton,
             likeButton,
-            myPodcastsButton
+            myPodcastsButton,
+            exitButton
         ])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.distribution = .fill
         return stackView
     }()
+    
+    private let presenter: ProfilePresenter
+    
+    init(presenter: ProfilePresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +100,11 @@ final class ProfileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.height / 2
     }
+    
+    func config(profile: Profile) {
+        nameLabel.text = profile.name
+        avatarImageView.kf.setImage(with: profile.avatarUrl, placeholder: UIImage(systemName: "person.circle.fill"))
+    }
 }
 
 private extension ProfileViewController {
@@ -89,6 +113,8 @@ private extension ProfileViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -136,7 +162,47 @@ private extension ProfileViewController {
             createPodcastButton.heightAnchor.constraint(equalToConstant: 50),
             subsButton.heightAnchor.constraint(equalToConstant: 50),
             likeButton.heightAnchor.constraint(equalToConstant: 50),
-            myPodcastsButton.heightAnchor.constraint(equalToConstant: 50)
+            myPodcastsButton.heightAnchor.constraint(equalToConstant: 50),
+            exitButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func addActions() {
+        changeProfileButton.addTarget(self, action: #selector(Self.didTapChangeButton), for: .touchUpInside)
+        createPodcastButton.addTarget(self, action: #selector(Self.didTapCreateButton), for: .touchUpInside)
+        subsButton.addTarget(self, action: #selector(Self.didTapSubsButton), for: .touchUpInside)
+        likeButton.addTarget(self, action: #selector(Self.didTapLikeButton), for: .touchUpInside)
+        myPodcastsButton.addTarget(self, action: #selector(Self.didTapMyPodcastsButton), for: .touchUpInside)
+        exitButton.addTarget(self, action: #selector(Self.didTapExitButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapChangeButton() {
+        presenter.changeProfile()
+    }
+    
+    @objc
+    func didTapCreateButton() {
+        presenter.createPodcast()
+    }
+    
+    @objc
+    func didTapSubsButton() {
+        presenter.subs()
+    }
+    
+    @objc
+    func didTapLikeButton() {
+        presenter.like()
+    }
+    
+    @objc
+    func didTapMyPodcastsButton() {
+        presenter.myPodcasts()
+    }
+    
+    @objc
+    func didTapExitButton() {
+        presenter.exit()
     }
 }
