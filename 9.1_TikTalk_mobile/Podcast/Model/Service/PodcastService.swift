@@ -10,4 +10,8 @@ final class PodcastService {
     func search(_ text: String) -> [PodcastModel] {
         [Mocks.podcast, Mocks.podcast1]
     }
+    
+    func delete(_ podcast: PodcastModel) {
+        
+    }
 }
