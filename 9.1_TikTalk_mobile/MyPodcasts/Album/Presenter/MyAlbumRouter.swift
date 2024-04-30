@@ -4,7 +4,10 @@ import UIKit
 final class MyAlbumRouter {
     
     func showEditAlbumFrom(_ viewController: UIViewController, album: AlbumModel) {
-        
+        let presenter = CreateEditAlbumPresenter(album: album)
+        let createEditViewController = CreateEditAlbumViewController(presenter: presenter)
+        presenter.viewController = createEditViewController
+        viewController.navigationController?.pushViewController(createEditViewController, animated: true)
     }
     
     func showDescriptionFrom(_ viewController: UIViewController, description: Description) {

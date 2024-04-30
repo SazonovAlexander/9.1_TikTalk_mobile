@@ -26,26 +26,52 @@ final class CreateEditAlbumViewController: UIViewController {
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
         return button
     }()
+    
+    private let presenter: CreateEditAlbumPresenter
+    
+    init(presenter: CreateEditAlbumPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    func config(_ album: AlbumInfo) {
+        nameTextField.setText(album.name)
+        textField.text = album.description
+        nameTextField.validateAction?(true)
+    }
+    
+    func exit() {
+        dismiss(animated: true)
     }
 }
 
 private extension CreateEditAlbumViewController {
     
     func setup() {
+        nameTextField.validateAction = {[weak self] result in
+            if result {
+                self?.saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
+            } else {
+                self?.saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray, isEnabled: false)
+            }
+        }
+        nameTextField.validateAction?(false)
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -67,8 +93,7 @@ private extension CreateEditAlbumViewController {
             nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            nameTextField.heightAnchor.constraint(equalToConstant: 50),
-            descriptionLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
+            descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
             descriptionLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor, constant: 5),
             descriptionLabel.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             textField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 3),
@@ -80,5 +105,15 @@ private extension CreateEditAlbumViewController {
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             saveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func addActions() {
+        saveButton.addTarget(self, action: #selector(Self.didTapSaveButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapSaveButton() {
+        let album = AlbumInfo(name: nameTextField.getText(), description: textField.text)
+        presenter.save(album)
     }
 }
