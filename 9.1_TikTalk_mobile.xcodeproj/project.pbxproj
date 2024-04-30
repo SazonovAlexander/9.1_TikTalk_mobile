@@ -86,6 +86,8 @@
 		00B60BCF2BE06A2000DA7951 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BCE2BE06A2000DA7951 /* ProfilePresenter.swift */; };
 		00B60BD12BE06A2C00DA7951 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BD02BE06A2C00DA7951 /* ProfileRouter.swift */; };
 		00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BD32BE06A8B00DA7951 /* ProfileService.swift */; };
+		00B60BD92BE0767400DA7951 /* LikedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BD82BE0767400DA7951 /* LikedPresenter.swift */; };
+		00B60BDB2BE0769400DA7951 /* LikedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BDA2BE0769400DA7951 /* LikedRouter.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -167,6 +169,8 @@
 		00B60BCE2BE06A2000DA7951 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		00B60BD02BE06A2C00DA7951 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		00B60BD32BE06A8B00DA7951 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		00B60BD82BE0767400DA7951 /* LikedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPresenter.swift; sourceTree = "<group>"; };
+		00B60BDA2BE0769400DA7951 /* LikedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -607,7 +611,8 @@
 		00B60BC42BE0687E00DA7951 /* Liked */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A3F2BD42F0800F17741 /* LikedPodcastsViewController.swift */,
+				00B60BD52BE075C100DA7951 /* View */,
+				00B60BD72BE075CF00DA7951 /* Presenter */,
 			);
 			path = Liked;
 			sourceTree = "<group>";
@@ -663,6 +668,23 @@
 				00B60BD32BE06A8B00DA7951 /* ProfileService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		00B60BD52BE075C100DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A3F2BD42F0800F17741 /* LikedPodcastsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BD72BE075CF00DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BD82BE0767400DA7951 /* LikedPresenter.swift */,
+				00B60BDA2BE0769400DA7951 /* LikedRouter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
@@ -794,6 +816,7 @@
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
+				00B60BDB2BE0769400DA7951 /* LikedRouter.swift in Sources */,
 				00B60BBE2BE0591F00DA7951 /* SearchPresenter.swift in Sources */,
 				00B60BB02BE055DE00DA7951 /* Analytic.swift in Sources */,
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
@@ -826,6 +849,7 @@
 				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
 				00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
+				00B60BD92BE0767400DA7951 /* LikedPresenter.swift in Sources */,
 				007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */,
 				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				009D9A292BD3242300F17741 /* BaseButtonView.swift in Sources */,

@@ -16,7 +16,11 @@ final class ProfileRouter {
     }
     
     func showLikeFrom(_ viewController: UIViewController, profile: ProfileModel) {
-        
+        let presenter = LikedPresenter(profile: profile)
+        let likedViewController = LikedPodcastsViewController(presenter: presenter)
+        presenter.viewController = likedViewController
+        let navController = UINavigationController(rootViewController: likedViewController)
+        viewController.present(navController, animated: true)
     }
     
     func showMyPodcastsFrom(_ viewController: UIViewController, profile: ProfileModel) {

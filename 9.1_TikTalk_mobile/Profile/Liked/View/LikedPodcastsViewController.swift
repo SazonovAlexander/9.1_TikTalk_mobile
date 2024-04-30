@@ -7,15 +7,33 @@ final class LikedPodcastsViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .none
         tableView.separatorColor = .lightGray
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(PodcastViewCell.self, forCellReuseIdentifier: PodcastViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
     
+    private let presenter: LikedPresenter
+    private var podcasts: [PodcastCell] = []
+    
+    init(presenter: LikedPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(podcasts: [PodcastCell]) {
+        self.podcasts = podcasts
+        tableView.reloadData()
     }
 }
 
@@ -25,6 +43,7 @@ private extension LikedPodcastsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -48,12 +67,14 @@ private extension LikedPodcastsViewController {
 }
 
 extension LikedPodcastsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showPodcast(index: indexPath.row)
+    }
 }
 
 extension LikedPodcastsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,12 +84,22 @@ extension LikedPodcastsViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        //podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        podcastCell.config(podcast: podcasts[indexPath.row])
 
         return podcastCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.frame = .zero
+        return headerView
     }
 }

@@ -105,8 +105,7 @@ extension SearchViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        podcastCell.config(podcast: podcasts[indexPath.row
-                                            ])
+        podcastCell.config(podcast: podcasts[indexPath.row])
 
         return podcastCell
     }
