@@ -228,8 +228,8 @@
 		007A26962BDD8EBB0040C0F4 /* CreateEditPodcast */ = {
 			isa = PBXGroup;
 			children = (
-				007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */,
-				007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */,
+				00B60C082BE12C3500DA7951 /* Audio */,
+				00B60C072BE12C2C00DA7951 /* CreateEdit */,
 			);
 			path = CreateEditPodcast;
 			sourceTree = "<group>";
@@ -866,6 +866,38 @@
 				00B60C042BE1271400DA7951 /* AlbumInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		00B60C062BE12C2000DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60C072BE12C2C00DA7951 /* CreateEdit */ = {
+			isa = PBXGroup;
+			children = (
+				00B60C062BE12C2000DA7951 /* View */,
+			);
+			path = CreateEdit;
+			sourceTree = "<group>";
+		};
+		00B60C082BE12C3500DA7951 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				00B60C092BE12C3F00DA7951 /* View */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		00B60C092BE12C3F00DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
