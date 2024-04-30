@@ -15,6 +15,9 @@ final class MyAlbumRouter {
     }
     
     func showMyPodcast(_ viewController: UIViewController, podcast: PodcastModel) {
-        
+        let presenter = MyPodcastPresenter(podcast: podcast)
+        let myPodcastViewController = MyPodcastViewController(presenter: presenter)
+        presenter.viewController = myPodcastViewController
+        viewController.navigationController?.pushViewController(myPodcastViewController, animated: true)
     }
 }

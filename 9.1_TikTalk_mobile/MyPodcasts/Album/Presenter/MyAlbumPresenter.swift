@@ -59,6 +59,7 @@ final class MyAlbumPresenter {
     }
     
     func confirmedDelete() {
+        viewController?.exit()
         albumService.delete(album)
     }
 }
