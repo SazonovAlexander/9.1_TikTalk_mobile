@@ -88,6 +88,9 @@
 		00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BD32BE06A8B00DA7951 /* ProfileService.swift */; };
 		00B60BD92BE0767400DA7951 /* LikedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BD82BE0767400DA7951 /* LikedPresenter.swift */; };
 		00B60BDB2BE0769400DA7951 /* LikedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BDA2BE0769400DA7951 /* LikedRouter.swift */; };
+		00B60BDF2BE0E13800DA7951 /* SubsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BDE2BE0E13800DA7951 /* SubsPresenter.swift */; };
+		00B60BE12BE0E14600DA7951 /* SubsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BE02BE0E14600DA7951 /* SubsRouter.swift */; };
+		00B60BE32BE0E23700DA7951 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BE22BE0E23700DA7951 /* AuthorCell.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -171,6 +174,9 @@
 		00B60BD32BE06A8B00DA7951 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		00B60BD82BE0767400DA7951 /* LikedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPresenter.swift; sourceTree = "<group>"; };
 		00B60BDA2BE0769400DA7951 /* LikedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedRouter.swift; sourceTree = "<group>"; };
+		00B60BDE2BE0E13800DA7951 /* SubsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsPresenter.swift; sourceTree = "<group>"; };
+		00B60BE02BE0E14600DA7951 /* SubsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsRouter.swift; sourceTree = "<group>"; };
+		00B60BE22BE0E23700DA7951 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +250,7 @@
 				007A26B02BDE46790040C0F4 /* Service */,
 				007A26A12BDD907C0040C0F4 /* Author.swift */,
 				007A26B32BDE46C90040C0F4 /* AuthorModel.swift */,
+				00B60BE22BE0E23700DA7951 /* AuthorCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -620,7 +627,8 @@
 		00B60BC52BE0688500DA7951 /* Subs */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A432BD430A000F17741 /* SubsViewController.swift */,
+				00B60BDC2BE0E0F700DA7951 /* View */,
+				00B60BDD2BE0E12300DA7951 /* Presenter */,
 			);
 			path = Subs;
 			sourceTree = "<group>";
@@ -683,6 +691,23 @@
 			children = (
 				00B60BD82BE0767400DA7951 /* LikedPresenter.swift */,
 				00B60BDA2BE0769400DA7951 /* LikedRouter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		00B60BDC2BE0E0F700DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A432BD430A000F17741 /* SubsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60BDD2BE0E12300DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60BDE2BE0E13800DA7951 /* SubsPresenter.swift */,
+				00B60BE02BE0E14600DA7951 /* SubsRouter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -807,6 +832,7 @@
 				009D9A182BC65AB800F17741 /* PodcastView.swift in Sources */,
 				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
 				009D9A322BD4159600F17741 /* MyPodcastsViewController.swift in Sources */,
+				00B60BE12BE0E14600DA7951 /* SubsRouter.swift in Sources */,
 				009D9A442BD430A000F17741 /* SubsViewController.swift in Sources */,
 				00B60B9B2BE006C600DA7951 /* Band.swift in Sources */,
 				00B60BA42BE0503E00DA7951 /* BandRouter.swift in Sources */,
@@ -841,11 +867,13 @@
 				009D9A4A2BD53F1F00F17741 /* CreateEditAlbumViewController.swift in Sources */,
 				007A26A62BDD93210040C0F4 /* Player.swift in Sources */,
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
+				00B60BDF2BE0E13800DA7951 /* SubsPresenter.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
 				00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */,
 				00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */,
+				00B60BE32BE0E23700DA7951 /* AuthorCell.swift in Sources */,
 				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
 				00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
