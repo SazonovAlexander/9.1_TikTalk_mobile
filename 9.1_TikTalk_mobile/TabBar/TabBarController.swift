@@ -42,7 +42,9 @@ private extension TabBarController {
             selectedImage: nil
         )
         
-        let profileViewController = ProfileViewController()
+        let profilePresenter = ProfilePresenter(profile: Mocks.profile)
+        let profileViewController = ProfileViewController(presenter: profilePresenter)
+        profilePresenter.viewController = profileViewController
         profileViewController.tabBarItem = UITabBarItem(
             title: "Профиль",
             image: UIImage(systemName: "person.fill"),
