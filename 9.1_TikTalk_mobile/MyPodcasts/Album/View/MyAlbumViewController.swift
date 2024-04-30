@@ -9,7 +9,6 @@ final class MyAlbumViewController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.text = "Название альбома" //название альбома
         label.textAlignment = .center
         label.numberOfLines = 1
         return label
@@ -24,7 +23,7 @@ final class MyAlbumViewController: UIViewController {
     
     private lazy var editButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Редактировать", backgroundColor: UIColor(named: "ProfileButtonBackground") ?? .blue)
+        button.config(text: "Редактировать", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
@@ -52,9 +51,36 @@ final class MyAlbumViewController: UIViewController {
         return tableView
     }()
     
+    private let presenter: MyAlbumPresenter
+    private var podcasts: [PodcastCell] = []
+    
+    init(presenter: MyAlbumPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(album: Album) {
+        nameLabel.text = album.name
+        podcasts = album.podcasts
+        tableView.reloadData()
+    }
+    
+    func showConfirmAlert() {
+        let alert = UIAlertController(title: "Подтвердите удаление", message: "Все подкасты, находящиеся в альбоме, будут удалены!", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { [weak self] _ in
+            self?.presenter.confirmedDelete()
+        }))
+        present(alert, animated: true)
     }
 }
 
@@ -64,6 +90,8 @@ private extension MyAlbumViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -106,15 +134,38 @@ private extension MyAlbumViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    func addActions() {
+        descriptionButton.addTarget(self, action: #selector(Self.didTapDescriptionButton), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(Self.didTapDeleteButton), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(Self.didTapEditButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapDescriptionButton() {
+        presenter.description()
+    }
+    
+    @objc
+    func didTapDeleteButton() {
+        presenter.delete()
+    }
+    
+    @objc
+    func didTapEditButton() {
+        presenter.edit()
+    }
 }
 
 extension MyAlbumViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.podcast(index: indexPath.row)
+    }
 }
 
 extension MyAlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,7 +175,11 @@ extension MyAlbumViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        //podcastCell.config(name: "Подкаст \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        podcastCell.config(podcast: podcasts[indexPath.row])
+        
+        if indexPath.row == podcasts.count - 1 {
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        }
 
         return podcastCell
     }

@@ -60,7 +60,7 @@ final class MyPodcastViewController: UIViewController {
     
     private lazy var editButton: BaseButtonView = {
         let button = BaseButtonView()
-        button.config(text: "Редактировать", backgroundColor: UIColor(named: "ProfileButtonBackground") ?? .blue)
+        button.config(text: "Редактировать", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     

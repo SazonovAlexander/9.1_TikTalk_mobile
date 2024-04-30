@@ -11,5 +11,8 @@ final class Analytic {
         if let configuration = AppMetricaConfiguration(apiKey: Analytic.key) {
             AppMetrica.activate(with: configuration)
         }
+        AppMetrica.reportEvent(name: "EVENT", parameters: ["application": "open"], onFailure: { error in
+            print("REPORT ERROR: %@", error.localizedDescription)
+        })
     }
 }
