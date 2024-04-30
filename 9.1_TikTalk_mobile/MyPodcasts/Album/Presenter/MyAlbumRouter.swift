@@ -1,8 +1,17 @@
-//
-//  MyAlbumRouter.swift
-//  9.1_TikTalk_mobile
-//
-//  Created by Александр Сазонов on 30.04.2024.
-//
+import UIKit
 
-import Foundation
+
+final class MyAlbumRouter {
+    
+    func showEditAlbumFrom(_ viewController: UIViewController, album: AlbumModel) {
+        
+    }
+    
+    func showDescriptionFrom(_ viewController: UIViewController, description: Description) {
+        
+    }
+    
+    func showMyPodcast(_ viewController: UIViewController, podcast: PodcastModel) {
+        
+    }
+}
