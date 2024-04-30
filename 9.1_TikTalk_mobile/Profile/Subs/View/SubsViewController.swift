@@ -7,15 +7,33 @@ final class SubsViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .none
         tableView.separatorColor = .lightGray
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(AuthorProfileViewCell.self, forCellReuseIdentifier: AuthorProfileViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
     
+    private let presenter: SubsPresenter
+    private var authors: [AuthorCell] = []
+    
+    init(presenter: SubsPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(authors: [AuthorCell]) {
+        self.authors = authors
+        tableView.reloadData()
     }
 }
 
@@ -25,6 +43,7 @@ private extension SubsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -48,12 +67,14 @@ private extension SubsViewController {
 }
 
 extension SubsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showAuthor(index: indexPath.row)
+    }
 }
 
 extension SubsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10 //заменить на датасорс
+        authors.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,7 +84,11 @@ extension SubsViewController: UITableViewDataSource {
            return UITableViewCell()
         }
         
-        podcastCell.config(name: "Автор \(indexPath.row)", image: UIImage(named: "Logo") ?? UIImage())//заменить на датасорс
+        podcastCell.config(author: authors[indexPath.row])
+        
+        if indexPath.row == authors.count - 1 {
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        }
 
         return podcastCell
     }

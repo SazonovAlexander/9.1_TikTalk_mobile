@@ -7,9 +7,11 @@ final class AuthorProfileViewCell: UITableViewCell {
     
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        imageView.layer.cornerRadius = 20
         return imageView
     }()
     
@@ -32,18 +34,13 @@ final class AuthorProfileViewCell: UITableViewCell {
         setup()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        logoImageView.layer.cornerRadius = logoImageView.bounds.height / 2
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(name: String, image: UIImage) {
-        nameLabel.text = name
-        logoImageView.image = image
+    func config(author: AuthorCell) {
+        nameLabel.text = author.name
+        logoImageView.kf.setImage(with: author.avatarUrl, placeholder: UIImage(named: "Logo"))
     }
 }
 
@@ -51,6 +48,7 @@ private extension AuthorProfileViewCell {
     
     func setup() {
         backgroundColor = UIColor(named: "Background")
+        selectionStyle = .none
         
         [logoImageView,
          nameLabel,
