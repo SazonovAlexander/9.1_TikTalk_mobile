@@ -1,4 +1,6 @@
 import UIKit
+import AVFoundation
+import RangeUISlider
 
 
 final class AudioViewController: UIViewController {
@@ -8,12 +10,22 @@ final class AudioViewController: UIViewController {
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .center
-        label.text = "Обрезка" // название + альбом
+        label.text = "Обрезка"
         label.numberOfLines = 1
         return label
     }()
     
-    private lazy var cutterView = CutterView()
+    private lazy var cutterView: RangeUISlider = {
+        let slider = RangeUISlider()
+        slider.rangeSelectedColor = .white
+        slider.leftKnobColor = .white
+        slider.rightKnobColor = .white
+        slider.rangeNotSelectedColor = .gray
+        slider.rightKnobWidth = 10
+        slider.leftKnobWidth = 10
+        slider.barHeight = 10
+        return slider
+    }()
     
     private lazy var fileButton: UIButton = {
         let button = BaseButtonView()
@@ -21,14 +33,26 @@ final class AudioViewController: UIViewController {
         return button
     }()
     
-    private lazy var recordButton: UIButton = {
+    private lazy var recordButton: BaseButtonView = {
         let button = BaseButtonView()
         button.config(text: "Диктофон", backgroundColor: UIColor(named: "ButtonGray") ?? .gray)
         return button
     }()
     
+    private var isRecording: Bool = false
+    
     private lazy var player = Player()
     private lazy var playerView = PlayerView(player: player)
+    
+    private var audioRecorder: AVAudioRecorder?
+    
+    private var buffer: URL?  = nil {
+        didSet {
+            if let buffer {
+                player.setAudioFromUrl(buffer)
+            }
+        }
+    }
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -49,6 +73,7 @@ private extension AudioViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
     }
     
     func setupAppearance() {
@@ -96,5 +121,86 @@ private extension AudioViewController {
             fileButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
+    func addActions() {
+        fileButton.addTarget(self, action: #selector(Self.didTapFileButton), for: .touchUpInside)
+        recordButton.addTarget(self, action: #selector(Self.recording), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapFileButton() {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.mp3"], in: .import)
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    @objc func recording() {
+        if !isRecording {
+            
+            let audioSession = AVAudioSession.sharedInstance()
+            do {
+                try audioSession.setCategory(.record, mode: .default)
+                try audioSession.setActive(true)
+            } catch {
+                print("Ошибка настройки аудиосессии: \(error.localizedDescription)")
+            }
+            
+            self.recordButton.config(text: "Идет запись", backgroundColor:  UIColor(named: "ButtonRed") ?? .red)
+            let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+            
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 48000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
+            ]
+            
+            do {
+                audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+                audioRecorder?.delegate = self
+                audioRecorder?.isMeteringEnabled = true
+                audioRecorder?.updateMeters()
+                audioRecorder?.record()
+            } catch {
+                finishRecording(success: false)
+            }
+        } else {
+            finishRecording(success: true)
+        }
+        isRecording.toggle()
+    }
+
+    func finishRecording(success: Bool) {
+        audioRecorder?.stop()
+        audioRecorder = nil
+        if success {
+            let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+            buffer = audioFilename
+        }
+        recordButton.config(text: "Диктофон", backgroundColor: UIColor(named: "ButtonGray") ?? .gray)
+    }
+
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 }
 
+
+extension AudioViewController: AVAudioRecorderDelegate {
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+}
+
+extension AudioViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let selectedFileURL = urls.first else {
+            return
+        }
+        buffer = selectedFileURL
+    }
+}

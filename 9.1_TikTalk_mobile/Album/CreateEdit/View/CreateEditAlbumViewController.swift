@@ -52,7 +52,7 @@ final class CreateEditAlbumViewController: UIViewController {
     }
     
     func exit() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

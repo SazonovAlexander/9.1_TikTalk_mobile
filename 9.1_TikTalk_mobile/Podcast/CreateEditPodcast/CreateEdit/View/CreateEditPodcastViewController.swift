@@ -13,17 +13,25 @@ final class CreateEditPodcastViewController: UIViewController {
         return view
     }()
     
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        return picker
+    }()
+    
     private lazy var nameTextField = ValidatedTextField(placeholder: "Название")
     
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Logo"))
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 16
         return imageView
     }()
     
-    private lazy var audioButton: UIButton = {
+    private lazy var audioButton: BaseButtonView = {
         let button = BaseButtonView()
         button.config(text: "Аудио", backgroundColor: UIColor(named: "ButtonGray") ?? .gray)
         return button
@@ -60,18 +68,57 @@ final class CreateEditPodcastViewController: UIViewController {
         return button
     }()
     
+    private let presenter: CreateEditPodcastPresenter
+    
+    init(presenter: CreateEditPodcastPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func config(_ podcast: PodcastInfo?) {
+        if let podcast {
+            nameTextField.setText(podcast.name)
+            textField.text = podcast.description
+        }
+        if presenter.logo != nil {
+            logoImageView.kf.setImage(with: presenter.logo!, placeholder: UIImage(named: "Logo"))
+        }
+        audioButton.config(text: "Аудио", backgroundColor: presenter.audio != nil ? (UIColor(named: "ButtonGreen") ?? .green) : (UIColor(named: "ButtonGray") ?? .gray))
+        selectAlbum.config(text: presenter.album?.name ?? "Выбор альбома")
+        nameTextField.validateAction?(presenter.isValid())
+    }
+    
+    func exit() {
+        dismiss(animated: true)
     }
 }
 
 private extension CreateEditPodcastViewController {
     
     func setup() {
+        nameTextField.validateAction = {[weak self] result in
+            guard let self else { return }
+            if result && self.presenter.isValid() {
+                self.saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
+            } else {
+                self.saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray, isEnabled: false)
+            }
+        }
+        nameTextField.validateAction?(false)
         setupAppearance()
         addSubviews()
         activateConstraints()
+        addActions()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -111,7 +158,7 @@ private extension CreateEditPodcastViewController {
             nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            logoImageView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
+            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 90),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
             logoImageView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor),
@@ -133,9 +180,48 @@ private extension CreateEditPodcastViewController {
             saveButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             saveButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             saveButton.heightAnchor.constraint(equalToConstant: 50),
-            audioButton.heightAnchor.constraint(equalToConstant: 50),
-            nameTextField.heightAnchor.constraint(equalToConstant: 50)
+            audioButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func addActions() {
+        audioButton.addTarget(self, action: #selector(Self.didTapAudioButton), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(Self.didTapSaveButton), for: .touchUpInside)
+        selectAlbum.addTarget(self, action: #selector(Self.didTapAlbumButton), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(Self.didTapImage))
+        logoImageView.isUserInteractionEnabled = true
+        logoImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func didTapAudioButton() {
+        presenter.selectAudio()
+    }
+    
+    @objc
+    func didTapSaveButton() {
+        let podcast = PodcastInfo(name: nameTextField.getText(), description: textField.text)
+        presenter.save(podcast)
+    }
+    
+    @objc
+    func didTapAlbumButton() {
+        presenter.selectAlbum()
+    }
+    
+    @objc
+    func didTapImage() {
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
+
+extension CreateEditPodcastViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            logoImageView.image = pickedImage
+            presenter.logo = URL(string: Mocks.podcast.logoUrl)!
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+}

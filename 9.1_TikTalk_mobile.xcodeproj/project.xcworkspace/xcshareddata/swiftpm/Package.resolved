@@ -35,6 +35,15 @@
         "revision" : "e553d1b689d147817dc54ad5c28fcff71e860101",
         "version" : "1.2.8"
       }
+    },
+    {
+      "identity" : "rangeuislider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/chicio/RangeUISlider.git",
+      "state" : {
+        "revision" : "b1e8242eb7ab07051721a2d7b937cd75ca129ebf",
+        "version" : "4.0.1"
+      }
     }
   ],
   "version" : 2
