@@ -7,4 +7,8 @@ final class AlbumService {
         Mocks.album
     }
     
+    func delete(_ album: AlbumModel) {
+        
+    }
+    
 }
