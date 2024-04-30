@@ -12,7 +12,11 @@ final class ProfileRouter {
     }
     
     func showSubsFrom(_ viewController: UIViewController, profile: ProfileModel) {
-        
+        let presenter = SubsPresenter(profile: profile)
+        let subsViewController = SubsViewController(presenter: presenter)
+        presenter.viewController = subsViewController
+        let navController = UINavigationController(rootViewController: subsViewController)
+        viewController.present(navController, animated: true)
     }
     
     func showLikeFrom(_ viewController: UIViewController, profile: ProfileModel) {
