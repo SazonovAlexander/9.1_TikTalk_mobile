@@ -28,8 +28,13 @@ final class AlbumViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(text: String) {
+    func config(text: String, isSelected: Bool = false) {
         label.text = text
+        if isSelected {
+            backgroundColor = .gray
+        } else {
+            backgroundColor = .clear
+        }
     }
 }
 
@@ -37,6 +42,9 @@ private extension AlbumViewCell {
     
     func setup() {
         backgroundColor = .clear
+        selectionStyle = .none
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
         
         [label,
          arrowImageView].forEach{
@@ -46,10 +54,10 @@ private extension AlbumViewCell {
         
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(lessThanOrEqualTo: arrowImageView.leadingAnchor),
             arrowImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
 }

@@ -100,6 +100,12 @@
 		00B60BFC2BE10E8500DA7951 /* MyPodcastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60BFB2BE10E8500DA7951 /* MyPodcastRouter.swift */; };
 		00B60C022BE1265D00DA7951 /* CreateEditAlbumPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C012BE1265D00DA7951 /* CreateEditAlbumPresenter.swift */; };
 		00B60C052BE1271400DA7951 /* AlbumInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C042BE1271400DA7951 /* AlbumInfo.swift */; };
+		00B60C0D2BE12CD200DA7951 /* PodcastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C0C2BE12CD200DA7951 /* PodcastInfo.swift */; };
+		00B60C0F2BE12D5200DA7951 /* CreateEditPodcastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C0E2BE12D5200DA7951 /* CreateEditPodcastPresenter.swift */; };
+		00B60C112BE12D5F00DA7951 /* CreateEditPodcastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */; };
+		00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */; };
+		00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */; };
+		00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60C1C2BE15D5300DA7951 /* RangeUISlider */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -195,6 +201,11 @@
 		00B60BFB2BE10E8500DA7951 /* MyPodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastRouter.swift; sourceTree = "<group>"; };
 		00B60C012BE1265D00DA7951 /* CreateEditAlbumPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditAlbumPresenter.swift; sourceTree = "<group>"; };
 		00B60C042BE1271400DA7951 /* AlbumInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfo.swift; sourceTree = "<group>"; };
+		00B60C0C2BE12CD200DA7951 /* PodcastInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastInfo.swift; sourceTree = "<group>"; };
+		00B60C0E2BE12D5200DA7951 /* CreateEditPodcastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastPresenter.swift; sourceTree = "<group>"; };
+		00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastRouter.swift; sourceTree = "<group>"; };
+		00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPresenter.swift; sourceTree = "<group>"; };
+		00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRouter.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +221,7 @@
 				00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */,
 				00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */,
 				00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */,
+				00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */,
 				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,7 +631,8 @@
 		00B60BC22BE0686000DA7951 /* Albums */ = {
 			isa = PBXGroup;
 			children = (
-				009D9A452BD4313B00F17741 /* AlbumsViewController.swift */,
+				00B60C142BE13BF200DA7951 /* View */,
+				00B60C152BE13BF600DA7951 /* Presenter */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -879,7 +892,9 @@
 		00B60C072BE12C2C00DA7951 /* CreateEdit */ = {
 			isa = PBXGroup;
 			children = (
+				00B60C0B2BE12CC300DA7951 /* Model */,
 				00B60C062BE12C2000DA7951 /* View */,
+				00B60C0A2BE12CA900DA7951 /* Presenter */,
 			);
 			path = CreateEdit;
 			sourceTree = "<group>";
@@ -898,6 +913,40 @@
 				007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		00B60C0A2BE12CA900DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60C0E2BE12D5200DA7951 /* CreateEditPodcastPresenter.swift */,
+				00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		00B60C0B2BE12CC300DA7951 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00B60C0C2BE12CD200DA7951 /* PodcastInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00B60C142BE13BF200DA7951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				009D9A452BD4313B00F17741 /* AlbumsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00B60C152BE13BF600DA7951 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */,
+				00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
@@ -954,6 +1003,7 @@
 				00B60BB42BE0561300DA7951 /* AppMetricaCore */,
 				00B60BB62BE0561300DA7951 /* AppMetricaCrashes */,
 				00B60BB82BE0561300DA7951 /* AppMetricaWebKit */,
+				00B60C1C2BE15D5300DA7951 /* RangeUISlider */,
 			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
@@ -987,6 +1037,7 @@
 				007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
+				00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */,
 			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
@@ -1048,6 +1099,7 @@
 				009D9A3E2BD42BC900F17741 /* ThemeReportViewCell.swift in Sources */,
 				00B60B8A2BDFAFF600DA7951 /* PodcastCell.swift in Sources */,
 				009D9A222BD3156500F17741 /* EditProfileViewController.swift in Sources */,
+				00B60C0F2BE12D5200DA7951 /* CreateEditPodcastPresenter.swift in Sources */,
 				007A26B22BDE46850040C0F4 /* AuthorService.swift in Sources */,
 				007A26B42BDE46C90040C0F4 /* AuthorModel.swift in Sources */,
 				00B60BF72BE0FA6800DA7951 /* MyAlbumRouter.swift in Sources */,
@@ -1068,6 +1120,8 @@
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */,
 				00B60BE32BE0E23700DA7951 /* AuthorCell.swift in Sources */,
+				00B60C0D2BE12CD200DA7951 /* PodcastInfo.swift in Sources */,
+				00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */,
 				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
 				00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
@@ -1076,6 +1130,7 @@
 				009D9A242BD316A100F17741 /* ValidatedTextField.swift in Sources */,
 				009D9A292BD3242300F17741 /* BaseButtonView.swift in Sources */,
 				007A26BD2BDE56E50040C0F4 /* Description.swift in Sources */,
+				00B60C112BE12D5F00DA7951 /* CreateEditPodcastRouter.swift in Sources */,
 				007A26B62BDE48A60040C0F4 /* UIViewController+Extension.swift in Sources */,
 				00B60BCF2BE06A2000DA7951 /* ProfilePresenter.swift in Sources */,
 				00B60BA02BE0073100DA7951 /* BandService.swift in Sources */,
@@ -1083,6 +1138,7 @@
 				00B60BFC2BE10E8500DA7951 /* MyPodcastRouter.swift in Sources */,
 				009D9A352BD4197B00F17741 /* SearchViewController.swift in Sources */,
 				00B60B6E2BDEE7ED00DA7951 /* Mocks.swift in Sources */,
+				00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */,
 				009D9A422BD42FF300F17741 /* AuthorProfileViewCell.swift in Sources */,
 				007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */,
 				00B60B802BDF8DBC00DA7951 /* ReportService.swift in Sources */,
@@ -1352,6 +1408,14 @@
 				minimumVersion = 5.3.1;
 			};
 		};
+		00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/chicio/RangeUISlider.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1384,6 +1448,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */;
 			productName = AppMetricaWebKit;
+		};
+		00B60C1C2BE15D5300DA7951 /* RangeUISlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */;
+			productName = RangeUISlider;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

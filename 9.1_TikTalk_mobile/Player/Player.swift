@@ -25,6 +25,13 @@ final class Player {
     }
     
     func play(changeIcon: Bool = false) {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print("Ошибка настройки аудиосессии: \(error.localizedDescription)")
+        }
         avPlayer.play()
         if changeIcon {
             playerView?.isPlayed = true

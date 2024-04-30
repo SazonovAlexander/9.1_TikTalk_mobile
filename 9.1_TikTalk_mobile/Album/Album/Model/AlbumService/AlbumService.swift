@@ -11,4 +11,8 @@ final class AlbumService {
         
     }
     
+    func getAllAlbums() -> [AlbumModel] {
+        [Mocks.album, Mocks.album, Mocks.album, Mocks.album]
+    }
+    
 }

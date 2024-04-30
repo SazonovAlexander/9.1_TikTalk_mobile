@@ -20,7 +20,7 @@ final class CreateEditAlbumPresenter {
     }
     
     func save(_ album: AlbumInfo) {
-        //обноваление на беке
+        //обновление на беке
         viewController?.exit()
     }
 }
