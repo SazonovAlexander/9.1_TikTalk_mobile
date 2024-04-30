@@ -26,6 +26,7 @@ private extension TabBarController {
         let bandViewController = BandViewController(bandPresenter: bandPresenter)
         bandPresenter.viewController = bandViewController
         let nav = UINavigationController(rootViewController: bandViewController)
+        nav.navigationBar.backItem?.title = "Назад"
         nav.tabBarItem = UITabBarItem(
             title: "Лента",
             image: UIImage(systemName: "mic.fill"),
@@ -36,6 +37,7 @@ private extension TabBarController {
         let searchViewController = SearchViewController(presenter: searchPresenter)
         searchPresenter.viewController = searchViewController
         let searchNavController = UINavigationController(rootViewController: searchViewController)
+        searchNavController.navigationBar.backItem?.title = "Назад"
         searchNavController.tabBarItem = UITabBarItem(
             title: "Поиск",
             image: UIImage(systemName: "magnifyingglass"),

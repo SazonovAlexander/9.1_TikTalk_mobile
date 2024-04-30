@@ -15,6 +15,7 @@ final class ProfileRouter {
         let createPodcast = CreateEditPodcastViewController(presenter: presenter)
         presenter.viewController = createPodcast
         let navController = UINavigationController(rootViewController: createPodcast)
+        navController.navigationBar.backItem?.title = "Назад"
         viewController.present(navController, animated: true)
     }
     
@@ -23,6 +24,7 @@ final class ProfileRouter {
         let subsViewController = SubsViewController(presenter: presenter)
         presenter.viewController = subsViewController
         let navController = UINavigationController(rootViewController: subsViewController)
+        navController.navigationBar.backItem?.title = "Назад"
         viewController.present(navController, animated: true)
     }
     
@@ -31,6 +33,7 @@ final class ProfileRouter {
         let likedViewController = LikedPodcastsViewController(presenter: presenter)
         presenter.viewController = likedViewController
         let navController = UINavigationController(rootViewController: likedViewController)
+        navController.navigationBar.backItem?.title = "Назад"
         viewController.present(navController, animated: true)
     }
     
@@ -39,6 +42,7 @@ final class ProfileRouter {
         let myPodcastsViewController = MyPodcastsViewController(presenter: presenter)
         presenter.viewController = myPodcastsViewController
         let navController = UINavigationController(rootViewController: myPodcastsViewController)
+        navController.navigationBar.backItem?.title = "Назад"
         viewController.present(navController, animated: true)
     }
     

@@ -8,6 +8,7 @@ final class SearchRouter {
         let podcastViewController = PodcastViewController(presenter: presenter)
         presenter.viewController = podcastViewController
         let navController = UINavigationController(rootViewController: podcastViewController)
+        navController.navigationBar.backItem?.title = "Назад"
         viewController.present(navController, animated: true)
     }
 }

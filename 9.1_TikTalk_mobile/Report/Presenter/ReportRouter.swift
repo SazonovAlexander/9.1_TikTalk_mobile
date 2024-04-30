@@ -10,6 +10,6 @@ final class ReportRouter {
     }
     
     func dismissReportViewController(_ viewController: UIViewController) {
-        viewController.navigationController?.popViewController(animated: true)
+        viewController.dismiss(animated: true)
     }
 }
