@@ -95,7 +95,6 @@ final class PodcastPresenter {
                         isLiked: podcastModel.isLiked,
                         logoUrl: logoUrl,
                         audioUrl: audioUrl
-                                //URL(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!)
                     )
         } else {
             throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
