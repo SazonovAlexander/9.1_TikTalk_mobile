@@ -4,7 +4,10 @@ import UIKit
 final class ProfileRouter {
     
     func showChangeProfileFrom(_ viewController: UIViewController, profile: ProfileModel) {
-        
+        let presenter = EditProfilePresenter(profile: profile)
+        let editProfileViewController = EditProfileViewController(presenter: presenter)
+        presenter.viewController = editProfileViewController
+        viewController.present(editProfileViewController, animated: true)
     }
     
     func showCreatePodcastFrom(_ viewController: UIViewController, profile: ProfileModel) {
