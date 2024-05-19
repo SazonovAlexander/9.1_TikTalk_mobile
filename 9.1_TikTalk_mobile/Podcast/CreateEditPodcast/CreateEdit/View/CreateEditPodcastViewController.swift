@@ -59,8 +59,11 @@ final class CreateEditPodcastViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.font = .systemFont(ofSize: 24, weight: .regular)
         textField.backgroundColor = .clear
+        textField.delegate = self
         return textField
     }()
+    
+    var textFieldIsEditing: Bool = false
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -118,7 +121,26 @@ private extension CreateEditPodcastViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
+        addKeyboardObservers()
         presenter.getInfo()
+    }
+    
+    func addKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if textFieldIsEditing {
+            scrollView.scrollRectToVisible(textField.frame, animated: true)
+        } else {
+            scrollView.scrollRectToVisible(nameTextField.frame, animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        textFieldIsEditing = false
     }
     
     func setupAppearance() {
@@ -150,7 +172,7 @@ private extension CreateEditPodcastViewController {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.superview?.bottomAnchor ?? view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -224,5 +246,16 @@ extension CreateEditPodcastViewController: UIImagePickerControllerDelegate & UIN
             presenter.logo = URL(string: Mocks.podcast.logoUrl)!
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CreateEditPodcastViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textFieldIsEditing = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textFieldIsEditing = false
     }
 }

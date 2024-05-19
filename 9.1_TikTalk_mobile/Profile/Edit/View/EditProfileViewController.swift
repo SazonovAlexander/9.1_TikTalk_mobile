@@ -71,6 +71,7 @@ private extension EditProfileViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
         presenter.getInfo()
     }
     

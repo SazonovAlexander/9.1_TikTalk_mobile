@@ -50,6 +50,7 @@ private extension SearchViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
     }
     
     func setupAppearance() {
@@ -106,6 +107,10 @@ extension SearchViewController: UITableViewDataSource {
         }
         
         podcastCell.config(podcast: podcasts[indexPath.row])
+        
+        if indexPath.row == podcasts.count - 1 {
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        }
 
         return podcastCell
     }

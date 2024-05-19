@@ -24,6 +24,7 @@ final class AudioViewController: UIViewController {
         slider.rightKnobWidth = 10
         slider.leftKnobWidth = 10
         slider.barHeight = 10
+        slider.delegate = self
         return slider
     }()
     
@@ -39,6 +40,9 @@ final class AudioViewController: UIViewController {
         return button
     }()
     
+    private var maxValue = 1.0
+    private var minValue = 0.0
+    
     private var isRecording: Bool = false
     
     private lazy var player = Player()
@@ -46,11 +50,42 @@ final class AudioViewController: UIViewController {
     
     private var audioRecorder: AVAudioRecorder?
     
-    private var buffer: URL?  = nil {
+    private var buffer: URL? = nil {
         didSet {
-            if let buffer {
-                player.setAudioFromUrl(buffer)
+            minValue = 0.0
+            maxValue = 1.0
+            cutterView.
+            updateAudio()
+        }
+    }
+    
+    private var cutted: URL? {
+        guard let buffer else { return nil }
+        let asset = AVAsset(url: buffer)
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
+            return nil
+        }
+        let startTime = CMTime(seconds: exportSession.timeRange.duration.seconds * minValue, preferredTimescale: 600)
+        let endTime = CMTime(seconds: exportSession.timeRange.duration.seconds * maxValue, preferredTimescale: 600)
+        let timeRange = CMTimeRange(start: startTime, duration: endTime - startTime)
+        exportSession.timeRange = timeRange
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let outputURL = documentsDirectory.appendingPathComponent("cuttedAudio.m4a")
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .m4a
+        var completed: Bool = false
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                completed = true
+            default:
+                break
             }
+        }
+        if completed {
+            return outputURL
+        } else {
+            return nil
         }
     }
     
@@ -67,6 +102,47 @@ final class AudioViewController: UIViewController {
 }
 
 private extension AudioViewController {
+    
+    func updateAudio() {
+        guard let buffer else { return }
+        let asset = AVAsset(url: buffer)
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
+            return
+        }
+        let startTime = CMTime(seconds: asset.duration.seconds * minValue, preferredTimescale: 600)
+        let endTime = CMTime(seconds: asset.duration.seconds * maxValue, preferredTimescale: 600)
+        let timeRange = CMTimeRange(start: startTime, duration: endTime - startTime)
+        exportSession.timeRange = timeRange
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let outputURL = documentsDirectory.appendingPathComponent("cuttedAudio.m4a")
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .m4a
+        if FileManager.default.fileExists(atPath: outputURL.path) {
+            do {
+                try FileManager.default.removeItem(at: outputURL)
+            } catch {
+                print("Не удалось удалить старый файл: \(error.localizedDescription)")
+            }
+        }
+
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                DispatchQueue.main.async {
+                    self.player.setAudioFromUrl(outputURL)
+                }
+            case .failed:
+                if let error = exportSession.error {
+                    print("Экспорт не удался: \(error.localizedDescription)")
+                }
+            case .cancelled:
+                print("Экспорт был отменен")
+            default:
+                break
+            }
+        }
+    }
     
     func setup() {
         player.playerView = playerView
@@ -145,7 +221,7 @@ private extension AudioViewController {
                 print("Ошибка настройки аудиосессии: \(error.localizedDescription)")
             }
             
-            self.recordButton.config(text: "Идет запись", backgroundColor:  UIColor(named: "ButtonRed") ?? .red)
+            self.recordButton.config(text: "Остановить", backgroundColor:  UIColor(named: "ButtonRed") ?? .red)
             let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
             
             let settings = [
@@ -202,5 +278,17 @@ extension AudioViewController: UIDocumentPickerDelegate {
             return
         }
         buffer = selectedFileURL
+    }
+}
+
+extension AudioViewController: RangeUISliderDelegate {
+    func rangeChangeStarted() {
+        player.stop()
+    }
+    
+    func rangeChangeFinished(event: RangeUISliderChangeFinishedEvent) {
+        maxValue = event.maxValueSelected
+        minValue = event.minValueSelected
+        updateAudio()
     }
 }
