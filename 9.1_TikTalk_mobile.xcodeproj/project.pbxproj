@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */; };
 		007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */; };
-		007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26902BD5B9160040C0F4 /* CutterView.swift */; };
 		007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 007A26932BD5BEAA0040C0F4 /* LookinServer */; };
 		007A269B2BDD8F360040C0F4 /* PodcastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */; };
 		007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269D2BDD8F5F0040C0F4 /* Podcast.swift */; };
@@ -114,7 +113,6 @@
 /* Begin PBXFileReference section */
 		007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastViewController.swift; sourceTree = "<group>"; };
 		007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
-		007A26902BD5B9160040C0F4 /* CutterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterView.swift; sourceTree = "<group>"; };
 		007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPresenter.swift; sourceTree = "<group>"; };
 		007A269D2BDD8F5F0040C0F4 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		007A26A12BDD907C0040C0F4 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
@@ -229,14 +227,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		007A268F2BD5B8F20040C0F4 /* Cutter */ = {
-			isa = PBXGroup;
-			children = (
-				007A26902BD5B9160040C0F4 /* CutterView.swift */,
-			);
-			path = Cutter;
-			sourceTree = "<group>";
-		};
 		007A26962BDD8EBB0040C0F4 /* CreateEditPodcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,7 +369,6 @@
 			children = (
 				00B60BAE2BE055D100DA7951 /* Analytic */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
-				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
 				009D9A362BD41E3E00F17741 /* Report */,
 				009D9A332BD4196B00F17741 /* Search */,
@@ -1154,7 +1143,6 @@
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
-				007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
 				00B60B922BDFE61F00DA7951 /* Album.swift in Sources */,

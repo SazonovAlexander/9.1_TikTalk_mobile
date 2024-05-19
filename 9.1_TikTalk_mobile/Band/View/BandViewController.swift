@@ -95,6 +95,7 @@ final class BandViewController: UIViewController {
     }
     
     func config(podcast: Podcast, animation: BandAnimation) {
+        self.podcastView.stopPlayer()
         if animation == .none {
             podcastView.config(podcast: podcast)
             podcastView.startPlayer()
