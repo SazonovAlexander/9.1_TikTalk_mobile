@@ -82,6 +82,7 @@ private extension AuthorProfileViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Автор"
     }
     
     func addSubviews() {

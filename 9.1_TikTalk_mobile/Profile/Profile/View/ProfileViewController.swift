@@ -119,6 +119,7 @@ private extension ProfileViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Профиль"
     }
     
     func addSubviews() {

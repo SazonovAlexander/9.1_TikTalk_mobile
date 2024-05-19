@@ -87,6 +87,7 @@ private extension AlbumViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Альбом"
     }
     
     func addSubviews() {

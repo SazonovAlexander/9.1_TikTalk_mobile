@@ -47,6 +47,7 @@ private extension PodcastViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Подкаст"
     }
     
     func addSubviews() {

@@ -76,6 +76,7 @@ private extension CreateEditAlbumViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Альбом"
     }
     
     func addSubviews() {

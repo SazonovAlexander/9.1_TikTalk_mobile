@@ -124,6 +124,7 @@ private extension CreateEditPodcastViewController {
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
         navigationItem.title = "Создание подкаста"
+        navigationItem.backButtonTitle = "Назад"
     }
     
     func addSubviews() {
