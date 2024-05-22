@@ -54,7 +54,6 @@ final class AudioViewController: UIViewController {
         didSet {
             minValue = 0.0
             maxValue = 1.0
-            cutterView.
             updateAudio()
         }
     }
