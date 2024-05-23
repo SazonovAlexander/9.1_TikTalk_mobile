@@ -8,6 +8,7 @@ final class Player {
     private var audioUrl: URL?
     private lazy var avPlayer: AVPlayer = {
         let player = AVPlayer()
+        player.allowsExternalPlayback = true
         player.automaticallyWaitsToMinimizeStalling = false
         player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) {time in
             self.updateTime(currentTime: time)

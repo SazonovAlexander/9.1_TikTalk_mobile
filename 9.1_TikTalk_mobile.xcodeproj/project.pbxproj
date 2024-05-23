@@ -105,6 +105,11 @@
 		00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */; };
 		00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */; };
 		00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60C1C2BE15D5300DA7951 /* RangeUISlider */; };
+		00D834DC2BFE752300996704 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834DB2BFE752300996704 /* ProgressHUD */; };
+		00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DD2BFE754600996704 /* URLSession+Extension.swift */; };
+		00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */; };
+		00D834E22BFE758900996704 /* BlockingProgressHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E12BFE758900996704 /* BlockingProgressHud.swift */; };
+		00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E52BFE77AE00996704 /* NetworkConstants.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -204,6 +209,11 @@
 		00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastRouter.swift; sourceTree = "<group>"; };
 		00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPresenter.swift; sourceTree = "<group>"; };
 		00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRouter.swift; sourceTree = "<group>"; };
+		00D834DD2BFE754600996704 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
+		00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		00D834E12BFE758900996704 /* BlockingProgressHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingProgressHud.swift; sourceTree = "<group>"; };
+		00D834E52BFE77AE00996704 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 9.1_TikTalk_mobile.entitlements; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				007A26A92BDD94380040C0F4 /* Kingfisher in Frameworks */,
+				00D834DC2BFE752300996704 /* ProgressHUD in Frameworks */,
 				00B60BB72BE0561300DA7951 /* AppMetricaCrashes in Frameworks */,
 				00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */,
 				00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */,
@@ -302,6 +313,10 @@
 			children = (
 				00B60B6D2BDEE7ED00DA7951 /* Mocks.swift */,
 				007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */,
+				00D834DD2BFE754600996704 /* URLSession+Extension.swift */,
+				00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */,
+				00D834E12BFE758900996704 /* BlockingProgressHud.swift */,
+				00D834E52BFE77AE00996704 /* NetworkConstants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -367,6 +382,7 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */,
 				00B60BAE2BE055D100DA7951 /* Analytic */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
 				009D9A4D2BD5427900F17741 /* Player */,
@@ -993,6 +1009,7 @@
 				00B60BB62BE0561300DA7951 /* AppMetricaCrashes */,
 				00B60BB82BE0561300DA7951 /* AppMetricaWebKit */,
 				00B60C1C2BE15D5300DA7951 /* RangeUISlider */,
+				00D834DB2BFE752300996704 /* ProgressHUD */,
 			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
@@ -1027,6 +1044,7 @@
 				007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
 				00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */,
+				00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
@@ -1078,6 +1096,7 @@
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
 				00B60BCD2BE0698B00DA7951 /* ProfileModel.swift in Sources */,
+				00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */,
 				00B60C022BE1265D00DA7951 /* CreateEditAlbumPresenter.swift in Sources */,
 				00B60B992BE0061900DA7951 /* BandType.swift in Sources */,
 				007A26AF2BDE465A0040C0F4 /* PodcastService.swift in Sources */,
@@ -1095,9 +1114,11 @@
 				00B60BF22BE0F12700DA7951 /* MyPodcastsRouter.swift in Sources */,
 				009D9A3C2BD42B2000F17741 /* SelectThemeViewController.swift in Sources */,
 				00B60B772BDF8B3F00DA7951 /* Report.swift in Sources */,
+				00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */,
 				00B60BD12BE06A2C00DA7951 /* ProfileRouter.swift in Sources */,
 				00B60BCB2BE068E500DA7951 /* Profile.swift in Sources */,
 				00B60BE72BE0E86400DA7951 /* EditProfilePresenter.swift in Sources */,
+				00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */,
 				009D9A382BD41E4B00F17741 /* ReportViewController.swift in Sources */,
 				009D9A4A2BD53F1F00F17741 /* CreateEditAlbumViewController.swift in Sources */,
 				007A26A62BDD93210040C0F4 /* Player.swift in Sources */,
@@ -1129,6 +1150,7 @@
 				00B60B6E2BDEE7ED00DA7951 /* Mocks.swift in Sources */,
 				00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */,
 				009D9A422BD42FF300F17741 /* AuthorProfileViewCell.swift in Sources */,
+				00D834E22BFE758900996704 /* BlockingProgressHud.swift in Sources */,
 				007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */,
 				00B60B802BDF8DBC00DA7951 /* ReportService.swift in Sources */,
 				007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */,
@@ -1287,6 +1309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = 9.1_TikTalk_mobile/9.1_TikTalk_mobile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPDY9N2JR6;
@@ -1320,6 +1343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = 9.1_TikTalk_mobile/9.1_TikTalk_mobile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPDY9N2JR6;
@@ -1404,6 +1428,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1441,6 +1473,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */;
 			productName = RangeUISlider;
+		};
+		00D834DB2BFE752300996704 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
