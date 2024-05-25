@@ -20,7 +20,17 @@ final class CreateEditAlbumPresenter {
     }
     
     func save(_ album: AlbumInfo) {
-        //обновление на беке
-        viewController?.exit()
+        if let albumModel = self.album {
+            let albumRequest = AlbumModel(id: albumModel.id, authorId: albumModel.authorId, name: album.name, description: album.description, podcasts: albumModel.podcasts)
+            albumService.changeAlbum(album: albumRequest) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    self.viewController?.exit()
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
+        }
     }
 }

@@ -89,7 +89,15 @@ final class BandPresenter {
     
     func album() {
         if let viewController, let podcast {
-            router.showAlbumFrom(viewController, album: albumService.getAlbumById(podcast.albumId))
+            albumService.getAlbumById(podcast.albumId) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let album):
+                    self.router.showAlbumFrom(viewController, album: album)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     

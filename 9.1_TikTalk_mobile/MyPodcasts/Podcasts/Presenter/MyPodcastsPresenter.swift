@@ -6,8 +6,30 @@ final class MyPodcastsPresenter {
     weak var viewController: MyPodcastsViewController?
     
     private var profile: ProfileModel
-    private lazy var albums: [AlbumModel] = {
-        profile.albums.map({self.albumService.getAlbumById($0)})
+    private lazy var albums: [AlbumModel] = {        
+        var albumModels: [AlbumModel] = []
+        var success = true
+        var errorMessage = ""
+        profile.albums.forEach {
+            self.albumService.getAlbumById($0) { result in
+                switch result {
+                case .success(let album):
+                    albumModels.append(album)
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            }
+        }
+        
+        if success {
+            return albumModels
+        } else {
+            self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
+                self.viewController?.exit()
+            }
+            return []
+        }
     }()
     
     private let albumService: AlbumService

@@ -6,7 +6,27 @@ final class AlbumsPresenter {
     weak var viewController: AlbumsViewController?
         
     private var albums: [AlbumModel] {
-        albumsService.getAllAlbums()
+        var success = true
+        var errorMessage = ""
+        var albumModel: [AlbumModel] = []
+        albumsService.getAlbums { result in
+            switch result {
+            case .success(let albums):
+                albumModel = albums
+            case .failure(let error):
+                success = false
+                errorMessage = error.localizedDescription
+            }
+        }
+        
+        if success {
+            return albumModel
+        } else {
+            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
+                self.viewController?.exit()
+            }
+            return []
+        }
     }
     private var selectedAlbum: AlbumModel? {
         didSet {
