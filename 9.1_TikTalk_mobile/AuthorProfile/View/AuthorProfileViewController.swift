@@ -68,6 +68,10 @@ final class AuthorProfileViewController: UIViewController {
             subButton.config(text: "Подписаться", backgroundColor: UIColor(named: "Subscribe") ?? .red, animated: true)
         }
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension AuthorProfileViewController {

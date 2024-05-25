@@ -59,7 +59,16 @@ final class ReportPresenter {
         if let viewController {
             reportRouter.showSelectThemeViewControllerFrom(
                 viewController,
-                themes: reportService.getReportThemes(),
+                themes: [
+                    "Тема 1",
+                    "Тема 2",
+                    "Тема 3",
+                    "Тема 4",
+                    "Тема 5",
+                    "Тема 6",
+                    "Тема 7",
+                    "Тема 8",
+                ],
                 selectedTheme: selectedTheme,
                 completion: { [weak self] theme in
                     self?.selectedTheme = theme
@@ -74,9 +83,15 @@ final class ReportPresenter {
             theme: report.theme,
             message: report.message
         )
-        reportService.sendReport(reportModel)
-        if let viewController {
-            reportRouter.dismissReportViewController(viewController)
+        reportService.report(reportModel) { [weak self] result in
+            switch result {
+            case .success(_):
+                if let viewController = self?.viewController {
+                    self?.reportRouter.dismissReportViewController(viewController)
+                }
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
         }
     }
 }

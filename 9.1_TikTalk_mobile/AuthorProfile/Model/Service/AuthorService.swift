@@ -54,8 +54,7 @@ final class AuthorService {
     func changeSubscribe(_ id: UUID, isSubscribe: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         lastTask?.cancel()
         let request = changeSubscribeRequest(id: id, isSubscribe: isSubscribe)
-        let task = urlSession.objectTask(for: request, completion: {[weak self] (result: Result<EmptyResponse, Error>) in
-            guard let self = self else { return }
+        let task = urlSession.objectTask(for: request, completion: { (result: Result<EmptyResponse, Error>) in
             switch result {
             case .success(_):
                 completion(.success(()))
