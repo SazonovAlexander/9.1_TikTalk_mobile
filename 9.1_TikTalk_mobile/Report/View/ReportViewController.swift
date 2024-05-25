@@ -78,6 +78,10 @@ final class ReportViewController: UIViewController {
             sendButton.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
         }
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension ReportViewController {

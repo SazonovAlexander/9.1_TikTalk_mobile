@@ -95,7 +95,15 @@ final class BandPresenter {
     
     func author() {
         if let viewController, let podcast {
-            router.showAuthorFrom(viewController, author: authorService.getAuthorById(podcast.authorId))
+            authorService.getAuthorById(podcast.authorId) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let author):
+                    self.router.showAuthorFrom(viewController, author: author)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -112,14 +120,15 @@ final class BandPresenter {
     }
     
     private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
-        let authorModel = authorService.getAuthorById(podcastModel.authorId)
+        let authorModel = getAuthor(id: podcastModel.authorId)
         
         if let logoUrl = URL(string: podcastModel.logoUrl),
-           let audioUrl = URL(string: podcastModel.audioUrl)
+           let audioUrl = URL(string: podcastModel.audioUrl),
+           let author = authorModel
         {
             return Podcast(
                         name: podcastModel.name,
-                        author: authorModel.name,
+                        author: author.name,
                         countLike: normalizeCountLike(podcastModel.countLike),
                         isLiked: podcastModel.isLiked,
                         logoUrl: logoUrl,
@@ -128,6 +137,21 @@ final class BandPresenter {
         } else {
             throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
         }
+    }
+    
+    private func getAuthor(id: UUID) -> AuthorModel? {
+        var author: AuthorModel? = nil
+        authorService.getAuthorById(id) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let authorModel):
+                author = authorModel
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
+        
+        return author
     }
     
     private func normalizeCountLike(_ count: Int) -> String {

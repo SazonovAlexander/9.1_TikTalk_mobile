@@ -60,8 +60,15 @@ final class AlbumPresenter {
     
     func showAuthor() {
         if let viewController {
-            let author = authorService.getAuthorById(album.authorId)
-            router.showAuthorFrom(viewController, author: author)
+            authorService.getAuthorById(album.authorId) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let author):
+                    self.router.showAuthorFrom(viewController, author: author)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     
