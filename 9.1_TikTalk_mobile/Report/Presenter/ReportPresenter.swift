@@ -59,7 +59,16 @@ final class ReportPresenter {
         if let viewController {
             reportRouter.showSelectThemeViewControllerFrom(
                 viewController,
-                themes: reportService.getReportThemes(),
+                themes: [
+                    "Тема 1",
+                    "Тема 2",
+                    "Тема 3",
+                    "Тема 4",
+                    "Тема 5",
+                    "Тема 6",
+                    "Тема 7",
+                    "Тема 8",
+                ],
                 selectedTheme: selectedTheme,
                 completion: { [weak self] theme in
                     self?.selectedTheme = theme
