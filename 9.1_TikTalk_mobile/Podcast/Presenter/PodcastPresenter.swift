@@ -44,18 +44,26 @@ final class PodcastPresenter {
     }
     
     func liked() {
-        let newPodcast = PodcastModel(
-            id: podcast.id,
-            name: podcast.name,
-            authorId: podcast.authorId,
-            description: podcast.description,
-            albumId: podcast.albumId,
-            logoUrl: podcast.logoUrl,
-            audioUrl: podcast.audioUrl,
-            countLike: podcast.countLike + (podcast.isLiked ? -1 : 1),
-            isLiked: !podcast.isLiked
-        )
-        self.podcast = newPodcast
+        podcastService.changeLike(podcast.id, isLiked: !podcast.isLiked) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                let newPodcast = PodcastModel(
+                    id: self.podcast.id,
+                    name: self.podcast.name,
+                    authorId: self.podcast.authorId,
+                    description: self.podcast.description,
+                    albumId: self.podcast.albumId,
+                    logoUrl: self.podcast.logoUrl,
+                    audioUrl: self.podcast.audioUrl,
+                    countLike: self.podcast.countLike + (podcast.isLiked ? -1 : 1),
+                    isLiked: !self.podcast.isLiked
+                )
+                self.podcast = newPodcast
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
     
     func album() {

@@ -53,6 +53,15 @@
         "revision" : "b1e8242eb7ab07051721a2d7b937cd75ca129ebf",
         "version" : "4.0.1"
       }
+    },
+    {
+      "identity" : "swiftkeychainwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrendel/SwiftKeychainWrapper",
+      "state" : {
+        "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
+        "version" : "4.0.1"
+      }
     }
   ],
   "version" : 2

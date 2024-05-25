@@ -7,7 +7,26 @@ final class AlbumPresenter {
     
     private var album: AlbumModel
     private lazy var podcasts: [PodcastModel] = {
-        album.podcasts.map({podcastService.getPodcastById($0)})
+        var podcastsModels: [PodcastModel] = []
+        var success = true
+        var errorMessage: String = ""
+        album.podcasts.forEach {
+            podcastService.getPodcastById($0, completion: { result in
+                switch result {
+                case .success(let podcast):
+                    podcastsModels.append(podcast)
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            })
+        }
+        if success {
+            return podcastsModels
+        } else {
+            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+            return []
+        }
     }()
     
     private let albumService: AlbumService

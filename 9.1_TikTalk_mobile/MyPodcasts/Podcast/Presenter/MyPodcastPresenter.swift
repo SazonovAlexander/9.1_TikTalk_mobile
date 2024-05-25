@@ -77,7 +77,14 @@ final class MyPodcastPresenter {
     }
     
     func confirmedDelete() {
-        viewController?.exit()
-        podcastService.delete(podcast)
+        podcastService.deletePodcast(podcast.id) {[weak self] result in
+            switch result {
+            case .success(_):
+                self?.viewController?.exit()
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+            
+        }
     }
 }

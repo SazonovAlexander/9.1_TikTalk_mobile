@@ -31,16 +31,31 @@ final class AuthorPresenter {
         var albumsView: [Album] = []
         for album in albums {
             var podcastsInAlbum: [PodcastCell] = []
-            album.podcasts.forEach({
-                let podcast = podcastService.getPodcastById($0)
-                if let url = URL(string: podcast.logoUrl) {
-                    podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
-                } else {
-                    //выбросить ошибку
-                }
-            })
-            let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
-            albumsView.append(albumWithPodcasts)
+            var success = true
+            var errorMessage: String = ""
+            album.podcasts.forEach {
+                podcastService.getPodcastById($0, completion: { result in
+                    switch result {
+                    case .success(let podcast):
+                        if let url = URL(string: podcast.logoUrl) {
+                            podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                        } else {
+                            success = false
+                        }
+                    case .failure(let error):
+                        success = false
+                        errorMessage = error.localizedDescription
+                    }
+                })
+            }
+            
+            if success {
+                let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
+                albumsView.append(albumWithPodcasts)
+            } else {
+                viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+                return []
+            }
         }
         return albumsView
     }

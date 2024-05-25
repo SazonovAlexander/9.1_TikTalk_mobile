@@ -110,6 +110,9 @@
 		00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */; };
 		00D834E22BFE758900996704 /* BlockingProgressHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E12BFE758900996704 /* BlockingProgressHud.swift */; };
 		00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E52BFE77AE00996704 /* NetworkConstants.swift */; };
+		00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834E92C00BD0000996704 /* SwiftKeychainWrapper */; };
+		00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EB2C01F49A00996704 /* EmptyResponse.swift */; };
+		00D834F02C01F98500996704 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EF2C01F98500996704 /* SearchService.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -214,6 +217,8 @@
 		00D834E12BFE758900996704 /* BlockingProgressHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingProgressHud.swift; sourceTree = "<group>"; };
 		00D834E52BFE77AE00996704 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 9.1_TikTalk_mobile.entitlements; sourceTree = "<group>"; };
+		00D834EB2C01F49A00996704 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
+		00D834EF2C01F98500996704 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +237,7 @@
 				00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */,
 				00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */,
 				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
+				00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +323,7 @@
 				00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */,
 				00D834E12BFE758900996704 /* BlockingProgressHud.swift */,
 				00D834E52BFE77AE00996704 /* NetworkConstants.swift */,
+				00D834EB2C01F49A00996704 /* EmptyResponse.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -466,6 +473,7 @@
 		009D9A332BD4196B00F17741 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				00D834ED2C01F96D00996704 /* Model */,
 				00B60BBA2BE0588A00DA7951 /* View */,
 				00B60BBC2BE058BC00DA7951 /* Presenter */,
 			);
@@ -954,6 +962,22 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		00D834ED2C01F96D00996704 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D834EE2C01F97500996704 /* Service */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00D834EE2C01F97500996704 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00D834EF2C01F98500996704 /* SearchService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,6 +1034,7 @@
 				00B60BB82BE0561300DA7951 /* AppMetricaWebKit */,
 				00B60C1C2BE15D5300DA7951 /* RangeUISlider */,
 				00D834DB2BFE752300996704 /* ProgressHUD */,
+				00D834E92C00BD0000996704 /* SwiftKeychainWrapper */,
 			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
@@ -1045,6 +1070,7 @@
 				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
 				00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */,
 				00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
@@ -1125,6 +1151,7 @@
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
 				00B60BDF2BE0E13800DA7951 /* SubsPresenter.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				00D834F02C01F98500996704 /* SearchService.swift in Sources */,
 				00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */,
 				00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
@@ -1165,6 +1192,7 @@
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
+				00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
 				00B60B922BDFE61F00DA7951 /* Album.swift in Sources */,
@@ -1436,6 +1464,14 @@
 				minimumVersion = 14.1.3;
 			};
 		};
+		00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1478,6 +1514,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
 			productName = ProgressHUD;
+		};
+		00D834E92C00BD0000996704 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
