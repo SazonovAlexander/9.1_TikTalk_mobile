@@ -21,6 +21,13 @@ final class CreateEditPodcastPresenter {
     ) {
         self.podcast = podcast
         self.profile = profile
+        self.podcastService = podcastService
+        self.albumService = albumService
+        self.router = router
+        initialize()
+    }
+    
+    private func initialize() {
         if let podcast {
             if let audio = URL(string: podcast.audioUrl) {
                 self.audio = audio
@@ -29,11 +36,18 @@ final class CreateEditPodcastPresenter {
                 self.logo = logo
             }
             
-            album = albumService.getAlbumById(podcast.albumId)
+            albumService.getAlbumById(podcast.albumId) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let album):
+                    self.album = album
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription) {
+                        self.viewController?.exit()
+                    }
+                }
+            }
         }
-        self.podcastService = podcastService
-        self.albumService = albumService
-        self.router = router
     }
     
     func getInfo() {

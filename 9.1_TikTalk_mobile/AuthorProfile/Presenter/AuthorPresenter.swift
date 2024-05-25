@@ -6,7 +6,29 @@ final class AuthorPresenter {
     
     private var author: AuthorModel
     private lazy var albums: [AlbumModel] = {
-        author.albums.map({self.albumService.getAlbumById($0)})
+        var albumModels: [AlbumModel] = []
+        var success = true
+        var errorMessage = ""
+        author.albums.forEach {
+            self.albumService.getAlbumById($0) { result in
+                switch result {
+                case .success(let album):
+                    albumModels.append(album)
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            }
+        }
+        
+        if success {
+            return albumModels
+        } else {
+            self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
+                self.viewController?.exit()
+            }
+            return []
+        }
     }()
     
     private let albumService: AlbumService

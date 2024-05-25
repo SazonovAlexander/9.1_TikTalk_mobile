@@ -80,7 +80,14 @@ final class MyAlbumPresenter {
     }
     
     func confirmedDelete() {
-        viewController?.exit()
-        albumService.delete(album)
+        albumService.deleteAlbum(album.id) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                self.viewController?.exit()
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
 }
