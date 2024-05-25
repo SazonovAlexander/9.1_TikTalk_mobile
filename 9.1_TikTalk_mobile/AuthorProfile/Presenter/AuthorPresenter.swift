@@ -70,7 +70,9 @@ final class AuthorPresenter {
             )
             viewController?.config(author: author)
         } else {
-            //выбросить ошибку
+            viewController?.showErrorAlert(title: "Ошибка", message: nil, completion: {[weak self] in
+                self?.viewController?.exit()
+            })
         }
     }
     
@@ -90,7 +92,15 @@ final class AuthorPresenter {
     }
     
     func subscribe() {
-        author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
-        getInfo()
+        authorService.changeSubscribe(author.id, isSubscribe: !author.isSubscribe) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
+                self.getInfo()
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
 }

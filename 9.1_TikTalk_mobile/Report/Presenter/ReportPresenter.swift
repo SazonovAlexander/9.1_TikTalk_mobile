@@ -83,9 +83,15 @@ final class ReportPresenter {
             theme: report.theme,
             message: report.message
         )
-        reportService.sendReport(reportModel)
-        if let viewController {
-            reportRouter.dismissReportViewController(viewController)
+        reportService.report(reportModel) { [weak self] result in
+            switch result {
+            case .success(_):
+                if let viewController = self?.viewController {
+                    self?.reportRouter.dismissReportViewController(viewController)
+                }
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
         }
     }
 }
