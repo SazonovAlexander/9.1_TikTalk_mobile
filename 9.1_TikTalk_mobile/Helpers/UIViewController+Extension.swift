@@ -3,9 +3,11 @@ import UIKit
 
 extension UIViewController {
     
-    func showErrorAlert(title: String, message: String?) {
+    func showErrorAlert(title: String, message: String?, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Закрыть", style: .default)
+        let alertAction = UIAlertAction(title: "Закрыть", style: .default) { _ in
+            completion?()
+        }
         alert.addAction(alertAction)
         self.present(alert, animated: true)
     }

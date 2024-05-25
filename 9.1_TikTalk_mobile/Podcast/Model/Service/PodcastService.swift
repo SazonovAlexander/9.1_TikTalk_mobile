@@ -13,7 +13,6 @@ final class PodcastService {
             guard let self = self else { return }
             switch result {
             case .success(let profileResult):
-                let isLiked: Bool
                 self.getIsLiked(id) { result in
                     switch result {
                     case .success(let liked):
@@ -41,23 +40,19 @@ final class PodcastService {
         task.resume()
     }
     
-//    private func getIsLiked(_ id: UUID, completion: @escaping (Result<Liked, Error>) -> Void) {
-//        lastTask?.cancel()
-//        let request = podcastRequest(id: id)
-//        let task = urlSession.objectTask(for: request, completion: { (result: Result<Liked, Error>) in
-//            switch result {
-//            case .success(let liked):
-//                completion(.success(liked))
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        })
-//        lastTask = task
-//        task.resume()
-//    }
-    
     private func getIsLiked(_ id: UUID, completion: @escaping (Result<Liked, Error>) -> Void) {
-        completion(.success(Liked(isLiked: true)))
+        lastTask?.cancel()
+        let request = isLikedRequest(id: id)
+        let task = urlSession.objectTask(for: request, completion: { (result: Result<Liked, Error>) in
+            switch result {
+            case .success(let liked):
+                completion(.success(liked))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+        lastTask = task
+        task.resume()
     }
     
     func deletePodcast(_ id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -91,21 +86,6 @@ final class PodcastService {
         lastTask = task
         task.resume()
     }
-    
-//    private func getIsLiked(_ id: UUID, completion: @escaping (Result<Liked, Error>) -> Void) {
-//        lastTask?.cancel()
-//        let request = podcastRequest(id: id)
-//        let task = urlSession.objectTask(for: request, completion: { (result: Result<Liked, Error>) in
-//            switch result {
-//            case .success(let liked):
-//                completion(.success(liked))
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        })
-//        lastTask = task
-//        task.resume()
-//    }
 }
 
 private extension PodcastService {

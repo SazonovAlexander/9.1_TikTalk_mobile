@@ -77,8 +77,15 @@ final class AuthorPresenter {
     func showPodcast(indexPath: IndexPath) {
         if let viewController {
             let album = albums[indexPath.section]
-            let podcast = podcastService.getPodcastById(album.podcasts[indexPath.row])
-            router.showPodcastFrom(viewController, podcast: podcast)
+            podcastService.getPodcastById(album.podcasts[indexPath.row]) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let podcast):
+                    self.router.showPodcastFrom(viewController, podcast: podcast)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     
