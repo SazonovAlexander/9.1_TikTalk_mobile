@@ -4,7 +4,7 @@ import Foundation
 final class SearchPresenter {
     weak var viewController: SearchViewController?
     
-    private let podcastService: PodcastService
+    private let searchService: SearchService
     private let router: SearchRouter
     private var podcasts: [PodcastModel] = [] {
         didSet {
@@ -12,15 +12,15 @@ final class SearchPresenter {
         }
     }
     
-    init(podcastService: PodcastService = PodcastService(),
+    init(searchService: SearchService = SearchService(),
          searchRouter: SearchRouter = SearchRouter()
     ) {
-        self.podcastService = podcastService
+        self.searchService = searchService
         self.router = searchRouter
     }
     
     func search(_ text: String) {
-        podcasts = podcastService.search(text)
+        podcasts = searchService.search(text)
     }
     
     func showPodcast(index: Int) {
