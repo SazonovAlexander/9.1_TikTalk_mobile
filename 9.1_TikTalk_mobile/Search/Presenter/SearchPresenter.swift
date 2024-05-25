@@ -5,7 +5,9 @@ final class SearchPresenter {
     weak var viewController: SearchViewController?
     
     private let searchService: SearchService
+    private let podcastService: PodcastService
     private let router: SearchRouter
+    private var lastText = ""
     private var podcasts: [PodcastModel] = [] {
         didSet {
             update()
@@ -13,19 +15,41 @@ final class SearchPresenter {
     }
     
     init(searchService: SearchService = SearchService(),
+         podcastService: PodcastService = PodcastService(),
          searchRouter: SearchRouter = SearchRouter()
     ) {
         self.searchService = searchService
+        self.podcastService = podcastService
         self.router = searchRouter
     }
     
     func search(_ text: String) {
-        podcasts = searchService.search(text)
+        if lastText != text {
+            podcasts = []
+        }
+        searchService.search(text) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let podcasts):
+                self.podcasts += podcasts
+                lastText = text
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
     
     func showPodcast(index: Int) {
         if let viewController {
-            router.showPodcastFrom(viewController, podcast: podcasts[index])
+            podcastService.getPodcastById(podcasts[index].id) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let podcast):
+                    self.router.showPodcastFrom(viewController, podcast: podcast)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     
