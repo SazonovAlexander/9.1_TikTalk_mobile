@@ -49,7 +49,6 @@ struct Mocks {
     static let album = AlbumModel(id: albumId, authorId: authorId, name: "Наша планета", description: "В наше время немалое внимание уделяется заботе о сохранении живой природы, вот и сегодня мне пришла в голову мысль высказать свое отношение к этому вопросу.", podcasts: [podcastId, podcastId, podcastId])
     
     static let profile = ProfileModel(
-        id: profileId,
         name: "Сергей",
         avatarUrl: "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060",
         subscriptions: [authorId],
