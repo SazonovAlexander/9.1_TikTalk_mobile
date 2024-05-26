@@ -27,6 +27,7 @@ final class EditProfileViewController: UIViewController {
     }()
     
     private let presenter: EditProfilePresenter
+    private var newImageUrl: URL?
     
     init(presenter: EditProfilePresenter) {
         self.presenter = presenter
@@ -114,7 +115,7 @@ private extension EditProfileViewController {
     
     @objc
     func didTapSaveButton() {
-        presenter.save()
+        presenter.save(newName: nameTextField.getText(), newImageUrl: newImageUrl)
     }
     
     @objc 
@@ -128,6 +129,9 @@ extension EditProfileViewController: UIImagePickerControllerDelegate & UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             avatarImageView.image = pickedImage
+        }
+        if let imageUrl = info[.imageURL] as? URL {
+            newImageUrl = imageUrl
         }
         picker.dismiss(animated: true, completion: nil)
     }

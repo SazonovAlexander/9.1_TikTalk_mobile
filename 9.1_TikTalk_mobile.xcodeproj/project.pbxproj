@@ -113,6 +113,7 @@
 		00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834E92C00BD0000996704 /* SwiftKeychainWrapper */; };
 		00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EB2C01F49A00996704 /* EmptyResponse.swift */; };
 		00D834F02C01F98500996704 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EF2C01F98500996704 /* SearchService.swift */; };
+		00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F12C0352BC00996704 /* MimeTypeHelper.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -219,6 +220,7 @@
 		00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 9.1_TikTalk_mobile.entitlements; sourceTree = "<group>"; };
 		00D834EB2C01F49A00996704 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		00D834EF2C01F98500996704 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		00D834F12C0352BC00996704 /* MimeTypeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeHelper.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				00D834E12BFE758900996704 /* BlockingProgressHud.swift */,
 				00D834E52BFE77AE00996704 /* NetworkConstants.swift */,
 				00D834EB2C01F49A00996704 /* EmptyResponse.swift */,
+				00D834F12C0352BC00996704 /* MimeTypeHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1192,6 +1195,7 @@
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
+				00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */,
 				00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
