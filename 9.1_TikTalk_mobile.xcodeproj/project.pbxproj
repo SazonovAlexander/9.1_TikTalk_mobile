@@ -114,6 +114,8 @@
 		00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EB2C01F49A00996704 /* EmptyResponse.swift */; };
 		00D834F02C01F98500996704 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EF2C01F98500996704 /* SearchService.swift */; };
 		00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F12C0352BC00996704 /* MimeTypeHelper.swift */; };
+		00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F52C036EC900996704 /* MyPodcastService.swift */; };
+		00D834F82C036F0300996704 /* MyPodcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F72C036F0300996704 /* MyPodcastModel.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -221,6 +223,8 @@
 		00D834EB2C01F49A00996704 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		00D834EF2C01F98500996704 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		00D834F12C0352BC00996704 /* MimeTypeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeHelper.swift; sourceTree = "<group>"; };
+		00D834F52C036EC900996704 /* MyPodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastService.swift; sourceTree = "<group>"; };
+		00D834F72C036F0300996704 /* MyPodcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastModel.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -787,6 +791,7 @@
 		00B60BE92BE0EFE800DA7951 /* Podcast */ = {
 			isa = PBXGroup;
 			children = (
+				00D834F32C036E6A00996704 /* Model */,
 				00B60BEC2BE0F00A00DA7951 /* View */,
 				00B60BF82BE10E2C00DA7951 /* Presenter */,
 			);
@@ -981,6 +986,23 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		00D834F32C036E6A00996704 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D834F72C036F0300996704 /* MyPodcastModel.swift */,
+				00D834F42C036E6F00996704 /* Service */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00D834F42C036E6F00996704 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00D834F52C036EC900996704 /* MyPodcastService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -1117,6 +1139,7 @@
 				007A26AC2BDD96300040C0F4 /* PodcastModel.swift in Sources */,
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				00B60BFA2BE10E4000DA7951 /* MyPodcastPresenter.swift in Sources */,
+				00D834F82C036F0300996704 /* MyPodcastModel.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
 				00B60BDB2BE0769400DA7951 /* LikedRouter.swift in Sources */,
@@ -1193,6 +1216,7 @@
 				00B60C052BE1271400DA7951 /* AlbumInfo.swift in Sources */,
 				00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
+				00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
 				00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */,
