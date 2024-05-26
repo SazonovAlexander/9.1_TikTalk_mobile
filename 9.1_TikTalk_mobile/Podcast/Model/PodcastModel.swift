@@ -11,18 +11,6 @@ struct PodcastModel {
     let audioUrl: String
     let countLike: Int
     let isLiked: Bool
-    
-    init(id: UUID, name: String, authorId: UUID, description: String, albumId: UUID, logoUrl: String, audioUrl: String, countLike: Int, isLiked: Bool) {
-        self.id = id
-        self.name = name
-        self.authorId = authorId
-        self.description = description
-        self.albumId = albumId
-        self.logoUrl = logoUrl
-        self.audioUrl = audioUrl
-        self.countLike = countLike
-        self.isLiked = isLiked
-    }
 }
 
 struct PodcastModelWithoutLike: Decodable {
@@ -38,4 +26,10 @@ struct PodcastModelWithoutLike: Decodable {
 
 struct Liked: Decodable {
     let isLiked: Bool
+}
+
+struct PodcastRequest: Encodable {
+    let name: String
+    let description: String
+    let albumId: UUID
 }
