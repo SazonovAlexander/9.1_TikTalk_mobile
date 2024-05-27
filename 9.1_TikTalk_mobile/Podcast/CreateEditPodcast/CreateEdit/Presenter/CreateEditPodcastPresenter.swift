@@ -4,23 +4,27 @@ import Foundation
 final class CreateEditPodcastPresenter {
     weak var viewController: CreateEditPodcastViewController?
     
-    private var podcast: PodcastModel?
-    private var profile: ProfileModel
-    private let podcastService: PodcastService
+    private var podcast: PodcastModelWithoutLike?
+    private let podcastService: MyPodcastService
     private let albumService: AlbumService
     private let router: CreateEditPodcastRouter
-    var logo: URL? = nil
+    private var isEdit = false
+    private var newLogo: URL?
+    var logo: URL? = nil {
+        didSet {
+            newLogo = logo
+        }
+    }
     var audio: URL? = nil
     var album: AlbumModel? = nil
+
     
-    init(podcast: PodcastModel? = nil,
-         profile: ProfileModel,
-         podcastService: PodcastService = PodcastService(),
+    init(podcast: PodcastModelWithoutLike? = nil,
+         podcastService: MyPodcastService = MyPodcastService(),
          albumService: AlbumService = AlbumService(),
          router: CreateEditPodcastRouter = CreateEditPodcastRouter()
     ) {
         self.podcast = podcast
-        self.profile = profile
         self.podcastService = podcastService
         self.albumService = albumService
         self.router = router
@@ -29,6 +33,7 @@ final class CreateEditPodcastPresenter {
     
     private func initialize() {
         if let podcast {
+            isEdit = true
             if let audio = URL(string: podcast.audioUrl) {
                 self.audio = audio
             }
@@ -56,15 +61,56 @@ final class CreateEditPodcastPresenter {
                 name: podcast.name,
                 description: podcast.description
             )
-            viewController?.config(podcastInfo)
+            viewController?.config(podcastInfo, isEdit: true)
         } else {
-            viewController?.config(nil)
+            viewController?.config(nil, isEdit: false)
         }
     }
     
     func save(_ podcast: PodcastInfo) {
-        //обноваление на беке
-        viewController?.exit()
+        let podcastModel = PodcastModelWithoutLike(
+            id: self.podcast!.id,
+            name: podcast.name,
+            authorId: UUID(),
+            description: podcast.description,
+            albumId: self.album!.id,
+            logoUrl: self.logo!.absoluteString,
+            audioUrl: self.audio!.absoluteString,
+            countLike: self.podcast!.countLike
+        )
+        if isEdit {
+            if let newLogo {
+                podcastService.changePodcastWithLogo(podcast: podcastModel) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success(_):
+                        self.viewController?.exit()
+                    case .failure(let error):
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    }
+                }
+            } else {
+                podcastService.changePodcastWithoutLogo(podcast: podcastModel) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success(_):
+                        self.viewController?.exit()
+                    case .failure(let error):
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    }
+                }
+            }
+        } else {
+            podcastService.createPodcast(podcast: podcastModel) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    self.viewController?.exit()
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
+        }
     }
     
     func selectAlbum() {
@@ -85,7 +131,7 @@ final class CreateEditPodcastPresenter {
     }
     
     func isValid() -> Bool {
-        album != nil && logo != nil// && audio != nil
+        album != nil && logo != nil && audio != nil
     }
 }
 

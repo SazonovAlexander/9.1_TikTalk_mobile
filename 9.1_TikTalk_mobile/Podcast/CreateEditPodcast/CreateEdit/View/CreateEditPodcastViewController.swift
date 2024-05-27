@@ -87,7 +87,11 @@ final class CreateEditPodcastViewController: UIViewController {
         setup()
     }
     
-    func config(_ podcast: PodcastInfo?) {
+    func config(_ podcast: PodcastInfo?, isEdit: Bool) {
+        if isEdit {
+            audioButton.isHidden = true
+        }
+        
         if let podcast {
             nameTextField.setText(podcast.name)
             textField.text = podcast.description

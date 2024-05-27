@@ -2,8 +2,8 @@ import UIKit
 
 
 final class MyPodcastRouter {
-    func showEditPodcastFrom(_ viewController: UIViewController, podcast: PodcastModel) {
-        let presenter = CreateEditPodcastPresenter(podcast: podcast, profile: Mocks.profile)
+    func showEditPodcastFrom(_ viewController: UIViewController, podcast: PodcastModelWithoutLike) {
+        let presenter = CreateEditPodcastPresenter(podcast: podcast)
         let createViewController = CreateEditPodcastViewController(presenter: presenter)
         presenter.viewController = createViewController
         viewController.navigationController?.pushViewController(createViewController, animated: true)

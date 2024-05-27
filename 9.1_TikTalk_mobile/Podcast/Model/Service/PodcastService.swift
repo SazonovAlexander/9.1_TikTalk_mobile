@@ -55,22 +55,6 @@ final class PodcastService {
         task.resume()
     }
     
-    func deletePodcast(_ id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
-        lastTask?.cancel()
-        let request = deletePodcastRequest(id: id)
-        let task = urlSession.objectTask(for: request, completion: {[weak self] (result: Result<EmptyResponse, Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
-        lastTask = task
-        task.resume()
-    }
-    
     func changeLike(_ id: UUID, isLiked: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         lastTask?.cancel()
         let request = changeLikeRequest(id: id, isLiked: isLiked)
@@ -104,16 +88,6 @@ private extension PodcastService {
         var request = URLRequest.makeHTTPRequest(
             path: "/api/podcast/liked/\(id)",
             httpMethod: "GET",
-            baseURL: DefaultBaseURL
-        )
-        //request.setValue("token", forHTTPHeaderField: "Authorization")
-        return request
-    }
-    
-    func deletePodcastRequest(id: UUID) -> URLRequest {
-        var request = URLRequest.makeHTTPRequest(
-            path: "/api/podcast/\(id)",
-            httpMethod: "DELETE",
             baseURL: DefaultBaseURL
         )
         //request.setValue("token", forHTTPHeaderField: "Authorization")
