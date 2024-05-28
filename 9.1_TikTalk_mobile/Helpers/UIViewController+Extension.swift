@@ -22,4 +22,9 @@ extension UIViewController {
         view.endEditing(true)
     }
     
+    func showAuthController() {
+        let nc = UINavigationController(rootViewController: AuthViewController())
+        present(nc, animated: true)
+    }
+    
 }

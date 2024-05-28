@@ -1,15 +1,14 @@
 import UIKit
 
 
-final class ValidatedTextField: UIView {
+final class PasswordTextField: UIView {
     
-    var validateAction: ((Bool) -> Void)?
-    
-    private var isValid: Bool = false
-    private let placeholder: String
+    var action: ((String) -> Void)?
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
+        textField.isSecureTextEntry = true
+        textField.textContentType = .password
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
@@ -31,29 +30,7 @@ final class ValidatedTextField: UIView {
         return button
     }()
     
-    private lazy var validateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .red
-        label.font = .systemFont(ofSize: 17, weight: .regular)
-        label.text = "Максимальная длина 35 символов"
-        label.isHidden = true
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private lazy var stack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 0
-        return stack
-    }()
-    
-    init(placeholder: String) {
-        self.placeholder = placeholder
+    init() {
         super.init(frame: .zero)
         setup()
     }
@@ -71,30 +48,30 @@ final class ValidatedTextField: UIView {
     }
 }
 
-private extension ValidatedTextField {
+private extension PasswordTextField {
     
     func setup() {
         self.translatesAutoresizingMaskIntoConstraints = false
         textField.rightView = clearButton
         textField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
+            string: "Пароль",
             attributes: [
                 NSAttributedString.Key.foregroundColor: UIColor.gray,
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
             ]
         )
         
-        stack.addArrangedSubview(textField)
-        stack.addArrangedSubview(validateLabel)
-        addSubview(stack)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(textField)
         
-        textField.addTarget(self, action: #selector(Self.validateName), for: .allEditingEvents)
+        textField.addTarget(self, action: #selector(Self.actionTextField), for: .allEditingEvents)
         clearButton.addTarget(self, action: #selector(Self.clearText), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: topAnchor),
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor),
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.heightAnchor.constraint(equalToConstant: 50),
             clearButton.widthAnchor.constraint(equalToConstant: 42)
         ])
@@ -103,34 +80,11 @@ private extension ValidatedTextField {
     @objc
     func clearText() {
         textField.text = nil
-        validateLabel.isHidden = true
-        validateAction?(false)
     }
     
     @objc
-    func validateName() {
-        if let text = textField.text {
-            let count = text.count
-            var result = false
-            if count > 35 {
-                presentValidateLabel()
-            }
-            else {
-                hideValidateLabel()
-                if count != 0 {
-                    result = true
-                }
-            }
-            validateAction?(result)
-        }
-    }
-    
-    func hideValidateLabel() {
-        validateLabel.isHidden = true
-    }
-    
-    func presentValidateLabel() {
-        validateLabel.isHidden = false
+    func actionTextField() {
+        action?(textField.text ?? "")
     }
 }
 

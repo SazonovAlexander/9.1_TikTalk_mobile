@@ -32,7 +32,7 @@ final class ProfilePresenter {
     
     func createPodcast() {
         if let viewController {
-            router.showCreatePodcastFrom(viewController, profile: profile)
+            router.showCreatePodcastFrom(viewController)
         }
     }
     
