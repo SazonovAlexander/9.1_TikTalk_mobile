@@ -119,6 +119,9 @@
 		00D835032C05000000996704 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835022C05000000996704 /* OnboardingPageViewController.swift */; };
 		00D835052C05002500996704 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835042C05002500996704 /* OnboardingViewController.swift */; };
 		00D835072C05004000996704 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835062C05004000996704 /* UserDefaultsHelper.swift */; };
+		00D8350B2C0525A500996704 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350A2C0525A500996704 /* AuthViewController.swift */; };
+		00D8350D2C054B6900996704 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350C2C054B6900996704 /* PasswordTextField.swift */; };
+		00D8350F2C054D2400996704 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350E2C054D2400996704 /* RegistrationViewController.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -231,6 +234,9 @@
 		00D835022C05000000996704 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		00D835042C05002500996704 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		00D835062C05004000996704 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		00D8350A2C0525A500996704 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		00D8350C2C054B6900996704 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		00D8350E2C054D2400996704 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -403,8 +409,9 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				00D835012C04FFE300996704 /* Onboarding */,
+				00D835082C05259100996704 /* Auth */,
 				00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */,
+				00D835012C04FFE300996704 /* Onboarding */,
 				00B60BAE2BE055D100DA7951 /* Analytic */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
 				009D9A4D2BD5427900F17741 /* Player */,
@@ -1020,6 +1027,23 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		00D835082C05259100996704 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				00D835102C054E0100996704 /* View */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		00D835102C054E0100996704 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00D8350E2C054D2400996704 /* RegistrationViewController.swift */,
+				00D8350A2C0525A500996704 /* AuthViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -1035,6 +1059,7 @@
 				009D9A232BD316A100F17741 /* ValidatedTextField.swift */,
 				009D9A282BD3242300F17741 /* BaseButtonView.swift */,
 				009D9A392BD4226F00F17741 /* SelectButtonView.swift */,
+				00D8350C2C054B6900996704 /* PasswordTextField.swift */,
 			);
 			path = BaseViews;
 			sourceTree = "<group>";
@@ -1186,17 +1211,20 @@
 				00B60B772BDF8B3F00DA7951 /* Report.swift in Sources */,
 				00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */,
 				00B60BD12BE06A2C00DA7951 /* ProfileRouter.swift in Sources */,
+				00D8350D2C054B6900996704 /* PasswordTextField.swift in Sources */,
 				00B60BCB2BE068E500DA7951 /* Profile.swift in Sources */,
 				00B60BE72BE0E86400DA7951 /* EditProfilePresenter.swift in Sources */,
 				00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */,
 				009D9A382BD41E4B00F17741 /* ReportViewController.swift in Sources */,
 				009D9A4A2BD53F1F00F17741 /* CreateEditAlbumViewController.swift in Sources */,
 				007A26A62BDD93210040C0F4 /* Player.swift in Sources */,
+				00D8350B2C0525A500996704 /* AuthViewController.swift in Sources */,
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
 				00B60BDF2BE0E13800DA7951 /* SubsPresenter.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
 				00D834F02C01F98500996704 /* SearchService.swift in Sources */,
 				00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */,
+				00D8350F2C054D2400996704 /* RegistrationViewController.swift in Sources */,
 				00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
 				00D835032C05000000996704 /* OnboardingPageViewController.swift in Sources */,

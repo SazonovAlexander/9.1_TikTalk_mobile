@@ -10,8 +10,8 @@ final class ProfileRouter {
         viewController.present(editProfileViewController, animated: true)
     }
     
-    func showCreatePodcastFrom(_ viewController: UIViewController, profile: ProfileModel) {
-        let presenter = CreateEditPodcastPresenter(profile: profile)
+    func showCreatePodcastFrom(_ viewController: UIViewController) {
+        let presenter = CreateEditPodcastPresenter()
         let createPodcast = CreateEditPodcastViewController(presenter: presenter)
         presenter.viewController = createPodcast
         let navController = UINavigationController(rootViewController: createPodcast)
