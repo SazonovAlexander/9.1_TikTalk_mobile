@@ -71,11 +71,13 @@ private extension CreateEditAlbumViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
         presenter.getInfo()
     }
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Альбом"
     }
     
     func addSubviews() {
@@ -89,8 +91,15 @@ private extension CreateEditAlbumViewController {
     }
     
     func activateConstraints() {
-        NSLayoutConstraint.activate([
+        let nameTextFieldBottomAnchor = nameTextField.bottomAnchor.constraint(lessThanOrEqualTo: view.keyboardLayoutGuide.topAnchor)
+        let textFieldBottomAnchor = textField.bottomAnchor.constraint(lessThanOrEqualTo: view.keyboardLayoutGuide.topAnchor)
+        textFieldBottomAnchor.priority = .defaultHigh
+        var constaintsLow = [
             nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ]
+        constaintsLow.forEach({$0.priority = .defaultLow})
+        var constraints = [
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
@@ -99,12 +108,13 @@ private extension CreateEditAlbumViewController {
             textField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 3),
             textField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
-            saveButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10),
+            textField.heightAnchor.constraint(equalToConstant: 300),
             saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             saveButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        ]
+        NSLayoutConstraint.activate(constraints + constaintsLow + [nameTextFieldBottomAnchor, textFieldBottomAnchor])
     }
     
     func addActions() {

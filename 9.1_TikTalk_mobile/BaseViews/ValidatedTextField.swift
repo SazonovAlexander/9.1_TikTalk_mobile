@@ -95,7 +95,6 @@ private extension ValidatedTextField {
             stack.topAnchor.constraint(equalTo: topAnchor),
             stack.leadingAnchor.constraint(equalTo: leadingAnchor),
             stack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.heightAnchor.constraint(equalToConstant: 50),
             clearButton.widthAnchor.constraint(equalToConstant: 42)
         ])

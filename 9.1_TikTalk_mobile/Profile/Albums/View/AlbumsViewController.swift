@@ -47,6 +47,10 @@ final class AlbumsViewController: UIViewController {
         self.albums = albums
         tableView.reloadData()
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension AlbumsViewController {

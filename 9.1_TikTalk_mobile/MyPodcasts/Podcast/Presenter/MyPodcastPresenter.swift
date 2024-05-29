@@ -5,10 +5,10 @@ final class MyPodcastPresenter {
     
     weak var viewController: MyPodcastViewController?
     
-    private let podcastService: PodcastService
+    private let podcastService: MyPodcastService
     private let router: MyPodcastRouter
     
-    private var podcast: PodcastModel {
+    private var podcast: PodcastModelWithoutLike {
         didSet {
             getPodcast()
         }
@@ -16,10 +16,19 @@ final class MyPodcastPresenter {
     
     init(
         podcast: PodcastModel,
-        podcastService: PodcastService = PodcastService(),
+        podcastService: MyPodcastService = MyPodcastService(),
         router: MyPodcastRouter = MyPodcastRouter()
     ) {
-        self.podcast = podcast
+        self.podcast = PodcastModelWithoutLike(
+            id: podcast.id,
+            name: podcast.name,
+            authorId: podcast.authorId,
+            description: podcast.description,
+            albumId: podcast.albumId,
+            logoUrl: podcast.logoUrl,
+            audioUrl: podcast.audioUrl,
+            countLike: podcast.countLike
+        )
         self.podcastService = podcastService
         self.router = router
     }
@@ -33,7 +42,7 @@ final class MyPodcastPresenter {
         }
     }
     
-    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
+    private func castPodcastModelToPodcast(_ podcastModel: PodcastModelWithoutLike) throws -> Podcast {
         if let logoUrl = URL(string: podcastModel.logoUrl),
            let audioUrl = URL(string: podcastModel.audioUrl)
         {
@@ -77,7 +86,14 @@ final class MyPodcastPresenter {
     }
     
     func confirmedDelete() {
-        viewController?.exit()
-        podcastService.delete(podcast)
+        podcastService.deletePodcast(podcast.id) {[weak self] result in
+            switch result {
+            case .success(_):
+                self?.viewController?.exit()
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+            
+        }
     }
 }

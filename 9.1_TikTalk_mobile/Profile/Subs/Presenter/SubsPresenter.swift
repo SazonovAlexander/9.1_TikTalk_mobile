@@ -8,7 +8,29 @@ final class SubsPresenter {
     private let router: SubsRouter
     private var profile: ProfileModel
     private lazy var authors: [AuthorModel] = {
-        profile.subscriptions.map{authorService.getAuthorById($0)}
+        var authors: [AuthorModel] = []
+        var success = true
+        var errorMessage = ""
+        profile.subscriptions.forEach {
+            authorService.getAuthorById($0) { [weak self] result in
+                switch result {
+                case .success(let author):
+                    authors.append(author)
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            }
+        }
+        
+        if success {
+            return authors
+        } else {
+            self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage, completion: { [weak self] in
+                self?.viewController?.exit()
+            })
+            return []
+        }
     }()
     
     init(profile: ProfileModel,

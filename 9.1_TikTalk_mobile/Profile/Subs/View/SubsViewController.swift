@@ -35,6 +35,10 @@ final class SubsViewController: UIViewController {
         self.authors = authors
         tableView.reloadData()
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension SubsViewController {

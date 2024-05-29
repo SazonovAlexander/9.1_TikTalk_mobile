@@ -8,6 +8,7 @@ final class Player {
     private var audioUrl: URL?
     private lazy var avPlayer: AVPlayer = {
         let player = AVPlayer()
+        player.allowsExternalPlayback = true
         player.automaticallyWaitsToMinimizeStalling = false
         player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1000), queue: .main) {time in
             self.updateTime(currentTime: time)
@@ -16,7 +17,6 @@ final class Player {
     }()
     
     func setAudioFromUrl(_ url: URL) {
-        guard audioUrl != url else { return }
         playerView?.updateTime(currentTime: "0:0", totalTime: "0:0", sliderValue: 0, maxValue: 1)
         audioUrl = url
         if let audioUrl {
@@ -54,8 +54,8 @@ final class Player {
            total.isNormal {
             if (total - currentTime.seconds < 0.1) {
                     endHandler?()
-                    audioUrl = nil
-                    avPlayer.replaceCurrentItem(with: nil)
+                    stop(changeIcon: true)
+                    updateValue(0)
                 }
                 let seconds = Int(currentTime.seconds) % 60
                 let current: String

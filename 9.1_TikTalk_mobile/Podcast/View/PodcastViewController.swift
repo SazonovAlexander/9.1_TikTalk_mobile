@@ -34,6 +34,10 @@ final class PodcastViewController: UIViewController {
     func config(podcast: Podcast) {
         podcastView.config(podcast: podcast)
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension PodcastViewController {
@@ -47,6 +51,7 @@ private extension PodcastViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
+        navigationItem.backButtonTitle = "Подкаст"
     }
     
     func addSubviews() {

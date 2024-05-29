@@ -22,16 +22,30 @@ final class MyAlbumPresenter {
     
     func getInfo() {
         var podcastsInAlbum: [PodcastCell] = []
-        album.podcasts.forEach({
-            let podcast = podcastService.getPodcastById($0)
-            if let url = URL(string: podcast.logoUrl) {
-                podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
-            } else {
-                //выбросить ошибку
-            }
-        })
-        let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
-        viewController?.config(album: albumWithPodcasts)
+        var success = true
+        var errorMessage: String = ""
+        album.podcasts.forEach {
+            podcastService.getPodcastById($0, completion: { result in
+                switch result {
+                case .success(let podcast):
+                    if let url = URL(string: podcast.logoUrl) {
+                        podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                    } else {
+                        success = false
+                    }
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            })
+        }
+        
+        if success {
+            let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
+            viewController?.config(album: albumWithPodcasts)
+        } else {
+            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+        }
     }
     
     func description() {
@@ -42,9 +56,16 @@ final class MyAlbumPresenter {
     }
     
     func podcast(index: Int) {
-        let podcast = podcastService.getPodcastById(album.podcasts[index])
         if let viewController {
-            router.showMyPodcast(viewController, podcast: podcast)
+            podcastService.getPodcastById(album.podcasts[index]) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let podcast):
+                    router.showMyPodcast(viewController, podcast: podcast)
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -59,7 +80,14 @@ final class MyAlbumPresenter {
     }
     
     func confirmedDelete() {
-        viewController?.exit()
-        albumService.delete(album)
+        albumService.deleteAlbum(album.id) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                self.viewController?.exit()
+            case .failure(let error):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
 }

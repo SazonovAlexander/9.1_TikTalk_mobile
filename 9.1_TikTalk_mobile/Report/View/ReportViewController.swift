@@ -78,6 +78,10 @@ final class ReportViewController: UIViewController {
             sendButton.config(text: "Отправить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
         }
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension ReportViewController {
@@ -87,6 +91,7 @@ private extension ReportViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
         presenter.getInfo()
     }
     
@@ -108,8 +113,7 @@ private extension ReportViewController {
     }
     
     func activateConstraints() {
-        NSLayoutConstraint.activate([
-            authorNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+        let constraints = [
             authorNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             authorNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             authorNameLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -127,12 +131,19 @@ private extension ReportViewController {
             textField.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 3),
             textField.leadingAnchor.constraint(equalTo: authorNameLabel.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: authorNameLabel.trailingAnchor),
-            sendButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10),
+            textField.heightAnchor.constraint(equalToConstant: 300),
+            textField.bottomAnchor.constraint(lessThanOrEqualTo: view.keyboardLayoutGuide.topAnchor),
             sendButton.leadingAnchor.constraint(equalTo: authorNameLabel.leadingAnchor),
             sendButton.trailingAnchor.constraint(equalTo: authorNameLabel.trailingAnchor),
-            sendButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             sendButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        ]
+        
+        let constraintsLow = [
+            sendButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            authorNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        ]
+        constraintsLow.forEach({$0.priority = .defaultLow})
+        NSLayoutConstraint.activate(constraints + constraintsLow)
     }
     
     func addActions() {

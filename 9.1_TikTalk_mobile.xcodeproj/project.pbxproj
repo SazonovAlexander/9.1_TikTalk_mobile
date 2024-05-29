@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */; };
 		007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */; };
-		007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26902BD5B9160040C0F4 /* CutterView.swift */; };
 		007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 007A26932BD5BEAA0040C0F4 /* LookinServer */; };
 		007A269B2BDD8F360040C0F4 /* PodcastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */; };
 		007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269D2BDD8F5F0040C0F4 /* Podcast.swift */; };
@@ -106,6 +105,23 @@
 		00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */; };
 		00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */; };
 		00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60C1C2BE15D5300DA7951 /* RangeUISlider */; };
+		00D834DC2BFE752300996704 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834DB2BFE752300996704 /* ProgressHUD */; };
+		00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DD2BFE754600996704 /* URLSession+Extension.swift */; };
+		00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */; };
+		00D834E22BFE758900996704 /* BlockingProgressHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E12BFE758900996704 /* BlockingProgressHud.swift */; };
+		00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834E52BFE77AE00996704 /* NetworkConstants.swift */; };
+		00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834E92C00BD0000996704 /* SwiftKeychainWrapper */; };
+		00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EB2C01F49A00996704 /* EmptyResponse.swift */; };
+		00D834F02C01F98500996704 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834EF2C01F98500996704 /* SearchService.swift */; };
+		00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F12C0352BC00996704 /* MimeTypeHelper.swift */; };
+		00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F52C036EC900996704 /* MyPodcastService.swift */; };
+		00D834F82C036F0300996704 /* MyPodcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834F72C036F0300996704 /* MyPodcastModel.swift */; };
+		00D835032C05000000996704 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835022C05000000996704 /* OnboardingPageViewController.swift */; };
+		00D835052C05002500996704 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835042C05002500996704 /* OnboardingViewController.swift */; };
+		00D835072C05004000996704 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D835062C05004000996704 /* UserDefaultsHelper.swift */; };
+		00D8350B2C0525A500996704 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350A2C0525A500996704 /* AuthViewController.swift */; };
+		00D8350D2C054B6900996704 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350C2C054B6900996704 /* PasswordTextField.swift */; };
+		00D8350F2C054D2400996704 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8350E2C054D2400996704 /* RegistrationViewController.swift */; };
 		1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */; };
 		1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */; };
 		1D9A5F8B2BCDC42E00BAC8E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */; };
@@ -114,7 +130,6 @@
 /* Begin PBXFileReference section */
 		007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastViewController.swift; sourceTree = "<group>"; };
 		007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
-		007A26902BD5B9160040C0F4 /* CutterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterView.swift; sourceTree = "<group>"; };
 		007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPresenter.swift; sourceTree = "<group>"; };
 		007A269D2BDD8F5F0040C0F4 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		007A26A12BDD907C0040C0F4 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
@@ -206,6 +221,22 @@
 		00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastRouter.swift; sourceTree = "<group>"; };
 		00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPresenter.swift; sourceTree = "<group>"; };
 		00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRouter.swift; sourceTree = "<group>"; };
+		00D834DD2BFE754600996704 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
+		00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		00D834E12BFE758900996704 /* BlockingProgressHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingProgressHud.swift; sourceTree = "<group>"; };
+		00D834E52BFE77AE00996704 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 9.1_TikTalk_mobile.entitlements; sourceTree = "<group>"; };
+		00D834EB2C01F49A00996704 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
+		00D834EF2C01F98500996704 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		00D834F12C0352BC00996704 /* MimeTypeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeHelper.swift; sourceTree = "<group>"; };
+		00D834F52C036EC900996704 /* MyPodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastService.swift; sourceTree = "<group>"; };
+		00D834F72C036F0300996704 /* MyPodcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPodcastModel.swift; sourceTree = "<group>"; };
+		00D835022C05000000996704 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		00D835042C05002500996704 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		00D835062C05004000996704 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		00D8350A2C0525A500996704 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		00D8350C2C054B6900996704 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		00D8350E2C054D2400996704 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		1D9A5F802BCDB48900BAC8E6 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1D9A5F822BCDB76E00BAC8E6 /* PodcastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewCell.swift; sourceTree = "<group>"; };
 		1D9A5F8A2BCDC42E00BAC8E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -217,26 +248,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				007A26A92BDD94380040C0F4 /* Kingfisher in Frameworks */,
+				00D834DC2BFE752300996704 /* ProgressHUD in Frameworks */,
 				00B60BB72BE0561300DA7951 /* AppMetricaCrashes in Frameworks */,
 				00B60BB52BE0561300DA7951 /* AppMetricaCore in Frameworks */,
 				00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */,
 				00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */,
 				00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */,
 				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
+				00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		007A268F2BD5B8F20040C0F4 /* Cutter */ = {
-			isa = PBXGroup;
-			children = (
-				007A26902BD5B9160040C0F4 /* CutterView.swift */,
-			);
-			path = Cutter;
-			sourceTree = "<group>";
-		};
 		007A26962BDD8EBB0040C0F4 /* CreateEditPodcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +337,13 @@
 			children = (
 				00B60B6D2BDEE7ED00DA7951 /* Mocks.swift */,
 				007A26B52BDE48A60040C0F4 /* UIViewController+Extension.swift */,
+				00D834DD2BFE754600996704 /* URLSession+Extension.swift */,
+				00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */,
+				00D834E12BFE758900996704 /* BlockingProgressHud.swift */,
+				00D834E52BFE77AE00996704 /* NetworkConstants.swift */,
+				00D834EB2C01F49A00996704 /* EmptyResponse.swift */,
+				00D834F12C0352BC00996704 /* MimeTypeHelper.swift */,
+				00D835062C05004000996704 /* UserDefaultsHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -377,9 +409,11 @@
 		007EC1BA2BC5C97A00066A9E /* 9.1_TikTalk_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				00D835082C05259100996704 /* Auth */,
+				00D834E72BFE7C1500996704 /* 9.1_TikTalk_mobile.entitlements */,
+				00D835012C04FFE300996704 /* Onboarding */,
 				00B60BAE2BE055D100DA7951 /* Analytic */,
 				007A26AA2BDD94D40040C0F4 /* Helpers */,
-				007A268F2BD5B8F20040C0F4 /* Cutter */,
 				009D9A4D2BD5427900F17741 /* Player */,
 				009D9A362BD41E3E00F17741 /* Report */,
 				009D9A332BD4196B00F17741 /* Search */,
@@ -461,6 +495,7 @@
 		009D9A332BD4196B00F17741 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				00D834ED2C01F96D00996704 /* Model */,
 				00B60BBA2BE0588A00DA7951 /* View */,
 				00B60BBC2BE058BC00DA7951 /* Presenter */,
 			);
@@ -771,6 +806,7 @@
 		00B60BE92BE0EFE800DA7951 /* Podcast */ = {
 			isa = PBXGroup;
 			children = (
+				00D834F32C036E6A00996704 /* Model */,
 				00B60BEC2BE0F00A00DA7951 /* View */,
 				00B60BF82BE10E2C00DA7951 /* Presenter */,
 			);
@@ -949,6 +985,65 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		00D834ED2C01F96D00996704 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D834EE2C01F97500996704 /* Service */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00D834EE2C01F97500996704 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00D834EF2C01F98500996704 /* SearchService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		00D834F32C036E6A00996704 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D834F72C036F0300996704 /* MyPodcastModel.swift */,
+				00D834F42C036E6F00996704 /* Service */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00D834F42C036E6F00996704 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00D834F52C036EC900996704 /* MyPodcastService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		00D835012C04FFE300996704 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				00D835022C05000000996704 /* OnboardingPageViewController.swift */,
+				00D835042C05002500996704 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		00D835082C05259100996704 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				00D835102C054E0100996704 /* View */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		00D835102C054E0100996704 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00D8350E2C054D2400996704 /* RegistrationViewController.swift */,
+				00D8350A2C0525A500996704 /* AuthViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1D9A5F7F2BCDB47800BAC8E6 /* Album */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,6 +1059,7 @@
 				009D9A232BD316A100F17741 /* ValidatedTextField.swift */,
 				009D9A282BD3242300F17741 /* BaseButtonView.swift */,
 				009D9A392BD4226F00F17741 /* SelectButtonView.swift */,
+				00D8350C2C054B6900996704 /* PasswordTextField.swift */,
 			);
 			path = BaseViews;
 			sourceTree = "<group>";
@@ -1004,6 +1100,8 @@
 				00B60BB62BE0561300DA7951 /* AppMetricaCrashes */,
 				00B60BB82BE0561300DA7951 /* AppMetricaWebKit */,
 				00B60C1C2BE15D5300DA7951 /* RangeUISlider */,
+				00D834DB2BFE752300996704 /* ProgressHUD */,
+				00D834E92C00BD0000996704 /* SwiftKeychainWrapper */,
 			);
 			productName = 9.1_TikTalk_mobile;
 			productReference = 007EC1B82BC5C97A00066A9E /* 9.1_TikTalk_mobile.app */;
@@ -1038,6 +1136,8 @@
 				007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
 				00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */,
+				00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 007EC1B92BC5C97A00066A9E /* Products */;
 			projectDirPath = "";
@@ -1081,6 +1181,7 @@
 				007A26AC2BDD96300040C0F4 /* PodcastModel.swift in Sources */,
 				009D9A1A2BC65D2500F17741 /* PodcastViewController.swift in Sources */,
 				00B60BFA2BE10E4000DA7951 /* MyPodcastPresenter.swift in Sources */,
+				00D834F82C036F0300996704 /* MyPodcastModel.swift in Sources */,
 				009D9A1D2BC72EEF00F17741 /* BandViewController.swift in Sources */,
 				00B60B722BDF852500DA7951 /* DescriptionPresenter.swift in Sources */,
 				00B60BDB2BE0769400DA7951 /* LikedRouter.swift in Sources */,
@@ -1089,6 +1190,7 @@
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
 				00B60BCD2BE0698B00DA7951 /* ProfileModel.swift in Sources */,
+				00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */,
 				00B60C022BE1265D00DA7951 /* CreateEditAlbumPresenter.swift in Sources */,
 				00B60B992BE0061900DA7951 /* BandType.swift in Sources */,
 				007A26AF2BDE465A0040C0F4 /* PodcastService.swift in Sources */,
@@ -1104,26 +1206,35 @@
 				007A26B42BDE46C90040C0F4 /* AuthorModel.swift in Sources */,
 				00B60BF72BE0FA6800DA7951 /* MyAlbumRouter.swift in Sources */,
 				00B60BF22BE0F12700DA7951 /* MyPodcastsRouter.swift in Sources */,
+				00D835052C05002500996704 /* OnboardingViewController.swift in Sources */,
 				009D9A3C2BD42B2000F17741 /* SelectThemeViewController.swift in Sources */,
 				00B60B772BDF8B3F00DA7951 /* Report.swift in Sources */,
+				00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */,
 				00B60BD12BE06A2C00DA7951 /* ProfileRouter.swift in Sources */,
+				00D8350D2C054B6900996704 /* PasswordTextField.swift in Sources */,
 				00B60BCB2BE068E500DA7951 /* Profile.swift in Sources */,
 				00B60BE72BE0E86400DA7951 /* EditProfilePresenter.swift in Sources */,
+				00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */,
 				009D9A382BD41E4B00F17741 /* ReportViewController.swift in Sources */,
 				009D9A4A2BD53F1F00F17741 /* CreateEditAlbumViewController.swift in Sources */,
 				007A26A62BDD93210040C0F4 /* Player.swift in Sources */,
+				00D8350B2C0525A500996704 /* AuthViewController.swift in Sources */,
 				007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */,
 				00B60BDF2BE0E13800DA7951 /* SubsPresenter.swift in Sources */,
 				009D9A202BC733FB00F17741 /* TabBarController.swift in Sources */,
+				00D834F02C01F98500996704 /* SearchService.swift in Sources */,
 				00B60BC12BE0593400DA7951 /* SearchRouter.swift in Sources */,
+				00D8350F2C054D2400996704 /* RegistrationViewController.swift in Sources */,
 				00B60B822BDF8E8F00DA7951 /* SelectThemePresenter.swift in Sources */,
 				007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */,
+				00D835032C05000000996704 /* OnboardingPageViewController.swift in Sources */,
 				00B60B7D2BDF8D0500DA7951 /* ReportRouter.swift in Sources */,
 				00B60BE32BE0E23700DA7951 /* AuthorCell.swift in Sources */,
 				00B60C0D2BE12CD200DA7951 /* PodcastInfo.swift in Sources */,
 				00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */,
 				007A26C52BDE588C0040C0F4 /* AlbumService.swift in Sources */,
 				00B60B972BE0060900DA7951 /* BandPresenter.swift in Sources */,
+				00D835072C05004000996704 /* UserDefaultsHelper.swift in Sources */,
 				007A26A22BDD907C0040C0F4 /* Author.swift in Sources */,
 				00B60BD92BE0767400DA7951 /* LikedPresenter.swift in Sources */,
 				007A26BA2BDE52C50040C0F4 /* PodcastDelegate.swift in Sources */,
@@ -1140,6 +1251,7 @@
 				00B60B6E2BDEE7ED00DA7951 /* Mocks.swift in Sources */,
 				00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */,
 				009D9A422BD42FF300F17741 /* AuthorProfileViewCell.swift in Sources */,
+				00D834E22BFE758900996704 /* BlockingProgressHud.swift in Sources */,
 				007A26B82BDE51940040C0F4 /* PodcastRouter.swift in Sources */,
 				00B60B802BDF8DBC00DA7951 /* ReportService.swift in Sources */,
 				007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */,
@@ -1152,9 +1264,11 @@
 				00B60C052BE1271400DA7951 /* AlbumInfo.swift in Sources */,
 				00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
+				00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
-				007A26912BD5B9160040C0F4 /* CutterView.swift in Sources */,
+				00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */,
+				00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
 				00B60B922BDFE61F00DA7951 /* Album.swift in Sources */,
@@ -1299,6 +1413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = 9.1_TikTalk_mobile/9.1_TikTalk_mobile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPDY9N2JR6;
@@ -1332,6 +1447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = 9.1_TikTalk_mobile/9.1_TikTalk_mobile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPDY9N2JR6;
@@ -1416,6 +1532,22 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.3;
+			};
+		};
+		00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1453,6 +1585,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */;
 			productName = RangeUISlider;
+		};
+		00D834DB2BFE752300996704 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00D834DA2BFE752300996704 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		00D834E92C00BD0000996704 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00D834E82C00BD0000996704 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

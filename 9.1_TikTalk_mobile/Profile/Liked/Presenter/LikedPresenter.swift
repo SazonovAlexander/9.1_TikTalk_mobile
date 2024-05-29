@@ -8,7 +8,27 @@ final class LikedPresenter {
     private let router: LikedRouter
     private var profile: ProfileModel
     private lazy var podcasts: [PodcastModel] = {
-        profile.liked.map{podcastService.getPodcastById($0)}
+        var podcastModels: [PodcastModel] = []
+        var success = true
+        var errorMessage: String = ""
+        profile.liked.forEach {
+            podcastService.getPodcastById($0, completion: { result in
+                switch result {
+                case .success(let podcast):
+                    podcastModels.append(podcast)
+                case .failure(let error):
+                    success = false
+                    errorMessage = error.localizedDescription
+                }
+            })
+        }
+        
+        if success {
+            return podcastModels
+        } else {
+            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+            return []
+        }
     }()
     
     init(profile: ProfileModel,

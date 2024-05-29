@@ -37,6 +37,10 @@ final class MyPodcastsViewController: UIViewController {
         self.albums = albums
         tableView.reloadData()
     }
+    
+    func exit() {
+        dismiss(animated: true)
+    }
 }
 
 private extension MyPodcastsViewController {

@@ -8,7 +8,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.overrideUserInterfaceStyle = .dark
-        window?.rootViewController = TabBarController()
+        if let onboarding = UserDefaultsHelper.shared.getBool(forKey: "onboarding"),
+            onboarding {
+            window?.rootViewController = TabBarController()
+        } else {
+            window?.rootViewController = OnboardingPageViewController()
+        }
         window?.makeKeyAndVisible()
     }
 

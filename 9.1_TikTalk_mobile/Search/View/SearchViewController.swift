@@ -50,6 +50,7 @@ private extension SearchViewController {
         addSubviews()
         activateConstraints()
         addActions()
+        hideKeyboardWhenTappedAround()
     }
     
     func setupAppearance() {
@@ -106,11 +107,26 @@ extension SearchViewController: UITableViewDataSource {
         }
         
         podcastCell.config(podcast: podcasts[indexPath.row])
+        
+        if indexPath.row == podcasts.count - 1 {
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        }
 
         return podcastCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            presenter.search(searchTextField.text ?? "")
+        }
     }
 }
