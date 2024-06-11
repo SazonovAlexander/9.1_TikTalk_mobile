@@ -86,7 +86,6 @@ final class BandViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showAuthController()
         setup()
     }
     

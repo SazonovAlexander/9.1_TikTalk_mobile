@@ -47,6 +47,8 @@ final class ProfileRouter {
     }
     
     func exit() {
-        
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        let tabBarController = TabBarController()
+        window.rootViewController = tabBarController
     }
 }

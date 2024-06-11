@@ -10,7 +10,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .dark
         if let onboarding = UserDefaultsHelper.shared.getBool(forKey: "onboarding"),
             onboarding {
-            window?.rootViewController = TabBarController()
+            if TokenStorage.shared.accessToken != "" {
+                window?.rootViewController = TabBarController()
+            } else {
+                window?.rootViewController = AuthViewController()
+            }
         } else {
             window?.rootViewController = OnboardingPageViewController()
         }
