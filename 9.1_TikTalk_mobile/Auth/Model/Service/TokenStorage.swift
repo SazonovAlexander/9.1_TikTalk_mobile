@@ -1,9 +1,9 @@
 import Foundation
 import SwiftKeychainWrapper
 
-final class OAuth2TokenStorage {
+final class TokenStorage {
     
-    static let shared = OAuth2TokenStorage()
+    static let shared = TokenStorage()
     
     private static let accessTokenKey = "access_token"
     private static let refreshTokenKey = "refresh_token"
@@ -12,10 +12,10 @@ final class OAuth2TokenStorage {
      
     var accessToken: String {
         get {
-            return KeychainWrapper.standard.string(forKey: OAuth2TokenStorage.accessTokenKey) ?? ""
+            return KeychainWrapper.standard.string(forKey: TokenStorage.accessTokenKey) ?? ""
         }
         set (newToken){
-            let isSuccess = KeychainWrapper.standard.set(newToken, forKey: OAuth2TokenStorage.accessTokenKey)
+            let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.accessTokenKey)
             guard isSuccess else {
                 print("Token writing error")
                 return
@@ -25,10 +25,10 @@ final class OAuth2TokenStorage {
     
     var refreshToken: String {
         get {
-            return KeychainWrapper.standard.string(forKey: OAuth2TokenStorage.refreshTokenKey) ?? ""
+            return KeychainWrapper.standard.string(forKey: TokenStorage.refreshTokenKey) ?? ""
         }
         set (newToken){
-            let isSuccess = KeychainWrapper.standard.set(newToken, forKey: OAuth2TokenStorage.refreshTokenKey)
+            let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.refreshTokenKey)
             guard isSuccess else {
                 print("Token writing error")
                 return
