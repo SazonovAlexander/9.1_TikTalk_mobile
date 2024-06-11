@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001731432C18EEB0004A88F6 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001731422C18EEB0004A88F6 /* TokenStorage.swift */; };
+		001731462C18EEE4004A88F6 /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001731452C18EEE4004A88F6 /* AuthConstants.swift */; };
+		001731482C18F058004A88F6 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001731472C18F058004A88F6 /* Auth.swift */; };
+		0017314B2C18F261004A88F6 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017314A2C18F261004A88F6 /* Register.swift */; };
+		0017314D2C18F2B3004A88F6 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017314C2C18F2B3004A88F6 /* AuthService.swift */; };
 		007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */; };
 		007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */; };
 		007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 007A26932BD5BEAA0040C0F4 /* LookinServer */; };
@@ -128,6 +133,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		001731422C18EEB0004A88F6 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		001731452C18EEE4004A88F6 /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
+		001731472C18F058004A88F6 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		0017314A2C18F261004A88F6 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		0017314C2C18F2B3004A88F6 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastViewController.swift; sourceTree = "<group>"; };
 		007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPresenter.swift; sourceTree = "<group>"; };
@@ -262,6 +272,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		001731412C18EE91004A88F6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				001731422C18EEB0004A88F6 /* TokenStorage.swift */,
+				001731452C18EEE4004A88F6 /* AuthConstants.swift */,
+				0017314C2C18F2B3004A88F6 /* AuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		001731442C18EEC8004A88F6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				001731412C18EE91004A88F6 /* Service */,
+				001731472C18F058004A88F6 /* Auth.swift */,
+				0017314A2C18F261004A88F6 /* Register.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		007A26962BDD8EBB0040C0F4 /* CreateEditPodcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1060,7 @@
 		00D835082C05259100996704 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				001731442C18EEC8004A88F6 /* Model */,
 				00D835102C054E0100996704 /* View */,
 			);
 			path = Auth;
@@ -1172,6 +1203,7 @@
 				1D9A5F832BCDB76E00BAC8E6 /* PodcastViewCell.swift in Sources */,
 				009D9A322BD4159600F17741 /* MyPodcastsViewController.swift in Sources */,
 				00B60BE12BE0E14600DA7951 /* SubsRouter.swift in Sources */,
+				001731432C18EEB0004A88F6 /* TokenStorage.swift in Sources */,
 				009D9A442BD430A000F17741 /* SubsViewController.swift in Sources */,
 				00B60B9B2BE006C600DA7951 /* Band.swift in Sources */,
 				00B60BF52BE0FA5E00DA7951 /* MyAlbumPresenter.swift in Sources */,
@@ -1189,6 +1221,7 @@
 				00B60BB02BE055DE00DA7951 /* Analytic.swift in Sources */,
 				00B60B8E2BDFCDD800DA7951 /* AuthorRouter.swift in Sources */,
 				1D9A5F812BCDB48900BAC8E6 /* AlbumViewController.swift in Sources */,
+				001731462C18EEE4004A88F6 /* AuthConstants.swift in Sources */,
 				00B60BCD2BE0698B00DA7951 /* ProfileModel.swift in Sources */,
 				00D834E62BFE77AE00996704 /* NetworkConstants.swift in Sources */,
 				00B60C022BE1265D00DA7951 /* CreateEditAlbumPresenter.swift in Sources */,
@@ -1265,13 +1298,16 @@
 				00B60B9E2BE0072200DA7951 /* BandFactory.swift in Sources */,
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */,
+				0017314B2C18F261004A88F6 /* Register.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
 				00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */,
+				001731482C18F058004A88F6 /* Auth.swift in Sources */,
 				00D834EC2C01F49A00996704 /* EmptyResponse.swift in Sources */,
 				009D9A3A2BD4226F00F17741 /* SelectButtonView.swift in Sources */,
 				009D9A482BD4327500F17741 /* AlbumViewCell.swift in Sources */,
 				00B60B922BDFE61F00DA7951 /* Album.swift in Sources */,
+				0017314D2C18F2B3004A88F6 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
