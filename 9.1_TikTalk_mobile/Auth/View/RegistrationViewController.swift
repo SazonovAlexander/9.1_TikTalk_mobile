@@ -42,6 +42,8 @@ final class RegistrationViewController: UIViewController {
         }
     }
     
+    private let registerService = AuthService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -124,6 +126,21 @@ private extension RegistrationViewController {
     
     @objc
     func tapRegButton() {
+        let register = Register(
+            username: loginTextField.getText(),
+            password: passwordTextField.getText(),
+            firstName: nameTextField.getText(),
+            email: loginTextField.getText() + "@tiktalk.com"
+        )
         
+        registerService.register(register: register) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                self.dismiss(animated: true)
+            case .failure(let error):
+                self.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
     }
 }

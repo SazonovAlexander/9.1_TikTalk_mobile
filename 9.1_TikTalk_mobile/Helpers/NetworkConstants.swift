@@ -6,4 +6,4 @@ enum NetworkError: Error {
     case urlSessionError
 }
 
-let DefaultBaseURL = URL(string: "https://vk.com")!
+let DefaultBaseURL = URL(string: "http://localhost:8089/")!

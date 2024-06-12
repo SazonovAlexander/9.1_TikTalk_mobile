@@ -55,6 +55,8 @@ final class ProfilePresenter {
     }
     
     func exit() {
+        TokenStorage.shared.accessToken = ""
+        TokenStorage.shared.refreshToken = ""
         router.exit()
     }
 }
