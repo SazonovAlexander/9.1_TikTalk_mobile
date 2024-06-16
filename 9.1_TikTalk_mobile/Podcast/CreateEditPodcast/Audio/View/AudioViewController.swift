@@ -5,6 +5,8 @@ import RangeUISlider
 
 final class AudioViewController: UIViewController {
     
+    var completion: ((URL) -> Void)?
+    
     private lazy var cutterLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -55,6 +57,12 @@ final class AudioViewController: UIViewController {
             minValue = 0.0
             maxValue = 1.0
             updateAudio()
+            
+            if let buffer {
+                saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
+            } else {
+                saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray)
+            }
         }
     }
     
@@ -200,6 +208,15 @@ private extension AudioViewController {
     func addActions() {
         fileButton.addTarget(self, action: #selector(Self.didTapFileButton), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(Self.recording), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(Self.didTapSaveButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapSaveButton() {
+        if let buffer {
+            completion?(cutted ?? buffer)
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc

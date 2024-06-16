@@ -17,7 +17,7 @@ final class PodcastPresenter {
     
     private var podcast: PodcastModel {
         didSet {
-            getPodcast()
+            castPodcastModelToPodcast(self.podcast)
         }
     }
     
@@ -36,16 +36,11 @@ final class PodcastPresenter {
     }
     
     func getPodcast() {
-        do {
-            let podcast = try castPodcastModelToPodcast(self.podcast)
-            viewController?.config(podcast: podcast)
-        } catch (let error) {
-            viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-        }
+        castPodcastModelToPodcast(self.podcast)
     }
     
     func liked() {
-        podcastService.changeLike(podcast.id, isLiked: !podcast.isLiked) { [weak self] result in
+        podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(_):
@@ -107,39 +102,29 @@ final class PodcastPresenter {
         }
     }
     
-    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
-        let authorModel = getAuthor(id: podcastModel.authorId)
-        
-        if let logoUrl = URL(string: podcastModel.logoUrl),
-           let audioUrl = URL(string: podcastModel.audioUrl),
-           let authorModel = authorModel
-        {
-            return Podcast(
-                        name: podcastModel.name,
-                        author: authorModel.name,
-                        countLike: normalizeCountLike(podcastModel.countLike),
-                        isLiked: podcastModel.isLiked,
-                        logoUrl: logoUrl,
-                        audioUrl: audioUrl
-                    )
-        } else {
-            throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
-        }
-    }
-    
-    private func getAuthor(id: UUID) -> AuthorModel? {
-        var author: AuthorModel? = nil
-        authorService.getAuthorById(id) { [weak self] result in
+    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) {
+        authorService.getAuthorById(podcastModel.authorId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let authorModel):
-                author = authorModel
+                if let logoUrl = URL(string: podcastModel.logoUrl),
+                   let audioUrl = URL(string: podcastModel.audioUrl)
+                {
+                    let podcast = Podcast(
+                                name: podcastModel.name,
+                                author: authorModel.name,
+                                countLike: normalizeCountLike(podcastModel.countLike),
+                                isLiked: podcastModel.isLiked,
+                                logoUrl: logoUrl,
+                                audioUrl: audioUrl
+                            )
+                    viewController?.config(podcast: podcast)
+                }
             case .failure(let error):
+                print("fallure")
                 self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
             }
         }
-        
-        return author
     }
     
     private func normalizeCountLike(_ count: Int) -> String {

@@ -185,6 +185,7 @@ private extension CreateEditPodcastViewController {
             nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            nameTextField.heightAnchor.constraint(equalToConstant: 70),
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 90),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),

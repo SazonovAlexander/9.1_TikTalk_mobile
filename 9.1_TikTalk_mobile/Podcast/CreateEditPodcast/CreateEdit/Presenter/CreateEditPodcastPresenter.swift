@@ -34,14 +34,14 @@ final class CreateEditPodcastPresenter {
     private func initialize() {
         if let podcast {
             isEdit = true
-            if let audio = URL(string: podcast.audioUrl) {
+            if let audioUrl = podcast.audioUrl, let audio = URL(string: audioUrl) {
                 self.audio = audio
             }
-            if let logo = URL(string: podcast.logoUrl) {
+            if let logoUrl = podcast.logoUrl, let logo = URL(string: logoUrl) {
                 self.logo = logo
             }
             
-            albumService.getAlbumById(podcast.albumId) { [weak self] result in
+            albumService.getAlbumById(UUID(uuidString: podcast.albumId)!) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let album):
@@ -69,35 +69,35 @@ final class CreateEditPodcastPresenter {
     
     func save(_ podcast: PodcastInfo) {
         let podcastModel = PodcastModelWithoutLike(
-            id: self.podcast!.id,
+            id: self.podcast?.id ?? UUID().uuidString,
             name: podcast.name,
-            authorId: UUID(),
+            authorId: "",
             description: podcast.description,
-            albumId: self.album!.id,
+            albumId: self.album!.id.uuidString,
             logoUrl: self.logo!.absoluteString,
             audioUrl: self.audio!.absoluteString,
-            countLike: self.podcast!.countLike
+            countLike: self.podcast?.countLike ?? 0
         )
         if isEdit {
-            if let newLogo {
-                podcastService.changePodcastWithLogo(podcast: podcastModel) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(_):
+            podcastService.changePodcastWithoutLogo(podcast: podcastModel) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    if let newLogo {
+                        podcastService.changePodcastWithLogo(podcast: podcastModel) { [weak self] result in
+                            guard let self else { return }
+                            switch result {
+                            case .success(_):
+                                self.viewController?.exit()
+                            case .failure(let error):
+                                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                            }
+                        }
+                    } else {
                         self.viewController?.exit()
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
                     }
-                }
-            } else {
-                podcastService.changePodcastWithoutLogo(podcast: podcastModel) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(_):
-                        self.viewController?.exit()
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-                    }
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
                 }
             }
         } else {
@@ -105,7 +105,15 @@ final class CreateEditPodcastPresenter {
                 guard let self else { return }
                 switch result {
                 case .success(_):
-                    self.viewController?.exit()
+                    podcastService.changePodcastWithLogo(podcast: podcastModel) { [weak self] result in
+                        guard let self else { return }
+                        switch result {
+                        case .success(_):
+                            self.viewController?.exit()
+                        case .failure(let error):
+                            self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                        }
+                    }
                 case .failure(let error):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
                 }
@@ -126,6 +134,7 @@ final class CreateEditPodcastPresenter {
         if let viewController {
             router.showSelectAudioFrom(viewController, completion: { [weak self] audio in
                 self?.audio = audio
+                self?.getInfo()
             })
         }
     }
