@@ -6,6 +6,7 @@ final class SearchViewController: UIViewController {
     private lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Введите название подкаста"
+        searchTextField.delegate = self
         return searchTextField
     }()
     
@@ -49,7 +50,6 @@ private extension SearchViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
-        addActions()
         hideKeyboardWhenTappedAround()
     }
     
@@ -78,11 +78,6 @@ private extension SearchViewController {
         ])
     }
     
-    func addActions() {
-        searchTextField.addTarget(self, action: #selector(Self.searchTextUpdate), for: .allEditingEvents)
-    }
-    
-    @objc
     func searchTextUpdate() {
         presenter.search(searchTextField.text ?? "")
     }
@@ -110,6 +105,8 @@ extension SearchViewController: UITableViewDataSource {
         
         if indexPath.row == podcasts.count - 1 {
             podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        } else {
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         }
 
         return podcastCell
@@ -128,5 +125,11 @@ extension SearchViewController: UIScrollViewDelegate {
         if offsetY > contentHeight - scrollView.frame.height {
             presenter.search(searchTextField.text ?? "")
         }
+    }
+}
+
+extension SearchViewController: UISearchTextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        searchTextUpdate()
     }
 }
