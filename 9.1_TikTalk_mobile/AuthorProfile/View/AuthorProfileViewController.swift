@@ -37,7 +37,11 @@ final class AuthorProfileViewController: UIViewController {
     }()
     
     private let presenter: AuthorPresenter
-    private var albums: [Album] = []
+    private var albums: [Album] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: AuthorPresenter) {
         self.presenter = presenter
