@@ -27,31 +27,16 @@ final class ReportPresenter {
     }
     
     func getInfo() {
-        if let author = getAuthor() {
-            viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
-        }
-    }
-    
-    private func getAuthor() -> AuthorModel? {
-        var authorModel: AuthorModel? = nil
-        var errorMessage = ""
         authorService.getAuthorById(podcast.authorId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let author):
-                authorModel = author
+                viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
             case .failure(let error):
-                errorMessage = error.localizedDescription
+                viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription, completion: { [weak self] in
+                    self?.viewController?.exit()
+                })
             }
-        }
-        
-        if let authorModel {
-            return authorModel
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage, completion: { [weak self] in
-                self?.viewController?.exit()
-            })
-            return nil
         }
     }
     

@@ -44,6 +44,7 @@ final class ReportViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.font = .systemFont(ofSize: 24, weight: .regular)
         textField.backgroundColor = .clear
+        textField.delegate = self
         return textField
     }()
     
@@ -161,5 +162,11 @@ private extension ReportViewController {
     @objc
     func didTapSelectThemeButton() {
         presenter.selectTheme()
+    }
+}
+
+extension ReportViewController: UITextViewDelegate {
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        report?.message = textView.text
     }
 }
