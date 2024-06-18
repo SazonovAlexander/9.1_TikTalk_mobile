@@ -26,6 +26,11 @@ final class SubsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -47,7 +52,6 @@ private extension SubsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
-        presenter.getInfo()
     }
     
     func setupAppearance() {

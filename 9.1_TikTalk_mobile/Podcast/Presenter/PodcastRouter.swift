@@ -26,9 +26,13 @@ final class PodcastRouter {
     }
     
     func showReportFrom(_ viewController: UIViewController, podcast: PodcastModel) {
-        let presenter = ReportPresenter(podcast: podcast)
-        let reportViewController = ReportViewController(presenter: presenter)
-        presenter.viewController = reportViewController
-        viewController.navigationController?.pushViewController(reportViewController, animated: true)
+        if TokenStorage.shared.accessToken == "" {
+            viewController.showAuthController()
+        } else {
+            let presenter = ReportPresenter(podcast: podcast)
+            let reportViewController = ReportViewController(presenter: presenter)
+            presenter.viewController = reportViewController
+            viewController.navigationController?.pushViewController(reportViewController, animated: true)
+        }
     }
 }

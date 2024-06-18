@@ -102,6 +102,7 @@ private extension CreateEditAlbumViewController {
         var constraints = [
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            nameTextField.heightAnchor.constraint(equalToConstant: 70),
             descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
             descriptionLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor, constant: 5),
             descriptionLabel.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
@@ -123,6 +124,7 @@ private extension CreateEditAlbumViewController {
     
     @objc
     func didTapSaveButton() {
+        print("save")
         let album = AlbumInfo(name: nameTextField.getText(), description: textField.text)
         presenter.save(album)
     }

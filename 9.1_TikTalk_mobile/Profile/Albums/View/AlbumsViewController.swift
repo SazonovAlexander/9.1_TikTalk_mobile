@@ -33,9 +33,19 @@ final class AlbumsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        presenter.getInfo()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -59,7 +69,6 @@ private extension AlbumsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
-        presenter.getInfo()
     }
     
     func setupAppearance() {

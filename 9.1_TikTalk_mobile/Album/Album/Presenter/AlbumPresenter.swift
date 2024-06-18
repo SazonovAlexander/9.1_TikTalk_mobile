@@ -6,28 +6,11 @@ final class AlbumPresenter {
     weak var viewController: AlbumViewController?
     
     private var album: AlbumModel
-    private lazy var podcasts: [PodcastModel] = {
-        var podcastsModels: [PodcastModel] = []
-        var success = true
-        var errorMessage: String = ""
-        album.podcasts.forEach {
-            podcastService.getPodcastById($0, completion: { result in
-                switch result {
-                case .success(let podcast):
-                    podcastsModels.append(podcast)
-                case .failure(let error):
-                    success = false
-                    errorMessage = error.localizedDescription
-                }
-            })
+    private lazy var podcasts: [PodcastModel] = [] {
+        didSet {
+            getInfo()
         }
-        if success {
-            return podcastsModels
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
-            return []
-        }
-    }()
+    }
     
     private let albumService: AlbumService
     private let podcastService: PodcastService
@@ -45,11 +28,42 @@ final class AlbumPresenter {
         self.podcastService = podcastService
         self.authorService = authorService
         self.router = albumRouter
+        getPodcasts()
     }
     
-    func getPodcasts() -> [PodcastCell] {
-        viewController?.config(name: album.name)
-        return podcasts.map{ PodcastCell(name: $0.name, logoUrl: URL(string: $0.logoUrl)) }
+    private func getPodcasts() {
+        let group = DispatchGroup()
+        var podcastsModels: [PodcastModel] = []
+        var success = true
+        var errorMessage: String = ""
+        album.podcasts.forEach {
+            group.enter()
+            if let id = UUID(uuidString: $0) {
+                podcastService.getPodcastById(id, completion: { result in
+                    switch result {
+                    case .success(let podcast):
+                        podcastsModels.append(podcast)
+                        group.leave()
+                    case .failure(let error):
+                        success = false
+                        errorMessage = error.localizedDescription
+                        group.leave()
+                    }
+                })
+            }
+        }
+        
+        group.notify(queue: .main) {
+            if success {
+                self.podcasts = podcastsModels
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+            }
+        }
+    }
+    
+    func getInfo() {
+        viewController?.config(name: album.name, podcasts: podcasts.map{ PodcastCell(name: $0.name, logoUrl: URL(string: $0.logoUrl))})
     }
     
     func showPodcast(index: Int) {

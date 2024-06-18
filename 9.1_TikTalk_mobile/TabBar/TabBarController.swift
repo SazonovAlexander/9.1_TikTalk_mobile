@@ -20,7 +20,7 @@ private extension TabBarController {
         tabBar.tintColor = .white
         tabBar.standardAppearance = UITabBarAppearance(barAppearance: UIBarAppearance(idiom: .phone))
         tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-        
+        delegate = self
         
         let bandPresenter = BandPresenter()
         let bandViewController = BandViewController(bandPresenter: bandPresenter)
@@ -44,7 +44,7 @@ private extension TabBarController {
             selectedImage: nil
         )
         
-        let profilePresenter = ProfilePresenter(profile: Mocks.profile)
+        let profilePresenter = ProfilePresenter()
         let profileViewController = ProfileViewController(presenter: profilePresenter)
         profilePresenter.viewController = profileViewController
         profileViewController.tabBarItem = UITabBarItem(
@@ -58,5 +58,17 @@ private extension TabBarController {
             searchNavController,
             profileViewController
         ]
+    }
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController is ProfileViewController {
+            if TokenStorage.shared.accessToken == "" {
+                showAuthController()
+                return false
+            }
+        }
+        return true
     }
 }

@@ -15,37 +15,64 @@ final class BandFactory {
     }
     private var index = -1
     private var podcasts: [PodcastModel] = []
+    private var inProgress = false
     
     init(bandType: BandType, bandService: BandService = BandService()) {
         self.bandType = bandType
         self.bandService = bandService
     }
     
-    func getNextPodcast() -> PodcastModel? {
-        index += 1
+    private func getPodcasts() {
+        bandService.getPodcasts() { result in
+            switch result {
+            case .success(let podcast):
+                self.podcasts += podcast
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getNextPodcast(completion: @escaping (PodcastModel?) -> Void) {
+        guard !inProgress else { return }
         
-        if index == podcasts.count {
-            let newPodcasts = bandService.getPodcasts()
-            if newPodcasts.isEmpty {
-                index -= 1
-                return nil
-            } else {
-                podcasts += bandService.getPodcasts()
+        index += 1
+        let group = DispatchGroup()
+        if index >= podcasts.count - 2 {
+            group.enter()
+            inProgress = true
+            bandService.getPodcasts() { result in
+                switch result {
+                case .success(let podcast):
+                    self.podcasts += podcast
+                    group.leave()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    group.leave()
+                }
             }
         }
         
-        let podcastModel = podcasts[index]
-        return podcastModel
+        group.notify(queue: .main, execute: {
+            self.inProgress = false
+            if self.index == self.podcasts.count {
+                self.index -= 1
+                completion(nil)
+            } else {
+                let podcastModel = self.podcasts[self.index]
+                completion(podcastModel)
+            }
+        })
     }
     
     func getPrevPodcast() -> PodcastModel? {
         index -= 1
         
-        if index == -1 {
-            index += 1
+        if index < 0 {
+            index = -1
             return nil
         }
-        
+        print(index)
         let podcastModel = podcasts[index]
         return podcastModel
     }

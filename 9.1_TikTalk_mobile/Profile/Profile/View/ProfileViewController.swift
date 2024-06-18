@@ -91,6 +91,11 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -114,7 +119,6 @@ private extension ProfileViewController {
         addSubviews()
         activateConstraints()
         addActions()
-        presenter.getInfo()
     }
     
     func setupAppearance() {

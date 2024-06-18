@@ -31,6 +31,17 @@ final class CreateEditAlbumPresenter {
                     self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
                 }
             }
+        } else {
+            let albumRequest = AlbumRequest(name: album.name, description: album.description)
+            albumService.addAlbum(album: albumRequest) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    self.viewController?.exit()
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
+            }
         }
     }
 }

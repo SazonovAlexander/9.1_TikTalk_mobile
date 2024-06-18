@@ -3,6 +3,8 @@ import WebKit
 
 final class AuthViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .medium)
@@ -51,6 +53,11 @@ final class AuthViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = ""
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
     }
 }
 

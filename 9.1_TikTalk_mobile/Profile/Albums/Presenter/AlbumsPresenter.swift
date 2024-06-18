@@ -5,29 +5,7 @@ final class AlbumsPresenter {
     
     weak var viewController: AlbumsViewController?
         
-    private var albums: [AlbumModel] {
-        var success = true
-        var errorMessage = ""
-        var albumModel: [AlbumModel] = []
-        albumsService.getAlbums { result in
-            switch result {
-            case .success(let albums):
-                albumModel = albums
-            case .failure(let error):
-                success = false
-                errorMessage = error.localizedDescription
-            }
-        }
-        
-        if success {
-            return albumModel
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
-                self.viewController?.exit()
-            }
-            return []
-        }
-    }
+    private lazy var albums: [AlbumModel] = []
     private var selectedAlbum: AlbumModel? {
         didSet {
             if let selectedAlbum {
@@ -47,8 +25,18 @@ final class AlbumsPresenter {
     }
     
     func getInfo() {
-        let albums = albums.map({$0.name})
-        viewController?.config(albums)
+        albumsService.getAlbums {[weak self] result in
+            switch result {
+            case .success(let albumModels):
+                let albums = albumModels.map({$0.name})
+                self?.viewController?.config(albums)
+                self?.albums = albumModels
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription) {
+                    self?.viewController?.exit()
+                }
+            }
+        }
     }
     
     func selectedAlbum(index: Int) {

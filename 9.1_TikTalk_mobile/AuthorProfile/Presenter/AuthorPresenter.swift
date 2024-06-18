@@ -161,14 +161,18 @@ final class AuthorPresenter {
     }
     
     func subscribe() {
-        authorService.changeSubscribe(author.id, isSubscribe: !author.isSubscribe) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(_):
-                self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
-                self.getInfo()
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+        if TokenStorage.shared.accessToken == "" {
+            viewController?.showAuthController()
+        } else {
+            authorService.changeSubscribe(author.id, isSubscribe: !author.isSubscribe) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
+                    self.getInfo()
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
             }
         }
     }

@@ -17,7 +17,11 @@ final class MyPodcastsViewController: UIViewController {
     }()
     
     private let presenter: MyPodcastsPresenter
-    private var albums: [Album] = []
+    private var albums: [Album] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: MyPodcastsPresenter) {
         self.presenter = presenter
@@ -35,7 +39,6 @@ final class MyPodcastsViewController: UIViewController {
     
     func config(albums: [Album]) {
         self.albums = albums
-        tableView.reloadData()
     }
     
     func exit() {

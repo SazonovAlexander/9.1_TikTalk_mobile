@@ -9,6 +9,13 @@ final class MyAlbumPresenter {
     private let albumService: AlbumService
     private let podcastService: PodcastService
     private let router: MyAlbumRouter
+    private var podcasts: Album? {
+        didSet {
+            if let podcasts {
+                getInfo()
+            }
+        }
+    }
     
     init(album: AlbumModel, 
          albumService: AlbumService = AlbumService(),
@@ -18,33 +25,48 @@ final class MyAlbumPresenter {
         self.albumService = albumService
         self.podcastService = podcastService
         self.router = myAlbumRouter
+        getPodcasts()
     }
     
-    func getInfo() {
+    private func getPodcasts() {
+        let group = DispatchGroup()
         var podcastsInAlbum: [PodcastCell] = []
         var success = true
         var errorMessage: String = ""
         album.podcasts.forEach {
-            podcastService.getPodcastById($0, completion: { result in
-                switch result {
-                case .success(let podcast):
-                    if let url = URL(string: podcast.logoUrl) {
-                        podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
-                    } else {
+            group.enter()
+            if let id = UUID(uuidString: $0) {
+                podcastService.getPodcastByIdWithoutLike(id, completion: { result in
+                    switch result {
+                    case .success(let podcast):
+                        if let url = URL(string: podcast.logoUrl) {
+                            podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                        } else {
+                            success = false
+                        }
+                        group.leave()
+                    case .failure(let error):
                         success = false
+                        errorMessage = error.localizedDescription
+                        group.leave()
                     }
-                case .failure(let error):
-                    success = false
-                    errorMessage = error.localizedDescription
-                }
-            })
+                })
+            }
         }
         
-        if success {
-            let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
-            viewController?.config(album: albumWithPodcasts)
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+        group.notify(queue: .main) {
+            if success {
+                let albumWithPodcasts = Album(name: self.album.name, podcasts: podcastsInAlbum)
+                self.podcasts = albumWithPodcasts
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+            }
+        }
+    }
+    
+    func getInfo() {
+        if let podcasts {
+            self.viewController?.config(album: podcasts)
         }
     }
     
@@ -56,8 +78,8 @@ final class MyAlbumPresenter {
     }
     
     func podcast(index: Int) {
-        if let viewController {
-            podcastService.getPodcastById(album.podcasts[index]) { [weak self] result in
+        if let viewController, let id = UUID(uuidString: album.podcasts[index]){
+            podcastService.getPodcastByIdWithoutLike(id) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let podcast):

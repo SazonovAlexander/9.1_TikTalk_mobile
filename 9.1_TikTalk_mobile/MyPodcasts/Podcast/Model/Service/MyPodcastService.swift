@@ -48,7 +48,7 @@ final class MyPodcastService {
     func changePodcastWithLogo(podcast: PodcastModelWithoutLike, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             lastTask?.cancel()
-            let request = try changePodcastRequestWithLogo(podcast: podcast)
+            let request = try changePodcastLogoAudioRequest(podcast: podcast)
             let task = urlSession.objectTask(for: request, completion: {[weak self] (result: Result<EmptyResponse, Error>) in
                 guard let self = self else { return }
                 switch result {
@@ -70,7 +70,6 @@ final class MyPodcastService {
             lastTask?.cancel()
             let request = try createPodcastRequest(podcast: podcast)
             let task = urlSession.objectTask(for: request, completion: {[weak self] (result: Result<EmptyResponse, Error>) in
-                guard let self = self else { return }
                 switch result {
                 case .success(_):
                     completion(.success(()))
@@ -84,33 +83,34 @@ final class MyPodcastService {
             completion(.failure(error))
         }
     }
+    
 }
 
 private extension MyPodcastService {
     
     func deletePodcastRequest(id: UUID) -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/podcast/\(id)",
+            path: "tiktalk/api/podcast/\(id)",
             httpMethod: "DELETE",
             baseURL: DefaultBaseURL
         )
-        //request.setValue("token", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
         return request
     }
     
-    func changePodcastRequestWithLogo(podcast: PodcastModelWithoutLike) throws -> URLRequest {
+    func changePodcastLogoAudioRequest(podcast: PodcastModelWithoutLike) throws -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/podcast/",
-            httpMethod: "PUT",
+            path: "tiktalk/api/upload/podcast/",
+            httpMethod: "POST",
             baseURL: DefaultBaseURL
         )
-        //request.setValue("token", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         var body = Data()
         
-        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: podcast.albumId)
+        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: UUID(uuidString: podcast.albumId)!)
         let jsonData = try JSONEncoder().encode(podcastRequest)
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
         body.append("Content-Disposition: form-data; name=\"json\"\r\n".data(using: .utf8)!)
@@ -118,7 +118,7 @@ private extension MyPodcastService {
         body.append(jsonData)
         body.append("\r\n".data(using: .utf8)!)
 
-        if let imageUrl = URL(string: podcast.logoUrl) {
+        if let image = podcast.logoUrl, let imageUrl = URL(string: image) {
             let imageData = try Data(contentsOf: imageUrl)
             let filename = "\(podcast.name)\(Date().timeIntervalSince1970).\(imageUrl.pathExtension)"
             let mimeType = MimeTypeHelper.mimeType(for: imageUrl.pathExtension)
@@ -139,11 +139,12 @@ private extension MyPodcastService {
     
     func changePodcastRequestWithoutLogo(podcast: PodcastModelWithoutLike) throws -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/podcast/",
+            path: "tiktalk/api/podcast/",
             httpMethod: "PUT",
             baseURL: DefaultBaseURL
         )
-        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: podcast.albumId)
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: UUID(uuidString: podcast.albumId)!)
         let jsonData = try JSONEncoder().encode(podcastRequest)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
@@ -152,53 +153,15 @@ private extension MyPodcastService {
     
     func createPodcastRequest(podcast: PodcastModelWithoutLike) throws -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/podcast/",
+            path: "tiktalk/api/podcast/",
             httpMethod: "POST",
             baseURL: DefaultBaseURL
         )
-        //request.setValue("token", forHTTPHeaderField: "Authorization")
-        let boundary = UUID().uuidString
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        var body = Data()
-        
-        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: podcast.albumId)
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        let podcastRequest = PodcastRequest(name: podcast.name, description: podcast.description, albumId: UUID(uuidString: podcast.albumId)!)
         let jsonData = try JSONEncoder().encode(podcastRequest)
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"json\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: application/json\r\n\r\n".data(using: .utf8)!)
-        body.append(jsonData)
-        body.append("\r\n".data(using: .utf8)!)
-
-        if let imageUrl = URL(string: podcast.logoUrl) {
-            let imageData = try Data(contentsOf: imageUrl)
-            let filename = "\(podcast.name)\(Date().timeIntervalSince1970).\(imageUrl.pathExtension)"
-            let mimeType = MimeTypeHelper.mimeType(for: imageUrl.pathExtension)
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-            body.append(imageData)
-            body.append("\r\n".data(using: .utf8)!)
-        } else {
-            throw PodcastServiceError.errorParseUrl(message: "Ошибка загрузки файла")
-        }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        
-        if let audioUrl = URL(string: podcast.audioUrl) {
-            let audio = try Data(contentsOf: audioUrl)
-            let filename = "\(podcast.name)\(Date().timeIntervalSince1970).\(audioUrl.pathExtension)"
-            let mimeType = MimeTypeHelper.mimeType(for: audioUrl.pathExtension)
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-            body.append(audio)
-            body.append("\r\n".data(using: .utf8)!)
-        } else {
-            throw PodcastServiceError.errorParseUrl(message: "Ошибка загрузки файла")
-        }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
         
         return request
     }

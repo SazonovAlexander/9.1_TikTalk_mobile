@@ -45,14 +45,14 @@ final class ReportPresenter {
             reportRouter.showSelectThemeViewControllerFrom(
                 viewController,
                 themes: [
-                    "Тема 1",
-                    "Тема 2",
-                    "Тема 3",
-                    "Тема 4",
-                    "Тема 5",
-                    "Тема 6",
-                    "Тема 7",
-                    "Тема 8",
+                    "Жестокие высказывания",
+                    "Оскорбления",
+                    "Призыв к опасным действиям",
+                    "Ложная информация",
+                    "Пропаганда терроризма",
+                    "Нарушение законодательства",
+                    "Мошенничество",
+                    "Другая тема"
                 ],
                 selectedTheme: selectedTheme,
                 completion: { [weak self] theme in

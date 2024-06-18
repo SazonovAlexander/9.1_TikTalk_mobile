@@ -40,24 +40,28 @@ final class PodcastPresenter {
     }
     
     func liked() {
-        podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(_):
-                let newPodcast = PodcastModel(
-                    id: self.podcast.id,
-                    name: self.podcast.name,
-                    authorId: self.podcast.authorId,
-                    description: self.podcast.description,
-                    albumId: self.podcast.albumId,
-                    logoUrl: self.podcast.logoUrl,
-                    audioUrl: self.podcast.audioUrl,
-                    countLike: self.podcast.countLike + (podcast.isLiked ? -1 : 1),
-                    isLiked: !self.podcast.isLiked
-                )
-                self.podcast = newPodcast
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+        if TokenStorage.shared.accessToken == "" {
+            viewController?.showAuthController()
+        } else {
+            podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    let newPodcast = PodcastModel(
+                        id: self.podcast.id,
+                        name: self.podcast.name,
+                        authorId: self.podcast.authorId,
+                        description: self.podcast.description,
+                        albumId: self.podcast.albumId,
+                        logoUrl: self.podcast.logoUrl,
+                        audioUrl: self.podcast.audioUrl,
+                        countLike: self.podcast.countLike + (podcast.isLiked ? -1 : 1),
+                        isLiked: !self.podcast.isLiked
+                    )
+                    self.podcast = newPodcast
+                case .failure(let error):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                }
             }
         }
     }

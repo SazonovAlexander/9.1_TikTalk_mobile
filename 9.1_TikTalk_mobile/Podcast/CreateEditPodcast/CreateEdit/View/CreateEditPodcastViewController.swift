@@ -248,7 +248,9 @@ extension CreateEditPodcastViewController: UIImagePickerControllerDelegate & UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             logoImageView.image = pickedImage
-            presenter.logo = URL(string: Mocks.podcast.logoUrl)!
+        }
+        if let imageUrl = info[.imageURL] as? URL {
+            presenter.logo = imageUrl
         }
         picker.dismiss(animated: true, completion: nil)
     }

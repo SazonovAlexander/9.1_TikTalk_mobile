@@ -33,7 +33,30 @@ final class AuthService {
         let task = urlSession.objectTask(for: request, completion: { (result: Result<AuthResponse, Error>) in
             switch result {
             case .success(let authInfo):
-                completion(.success(authInfo))
+                self.introspect(introspect: IntrospectRequest(token: authInfo.accessToken)) { result in
+                    switch result {
+                    case .success(let introspect):
+                        TokenStorage.shared.id = introspect.sub
+                        completion(.success(authInfo))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+        lastTask = task
+        task.resume()
+    }
+    
+    private func introspect(introspect: IntrospectRequest, completion: @escaping (Result<IntrospectResponse, Error>) -> Void) {
+        lastTask?.cancel()
+        let request = introspectRequest(introspect)
+        let task = urlSession.objectTask(for: request, completion: { (result: Result<IntrospectResponse, Error>) in
+            switch result {
+            case .success(let introspectInfo):
+                completion(.success(introspectInfo))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -72,6 +95,29 @@ private extension AuthService {
             "grant_type": auth.grant_type,
             "username": auth.username,
             "password": auth.password
+        ]
+        
+        var components = URLComponents()
+        components.queryItems = parameters.map { key, value in
+            URLQueryItem(name: key, value: value)
+        }
+    
+        request.httpBody = components.query?.data(using: .utf8)
+
+        return request
+    }
+    
+    func introspectRequest(_ introscpectRequest: IntrospectRequest) -> URLRequest {
+        var request = URLRequest.makeHTTPRequest(
+            path: "/realms/tiktalk-realm/protocol/openid-connect/introspect",
+            httpMethod: "POST",
+            baseURL: URL(string: "http://localhost:8180")!
+        )
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        let parameters = [
+            "client_id": introscpectRequest.client_id,
+            "client_secret": introscpectRequest.client_secret,
+            "token": introscpectRequest.token
         ]
         
         var components = URLComponents()

@@ -183,7 +183,7 @@ extension MyAlbumViewController: UITableViewDataSource {
         podcastCell.config(podcast: podcasts[indexPath.row])
         
         if indexPath.row == podcasts.count - 1 {
-            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
         }
 
         return podcastCell

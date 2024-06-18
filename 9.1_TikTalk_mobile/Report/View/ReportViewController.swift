@@ -65,6 +65,13 @@ final class ReportViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if TokenStorage.shared.accessToken == "" {
+            showAuthController()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()

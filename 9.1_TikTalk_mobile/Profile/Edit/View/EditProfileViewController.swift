@@ -38,6 +38,11 @@ final class EditProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -73,7 +78,6 @@ private extension EditProfileViewController {
         activateConstraints()
         addActions()
         hideKeyboardWhenTappedAround()
-        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -95,6 +99,7 @@ private extension EditProfileViewController {
             nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45),
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            nameTextField.heightAnchor.constraint(equalToConstant: 70),
             avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150),
             avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
