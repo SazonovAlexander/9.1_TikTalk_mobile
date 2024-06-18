@@ -54,11 +54,15 @@ final class AudioViewController: UIViewController {
     
     private var buffer: URL? = nil {
         didSet {
-            minValue = 0.0
-            maxValue = 1.0
-            updateAudio()
-            
+            update()
+            cutted = nil
             if let buffer {
+                let type = buffer.lastPathComponent.split(separator: ".")[1]
+                if type != "m4a" {
+                    convert()
+                } else {
+                    updateAudio()
+                }
                 saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green)
             } else {
                 saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray)
@@ -66,35 +70,7 @@ final class AudioViewController: UIViewController {
         }
     }
     
-    private var cutted: URL? {
-        guard let buffer else { return nil }
-        let asset = AVAsset(url: buffer)
-        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
-            return nil
-        }
-        let startTime = CMTime(seconds: exportSession.timeRange.duration.seconds * minValue, preferredTimescale: 600)
-        let endTime = CMTime(seconds: exportSession.timeRange.duration.seconds * maxValue, preferredTimescale: 600)
-        let timeRange = CMTimeRange(start: startTime, duration: endTime - startTime)
-        exportSession.timeRange = timeRange
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let outputURL = documentsDirectory.appendingPathComponent("cuttedAudio.m4a")
-        exportSession.outputURL = outputURL
-        exportSession.outputFileType = .m4a
-        var completed: Bool = false
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .completed:
-                completed = true
-            default:
-                break
-            }
-        }
-        if completed {
-            return outputURL
-        } else {
-            return nil
-        }
-    }
+    private var cutted: URL?
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -110,8 +86,36 @@ final class AudioViewController: UIViewController {
 
 private extension AudioViewController {
     
+    func update() {
+        player.stop(changeIcon: true)
+    }
+    
+    func convert() {
+        guard let buffer else { return }
+        let group = DispatchGroup()
+        group.enter()
+        BlockingProgressHUD.show()
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let type = buffer.lastPathComponent.split(separator: ".")[1]
+        if type != "m4a" {
+            let inputFilePath = buffer
+            let outputFileURL = documentsDirectory.appendingPathComponent("converted.m4a")
+
+            if let audioConverter = AVAudioFileConverter(inputFileURL: inputFilePath, outputFileURL: outputFileURL) {
+                audioConverter.convert(group: group)
+                group.notify(queue: .main) {
+                    self.buffer = outputFileURL
+                }
+            }
+        } else {
+            BlockingProgressHUD.dismiss()
+            group.leave()
+        }
+    }
+    
     func updateAudio() {
         guard let buffer else { return }
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let asset = AVAsset(url: buffer)
         guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
             return
@@ -120,7 +124,6 @@ private extension AudioViewController {
         let endTime = CMTime(seconds: asset.duration.seconds * maxValue, preferredTimescale: 600)
         let timeRange = CMTimeRange(start: startTime, duration: endTime - startTime)
         exportSession.timeRange = timeRange
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let outputURL = documentsDirectory.appendingPathComponent("cuttedAudio.m4a")
         exportSession.outputURL = outputURL
         exportSession.outputFileType = .m4a
@@ -138,6 +141,7 @@ private extension AudioViewController {
             case .completed:
                 DispatchQueue.main.async {
                     self.player.setAudioFromUrl(outputURL)
+                    self.cutted = outputURL
                 }
             case .failed:
                 if let error = exportSession.error {
@@ -305,6 +309,7 @@ extension AudioViewController: RangeUISliderDelegate {
     func rangeChangeFinished(event: RangeUISliderChangeFinishedEvent) {
         maxValue = event.maxValueSelected
         minValue = event.minValueSelected
+        player.stop(changeIcon: true)
         updateAudio()
     }
 }
