@@ -12,21 +12,33 @@ final class AuthorService {
             guard let self = self else { return }
             switch result {
             case .success(let authorModel):
-                isSubscribe(id) { result in
-                    switch result {
-                    case .success(let isSubscribe):
-                        let author = AuthorModel(
-                            id: UUID(uuidString: authorModel.id)!,
-                            name: authorModel.name,
-                            avatarUrl: authorModel.avatarUrl ?? "",
-                            isSubscribe: isSubscribe,
-                            albums: authorModel.albums.map({UUID(uuidString: $0)!})
-                        )
-                        completion(.success(author))
-                    case .failure(let error):
-                        print("failure is subscrive 1")
-                        completion(.failure(error))
+                print(authorModel.albums)
+                if TokenStorage.shared.accessToken != "" {
+                    isSubscribe(id) { result in
+                        switch result {
+                        case .success(let isSubscribe):
+                            let author = AuthorModel(
+                                id: UUID(uuidString: authorModel.id)!,
+                                name: authorModel.name,
+                                avatarUrl: authorModel.avatarUrl ?? "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060",
+                                isSubscribe: isSubscribe,
+                                albums: authorModel.albums.map({UUID(uuidString: $0)!})
+                            )
+                            completion(.success(author))
+                        case .failure(let error):
+                            print("failure is subscrive 1")
+                            completion(.failure(error))
+                        }
                     }
+                } else {
+                    let author = AuthorModel(
+                        id: UUID(uuidString: authorModel.id)!,
+                        name: authorModel.name,
+                        avatarUrl: authorModel.avatarUrl ?? "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060",
+                        isSubscribe: false,
+                        albums: authorModel.albums.map({UUID(uuidString: $0)!})
+                    )
+                    completion(.success(author))
                 }
             case .failure(let error):
                 print("failure is subscrive 2")

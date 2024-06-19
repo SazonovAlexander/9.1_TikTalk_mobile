@@ -29,6 +29,7 @@ final class AuthorPresenter {
         self.podcastService = podcastService
         self.authorService = authorService
         self.router = authorRouter
+        print(author.albums)
         getAlbums()
     }
     
@@ -46,7 +47,7 @@ final class AuthorPresenter {
                     dispatchGroup.leave()
                 case .failure(let error):
                     success = false
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Проверьте соединение"
                     dispatchGroup.leave()
                 }
             }
@@ -95,7 +96,7 @@ final class AuthorPresenter {
                             group1.leave()
                         case .failure(let error):
                             successed = false
-                            errorMessage = error.localizedDescription
+                            errorMessage = "Проверьте соединение"
                             group1.leave()
                         }
                     })
@@ -137,6 +138,7 @@ final class AuthorPresenter {
             )
             viewController?.config(author: author)
         } else {
+            print("ашибка")
             viewController?.showErrorAlert(title: "Ошибка", message: nil, completion: {[weak self] in
                 self?.viewController?.exit()
             })
@@ -153,7 +155,7 @@ final class AuthorPresenter {
                     case .success(let podcast):
                         self.router.showPodcastFrom(viewController, podcast: podcast)
                     case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                     }
                 }
             }
@@ -171,7 +173,7 @@ final class AuthorPresenter {
                     self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
                     self.getInfo()
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
