@@ -6,7 +6,7 @@ final class AuthService {
     private var lastTask: URLSessionTask?
     
     func register(register: Register, completion: @escaping (Result<Void, Error>) -> Void) {
-        auth(auth: AuthRequest(username: "superadmin", password: "superadmin")) { result in
+        auth(auth: AuthRequest(username: "superadmin", password: "fc9767b6-e62b-4583-97bd-cb17690ccd29")) { result in
             switch result {
             case .success(let auth):
                 self.lastTask?.cancel()
@@ -43,6 +43,7 @@ final class AuthService {
                     }
                 }
             case .failure(let error):
+                print("ошибка")
                 completion(.failure(error))
             }
         })
@@ -78,7 +79,6 @@ private extension AuthService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let jsonData = try! JSONEncoder().encode(register)
         request.httpBody = jsonData
-        print(request)
         return request
     }
     
@@ -86,8 +86,10 @@ private extension AuthService {
         var request = URLRequest.makeHTTPRequest(
             path: "/realms/tiktalk-realm/protocol/openid-connect/token",
             httpMethod: "POST",
-            baseURL: URL(string: "http://localhost:8180")!
+            baseURL: DefaultBaseURL
         )
+        print(DefaultBaseURL)
+        print(request)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let parameters = [
             "client_id": auth.client_id,
@@ -109,10 +111,13 @@ private extension AuthService {
     
     func introspectRequest(_ introscpectRequest: IntrospectRequest) -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/realms/tiktalk-realm/protocol/openid-connect/introspect",
+            path: "realms/tiktalk-realm/protocol/openid-connect/token/introspect",
             httpMethod: "POST",
-            baseURL: URL(string: "http://localhost:8180")!
+            baseURL: DefaultBaseURL
         )
+        
+        print(request)
+        
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let parameters = [
             "client_id": introscpectRequest.client_id,

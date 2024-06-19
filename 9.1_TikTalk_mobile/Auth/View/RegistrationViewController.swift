@@ -139,7 +139,7 @@ private extension RegistrationViewController {
             case .success(_):
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
-                self.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }
