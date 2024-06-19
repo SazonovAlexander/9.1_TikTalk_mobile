@@ -41,11 +41,11 @@ final class EditProfilePresenter {
                         case .success(_):
                             self.viewController?.exit()
                         case .failure(let error):
-                            self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                            self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                         }
                     }
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         } else {
@@ -62,7 +62,7 @@ final class EditProfilePresenter {
                 case .success(_):
                     self.viewController?.exit()
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }

@@ -40,7 +40,7 @@ final class SubsPresenter {
                         group.leave()
                     case .failure(let error):
                         success = false
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Проверьте соединение"
                         group.leave()
                     }
                 }

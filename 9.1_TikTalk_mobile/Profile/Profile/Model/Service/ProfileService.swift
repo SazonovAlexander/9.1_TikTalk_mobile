@@ -18,7 +18,7 @@ final class ProfileService {
             case .success(let profile):
                 completion(.success(profile))
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Проверьте соединение")
                 completion(.failure(error))
             }
         })
@@ -28,7 +28,6 @@ final class ProfileService {
     
     func changeProfileName(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            lastTask?.cancel()
             let request = try changeProfileNameRequest(profile: profile)
             let task = urlSession.objectTask(for: request, completion: { (result: Result<EmptyResponse, Error>) in
                 switch result {
@@ -38,7 +37,6 @@ final class ProfileService {
                     completion(.failure(error))
                 }
             })
-            lastTask = task
             task.resume()
         } catch (let error) {
             completion(.failure(error))
@@ -47,7 +45,6 @@ final class ProfileService {
     
     func changeAvatar(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            lastTask?.cancel()
             let request = try changeAvatarRequest(profile: profile)
             let task = urlSession.objectTask(for: request, completion: { (result: Result<EmptyResponse, Error>) in
                 switch result {
@@ -57,7 +54,6 @@ final class ProfileService {
                     completion(.failure(error))
                 }
             })
-            lastTask = task
             task.resume()
         } catch (let error) {
             completion(.failure(error))
@@ -78,40 +74,30 @@ private extension ProfileService {
     }
     
     func changeAvatarRequest(profile: ProfileModel) throws -> URLRequest {
+        var mulripartData = MultipartRequest()
+        if let imageUrl = URL(string: profile.avatarUrl ?? "") {
+            let imageData = try Data(contentsOf: imageUrl)
+            print("\(profile.name).\(imageUrl.pathExtension)")
+            mulripartData.add(
+                key: "image",
+                fileName: "@image.\(imageUrl.pathExtension)",
+                fileMimeType: MimeTypeHelper.mimeType(for: imageUrl.pathExtension),
+                fileData: imageData
+            )
+        } else {
+            throw ProfileServiceError.errorParseUrl(message: "Ошибка загрузки файла")
+        }
+        
         var request = URLRequest.makeHTTPRequest(
             path: "tiktalk/api/person/upload",
             httpMethod: "POST",
             baseURL: DefaultBaseURL
         )
-        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
-        let boundary = UUID().uuidString
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
 
-        var body = Data()
-        
-        let profileRequest = ProfileRequest(name: profile.name)
-        let jsonData = try JSONEncoder().encode(profileRequest)
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"json\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: application/json\r\n\r\n".data(using: .utf8)!)
-        body.append(jsonData)
-        body.append("\r\n".data(using: .utf8)!)
-
-        if let imageUrl = URL(string: profile.avatarUrl ?? "https://img.freepik.com/free-photo/adorable-illustration-kittens-playing-forest-generative-ai_260559-483.jpg?t=st=1714386416~exp=1714390016~hmac=f12b0fc908b3809fd673437113008bef623f25e9026bcc191967899da985e9c4&w=1060") {
-            let imageData = try Data(contentsOf: imageUrl)
-            let filename = "\(profile.name)\(Date().timeIntervalSince1970).\(imageUrl.pathExtension)"
-            let mimeType = MimeTypeHelper.mimeType(for: imageUrl.pathExtension)
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-            body.append(imageData)
-            body.append("\r\n".data(using: .utf8)!)
-        } else {
-            throw ProfileServiceError.errorParseUrl(message: "Ошибка загрузки файла")
-        }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        request.httpBody = body
+        request.addValue(mulripartData.httpContentTypeHeadeValue, forHTTPHeaderField: "Content-Type")
+        request.httpBody = mulripartData.httpBody
+        print(request)
         
         return request
     }

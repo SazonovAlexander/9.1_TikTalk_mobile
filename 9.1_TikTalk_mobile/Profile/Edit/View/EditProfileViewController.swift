@@ -3,6 +3,8 @@ import UIKit
 
 final class EditProfileViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var nameTextField = ValidatedTextField(placeholder: "Имя")
    
     private lazy var avatarImageView: UIImageView = {
@@ -46,6 +48,11 @@ final class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        completion?()
     }
     
     override func viewDidLayoutSubviews() {

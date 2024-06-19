@@ -25,44 +25,45 @@ final class ProfilePresenter {
                     self?.viewController?.config(profile: Profile(name: profileModel.name, avatarUrl: url))
                 }
             case .failure(let error):
-                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }
     
     func changeProfile() {
         if let profile,  let viewController {
-            router.showChangeProfileFrom(viewController, profile: profile)
+            router.showChangeProfileFrom(viewController, profile: profile, completion: { [weak self] in self?.getInfo()})
         }
     }
     
     func createPodcast() {
         if let viewController {
-            router.showCreatePodcastFrom(viewController)
+            router.showCreatePodcastFrom(viewController, completion: { [weak self] in self?.getInfo()})
         }
     }
     
     func subs() {
         if let profile, let viewController {
-            router.showSubsFrom(viewController, profile: profile)
+            router.showSubsFrom(viewController, profile: profile, completion: { [weak self] in self?.getInfo()})
         }
     }
     
     func like() {
         if let profile, let viewController {
-            router.showLikeFrom(viewController, profile: profile)
+            router.showLikeFrom(viewController, profile: profile, completion: { [weak self] in self?.getInfo()})
         }
     }
     
     func myPodcasts() {
         if let profile, let viewController {
-            router.showMyPodcastsFrom(viewController, profile: profile)
+            router.showMyPodcastsFrom(viewController, profile: profile, completion: { [weak self] in self?.getInfo()})
         }
     }
     
     func exit() {
         TokenStorage.shared.accessToken = ""
         TokenStorage.shared.refreshToken = ""
+        TokenStorage.shared.id = ""
         router.exit()
     }
 }

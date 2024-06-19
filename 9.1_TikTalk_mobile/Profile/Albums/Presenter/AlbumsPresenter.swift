@@ -32,7 +32,7 @@ final class AlbumsPresenter {
                 self?.viewController?.config(albums)
                 self?.albums = albumModels
             case .failure(let error):
-                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription) {
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение") {
                     self?.viewController?.exit()
                 }
             }

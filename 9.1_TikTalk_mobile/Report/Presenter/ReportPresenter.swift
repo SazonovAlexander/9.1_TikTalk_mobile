@@ -33,7 +33,7 @@ final class ReportPresenter {
             case .success(let author):
                 viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
             case .failure(let error):
-                viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription, completion: { [weak self] in
+                viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение", completion: { [weak self] in
                     self?.viewController?.exit()
                 })
             }
@@ -75,7 +75,7 @@ final class ReportPresenter {
                     self?.reportRouter.dismissReportViewController(viewController)
                 }
             case .failure(let error):
-                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }

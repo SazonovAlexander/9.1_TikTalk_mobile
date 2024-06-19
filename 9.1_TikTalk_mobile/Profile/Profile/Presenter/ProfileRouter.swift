@@ -3,7 +3,7 @@ import UIKit
 
 final class ProfileRouter {
     
-    func showChangeProfileFrom(_ viewController: UIViewController, profile: ProfileModel) {
+    func showChangeProfileFrom(_ viewController: UIViewController, profile: ProfileModel, completion: @escaping () -> Void) {
         if TokenStorage.shared.accessToken == "" {
             viewController.showAuthController()
         } else {
@@ -14,7 +14,7 @@ final class ProfileRouter {
         }
     }
     
-    func showCreatePodcastFrom(_ viewController: UIViewController) {
+    func showCreatePodcastFrom(_ viewController: UIViewController, completion: @escaping () -> Void) {
         if TokenStorage.shared.accessToken == "" {
             viewController.showAuthController()
         } else {
@@ -27,7 +27,7 @@ final class ProfileRouter {
         }
     }
     
-    func showSubsFrom(_ viewController: UIViewController, profile: ProfileModel) {
+    func showSubsFrom(_ viewController: UIViewController, profile: ProfileModel, completion: @escaping () -> Void) {
         if TokenStorage.shared.accessToken == "" {
             viewController.showAuthController()
         } else {
@@ -40,7 +40,7 @@ final class ProfileRouter {
         }
     }
     
-    func showLikeFrom(_ viewController: UIViewController, profile: ProfileModel) {
+    func showLikeFrom(_ viewController: UIViewController, profile: ProfileModel, completion: @escaping () -> Void) {
         if TokenStorage.shared.accessToken == "" {
             viewController.showAuthController()
         } else {
@@ -53,7 +53,7 @@ final class ProfileRouter {
         }
     }
     
-    func showMyPodcastsFrom(_ viewController: UIViewController, profile: ProfileModel) {
+    func showMyPodcastsFrom(_ viewController: UIViewController, profile: ProfileModel, completion: @escaping () -> Void) {
         if TokenStorage.shared.accessToken == "" {
             viewController.showAuthController()
         } else {

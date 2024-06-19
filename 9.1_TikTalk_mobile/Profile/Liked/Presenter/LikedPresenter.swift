@@ -9,7 +9,8 @@ final class LikedPresenter {
     private var profile: ProfileModel
     private lazy var podcasts: [PodcastModel] = [] {
         didSet {
-            getPodcasts()
+            print(podcasts)
+            getInfo()
         }
     }
     
@@ -20,6 +21,7 @@ final class LikedPresenter {
         self.profile = profile
         self.podcastService = podcastService
         self.router = likedRouter
+        getPodcasts()
     }
     
     func showPodcast(index: Int) {
@@ -43,7 +45,7 @@ final class LikedPresenter {
                         group.leave()
                     case .failure(let error):
                         success = false
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Проверьте соединение"
                         group.leave()
                     }
                 })
