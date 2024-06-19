@@ -12,7 +12,7 @@ final class Analytic {
             AppMetrica.activate(with: configuration)
         }
         AppMetrica.reportEvent(name: "EVENT", parameters: ["application": "open"], onFailure: { error in
-            print("REPORT ERROR: %@", error.localizedDescription)
+            print("REPORT ERROR: %@", "Проверьте соединение")
         })
     }
 }

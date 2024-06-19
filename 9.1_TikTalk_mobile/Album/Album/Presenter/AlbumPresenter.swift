@@ -46,7 +46,7 @@ final class AlbumPresenter {
                         group.leave()
                     case .failure(let error):
                         success = false
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Проверьте соединение"
                         group.leave()
                     }
                 })
@@ -80,7 +80,7 @@ final class AlbumPresenter {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }

@@ -28,7 +28,7 @@ final class CreateEditAlbumPresenter {
                 case .success(_):
                     self.viewController?.exit()
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         } else {
@@ -39,7 +39,7 @@ final class CreateEditAlbumPresenter {
                 case .success(_):
                     self.viewController?.exit()
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
