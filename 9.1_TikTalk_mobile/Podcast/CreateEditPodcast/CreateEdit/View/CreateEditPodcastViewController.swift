@@ -3,6 +3,8 @@ import UIKit
 
 final class CreateEditPodcastViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -87,9 +89,15 @@ final class CreateEditPodcastViewController: UIViewController {
         setup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        completion?()
+    }
+    
     func config(_ podcast: PodcastInfo?, isEdit: Bool) {
         if isEdit {
             audioButton.isHidden = true
+            navigationItem.title = "Редактирование подкаста"
         }
         
         if let podcast {

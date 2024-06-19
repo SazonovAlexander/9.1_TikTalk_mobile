@@ -46,7 +46,7 @@ final class MyPodcastsPresenter {
                         dispatchGroup.leave()
                     case .failure(let error):
                         success = false
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Проверьте соединение"
                         dispatchGroup.leave()
                     }
                 }
@@ -56,6 +56,7 @@ final class MyPodcastsPresenter {
         dispatchGroup.notify(queue: .main) {
             if success {
                 self.albums = albumModels
+                self.albums.sort(by: { $0.name > $1.name })
                 self.getPodcasts()
             } else {
                 print("error 1")
@@ -95,7 +96,7 @@ final class MyPodcastsPresenter {
                         case .failure(let error):
                             print("error 3")
                             successed = false
-                            errorMessage = error.localizedDescription
+                            errorMessage = "Проверьте соединение"
                             group1.leave()
                         }
                     })
@@ -118,7 +119,9 @@ final class MyPodcastsPresenter {
         dispatchGroup.notify(queue: .main) {
             if success {
                 self.podcasts = albumsView
+                self.podcasts.sort(by: {$0.name > $1.name })
                 self.albums = albumModels
+                self.albums.sort(by: {$0.name > $1.name})
             } else {
                 print("error 2")
                 self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
@@ -142,7 +145,7 @@ final class MyPodcastsPresenter {
                     case .success(let podcast):
                         router.showMyPodcastFrom(viewController, podcast: podcast)
                     case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                     }
                 }
             }

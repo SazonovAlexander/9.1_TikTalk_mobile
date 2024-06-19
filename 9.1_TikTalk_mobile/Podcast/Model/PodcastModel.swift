@@ -10,11 +10,11 @@ struct PodcastModel {
     let logoUrl: String
     let audioUrl: String
     let countLike: Int
-    let isLiked: Bool
+    var isLiked: Bool
 }
 
 struct PodcastModelWithoutLike: Decodable {
-    let id: String
+    var id: String
     let name: String
     let authorId: String
     let description: String

@@ -47,7 +47,7 @@ final class MyAlbumPresenter {
                         group.leave()
                     case .failure(let error):
                         success = false
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Проверьте соединение"
                         group.leave()
                     }
                 })
@@ -56,8 +56,9 @@ final class MyAlbumPresenter {
         
         group.notify(queue: .main) {
             if success {
-                let albumWithPodcasts = Album(name: self.album.name, podcasts: podcastsInAlbum)
+                let albumWithPodcasts = Album(name: self.album.name, podcasts: podcastsInAlbum.sorted(by: { $0.name > $1.name }))
                 self.podcasts = albumWithPodcasts
+                self.podcasts
             } else {
                 self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
             }
@@ -85,7 +86,7 @@ final class MyAlbumPresenter {
                 case .success(let podcast):
                     router.showMyPodcast(viewController, podcast: podcast)
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -108,7 +109,7 @@ final class MyAlbumPresenter {
             case .success(_):
                 self.viewController?.exit()
             case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }

@@ -3,6 +3,8 @@ import UIKit
 
 final class MyPodcastsViewController: UIViewController {
             
+    var completion: (() -> Void)?
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
@@ -35,6 +37,11 @@ final class MyPodcastsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        completion?()
     }
     
     func config(albums: [Album]) {

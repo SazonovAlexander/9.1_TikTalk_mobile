@@ -60,7 +60,7 @@ final class PodcastPresenter {
                     )
                     self.podcast = newPodcast
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -74,7 +74,7 @@ final class PodcastPresenter {
                 case .success(let album):
                     self.router.showAlbumFrom(viewController, album: album)
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -88,7 +88,7 @@ final class PodcastPresenter {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -126,7 +126,7 @@ final class PodcastPresenter {
                 }
             case .failure(let error):
                 print("fallure")
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }

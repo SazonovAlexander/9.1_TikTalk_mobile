@@ -131,7 +131,7 @@ private extension AudioViewController {
             do {
                 try FileManager.default.removeItem(at: outputURL)
             } catch {
-                print("Не удалось удалить старый файл: \(error.localizedDescription)")
+                print("Не удалось удалить старый файл: \("Проверьте соединение")")
             }
         }
 
@@ -145,7 +145,7 @@ private extension AudioViewController {
                 }
             case .failed:
                 if let error = exportSession.error {
-                    print("Экспорт не удался: \(error.localizedDescription)")
+                    print("Экспорт не удался: \("Проверьте соединение")")
                 }
             case .cancelled:
                 print("Экспорт был отменен")
@@ -238,7 +238,7 @@ private extension AudioViewController {
                 try audioSession.setCategory(.record, mode: .default)
                 try audioSession.setActive(true)
             } catch {
-                print("Ошибка настройки аудиосессии: \(error.localizedDescription)")
+                print("Ошибка настройки аудиосессии: \("Проверьте соединение")")
             }
             
             self.recordButton.config(text: "Остановить", backgroundColor:  UIColor(named: "ButtonRed") ?? .red)

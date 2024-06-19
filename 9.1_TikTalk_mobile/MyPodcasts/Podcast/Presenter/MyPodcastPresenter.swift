@@ -38,7 +38,7 @@ final class MyPodcastPresenter {
             let podcast = try castPodcastModelToPodcast(self.podcast)
             viewController?.config(podcast: podcast)
         } catch (let error) {
-            viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
         }
     }
     
@@ -91,7 +91,7 @@ final class MyPodcastPresenter {
             case .success(_):
                 self?.viewController?.exit()
             case .failure(let error):
-                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
             
         }
