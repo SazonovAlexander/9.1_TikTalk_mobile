@@ -34,7 +34,7 @@ final class SearchService {
                         audioUrl: $0.audioUrl ?? "https://drive.usercontent.google.com/u/0/uc?id=1H6WBaOQLgQsrYrWazeCAcypHBu6aFiVb&export=download",
                         countLike: $0.countLike,
                         isLiked: false
-                    ) }.filter{ $0.authorId.uuidString != TokenStorage.shared.id }))
+                    ) }.filter{ $0.authorId.uuidString.lowercased() != TokenStorage.shared.id.lowercased() }))
                 case .failure(let error):
                     completion(.failure(error))
                 }

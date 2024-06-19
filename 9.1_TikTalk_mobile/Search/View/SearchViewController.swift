@@ -119,11 +119,13 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        
-        if offsetY > contentHeight - scrollView.frame.height {
-            presenter.search(searchTextField.text ?? "")
+        if !podcasts.isEmpty {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            
+            if offsetY > contentHeight - scrollView.frame.height {
+                presenter.search(searchTextField.text ?? "")
+            }
         }
     }
 }

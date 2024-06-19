@@ -34,7 +34,7 @@ final class SearchPresenter {
                 self.podcasts += podcasts
                 lastText = text
             case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                break
             }
         }
     }
@@ -47,7 +47,7 @@ final class SearchPresenter {
                 case .success(let podcast):
                     self.router.showPodcastFrom(viewController, podcast: podcast)
                 case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }

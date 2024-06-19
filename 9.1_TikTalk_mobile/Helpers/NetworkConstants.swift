@@ -7,4 +7,4 @@ enum NetworkError: Error {
     case unauthorized(String)
 }
 
-let DefaultBaseURL = URL(string: "http://localhost:8089/")!
+let DefaultBaseURL = URL(string: "https://tiktalkapp.ru/")!
