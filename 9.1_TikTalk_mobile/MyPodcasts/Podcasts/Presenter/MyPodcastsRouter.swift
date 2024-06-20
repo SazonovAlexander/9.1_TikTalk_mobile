@@ -7,6 +7,7 @@ final class MyPodcastsRouter {
         let presenter = MyPodcastPresenter(podcast: podcast)
         let myPodcastViewController = MyPodcastViewController(presenter: presenter)
         presenter.viewController = myPodcastViewController
+        viewController.navigationController?.navigationBar.backItem?.title = "Назад"
         viewController.navigationController?.pushViewController(myPodcastViewController, animated: true)
     }
     
@@ -14,6 +15,7 @@ final class MyPodcastsRouter {
         let presenter = MyAlbumPresenter(album: album)
         let myAlbumViewController = MyAlbumViewController(presenter: presenter)
         presenter.viewController = myAlbumViewController
+        viewController.navigationController?.navigationBar.backItem?.title = "Назад"
         viewController.navigationController?.pushViewController(myAlbumViewController, animated: true)
     }
 }

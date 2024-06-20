@@ -264,6 +264,11 @@ extension CreateEditPodcastViewController: UIImagePickerControllerDelegate & UIN
             presenter.logo = imageUrl
         }
         picker.dismiss(animated: true, completion: nil)
+        if presenter.isValid() {
+            saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
+        } else {
+            saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray, isEnabled: false)
+        }
     }
 }
 
