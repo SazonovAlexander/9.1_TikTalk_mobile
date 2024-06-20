@@ -37,7 +37,7 @@ final class MyPodcastPresenter {
         do {
             let podcast = try castPodcastModelToPodcast(self.podcast)
             viewController?.config(podcast: podcast)
-        } catch (let error) {
+        } catch (_) {
             viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
         }
     }
@@ -90,7 +90,7 @@ final class MyPodcastPresenter {
             switch result {
             case .success(_):
                 self?.viewController?.exit()
-            case .failure(let error):
+            case .failure(_):
                 self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
             

@@ -31,7 +31,7 @@ final class AlbumsPresenter {
                 let albums = albumModels.map({$0.name})
                 self?.viewController?.config(albums)
                 self?.albums = albumModels
-            case .failure(let error):
+            case .failure(_):
                 self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение") {
                     self?.viewController?.exit()
                 }

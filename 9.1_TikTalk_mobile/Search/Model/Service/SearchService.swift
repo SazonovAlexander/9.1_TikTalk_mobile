@@ -53,7 +53,6 @@ private extension SearchService {
             httpMethod: "GET",
             baseURL: DefaultBaseURL
         )
-        print(name)
         return request
     }
 }

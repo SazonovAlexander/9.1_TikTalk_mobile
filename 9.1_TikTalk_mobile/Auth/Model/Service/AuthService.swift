@@ -43,7 +43,6 @@ final class AuthService {
                     }
                 }
             case .failure(let error):
-                print("ошибка")
                 completion(.failure(error))
             }
         })
@@ -88,8 +87,7 @@ private extension AuthService {
             httpMethod: "POST",
             baseURL: DefaultBaseURL
         )
-        print(DefaultBaseURL)
-        print(request)
+
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let parameters = [
             "client_id": auth.client_id,
@@ -115,8 +113,6 @@ private extension AuthService {
             httpMethod: "POST",
             baseURL: DefaultBaseURL
         )
-        
-        print(request)
         
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let parameters = [

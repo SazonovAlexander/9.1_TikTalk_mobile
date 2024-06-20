@@ -28,12 +28,10 @@ final class PodcastService {
                         )
                         completion(.success(podcast))
                     case .failure(let error):
-                        print("error 5")
                         completion(.failure(error))
                     }
                 }
             case .failure(let error):
-                print("error 6")
                 completion(.failure(error))
             }
         })
@@ -93,7 +91,6 @@ final class PodcastService {
                 )
                 completion(.success(podcast))
             case .failure(let error):
-                print("error 6")
                 completion(.failure(error))
             }
         })
@@ -139,7 +136,6 @@ private extension PodcastService {
             )
         }
         request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
-        
         return request
     }
 }

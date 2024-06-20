@@ -30,7 +30,7 @@ final class BandService {
                         audioUrl: $0.audioUrl ?? "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
                         countLike: $0.countLike,
                         isLiked: false
-                    ) }.filter { $0.authorId.uuidString != TokenStorage.shared.id }))
+                    ) }.filter { $0.authorId.uuidString.lowercased() != TokenStorage.shared.id.lowercased() }))
                 case .failure(let error):
                     completion(.failure(error))
                 }

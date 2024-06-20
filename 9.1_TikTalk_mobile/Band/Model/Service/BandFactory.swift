@@ -23,9 +23,16 @@ final class BandFactory {
         self.bandService = bandService
     }
     
-    func updateLike() {
-        if index >= 0 {
-            podcasts[index].isLiked.toggle()
+    func updateLike(isLiked: Bool, id: UUID) {
+        if let index = podcasts.firstIndex(where: {$0.id == id}) {
+            podcasts[index].countLike += isLiked ? 1 : -1
+            podcasts[index].isLiked = isLiked
+        }
+    }
+    
+    func updateLikeWithourChangeCount(isLiked: Bool, id: UUID) {
+        if let index = podcasts.firstIndex(where: {$0.id == id}) {
+            podcasts[index].isLiked = isLiked
         }
     }
     
@@ -34,8 +41,8 @@ final class BandFactory {
             switch result {
             case .success(let podcast):
                 self.podcasts += podcast
-            case .failure(let error):
-                print("Проверьте соединение")
+            case .failure(_):
+                break
             }
         }
     }
@@ -53,8 +60,7 @@ final class BandFactory {
                 case .success(let podcast):
                     self.podcasts += podcast
                     group.leave()
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
                     group.leave()
                 }
             }
@@ -79,7 +85,7 @@ final class BandFactory {
             index = -1
             return nil
         }
-        print(index)
+
         let podcastModel = podcasts[index]
         return podcastModel
     }

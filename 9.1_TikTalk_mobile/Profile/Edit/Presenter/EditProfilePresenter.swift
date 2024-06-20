@@ -40,11 +40,11 @@ final class EditProfilePresenter {
                         switch result {
                         case .success(_):
                             self.viewController?.exit()
-                        case .failure(let error):
+                        case .failure(_):
                             self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                         }
                     }
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -61,7 +61,7 @@ final class EditProfilePresenter {
                 switch result {
                 case .success(_):
                     self.viewController?.exit()
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }

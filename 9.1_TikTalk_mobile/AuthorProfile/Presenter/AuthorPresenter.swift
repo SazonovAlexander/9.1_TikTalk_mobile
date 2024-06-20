@@ -8,7 +8,6 @@ final class AuthorPresenter {
     private var albums: [AlbumModel] = []
     private var podcasts: [Album] = [] {
         didSet {
-            print(podcasts)
             getInfo()
         }
     }
@@ -29,7 +28,6 @@ final class AuthorPresenter {
         self.podcastService = podcastService
         self.authorService = authorService
         self.router = authorRouter
-        print(author.albums)
         getAlbums()
     }
     
@@ -45,7 +43,7 @@ final class AuthorPresenter {
                 case .success(let album):
                     albumModels.append(album)
                     dispatchGroup.leave()
-                case .failure(let error):
+                case .failure(_):
                     success = false
                     errorMessage = "Проверьте соединение"
                     dispatchGroup.leave()
@@ -80,21 +78,17 @@ final class AuthorPresenter {
             let group1 = DispatchGroup()
             album.podcasts.forEach {
                 group1.enter()
-                print("beforeid")
                 if let id = UUID(uuidString: $0) {
-                    print("id")
                     podcastService.getPodcastById(id, completion: { result in
                         switch result {
                         case .success(let podcast):
-                            print("success")
                             if let url = URL(string: podcast.logoUrl) {
-                                print("url")
-                                podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                                podcastsInAlbum.append(PodcastCell(id: podcast.id.uuidString.lowercased(), name: podcast.name, logoUrl: url))
                             } else {
                                 successed = false
                             }
                             group1.leave()
-                        case .failure(let error):
+                        case .failure(_):
                             successed = false
                             errorMessage = "Проверьте соединение"
                             group1.leave()
@@ -105,7 +99,7 @@ final class AuthorPresenter {
             
             group1.notify(queue: .main, execute: {
                 if successed {
-                    let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
+                    let albumWithPodcasts = Album(id: album.id.uuidString.lowercased(), name: album.name, podcasts: podcastsInAlbum)
                     albumsView.append(albumWithPodcasts)
                     albumModels.append(album)
                 } else {
@@ -138,25 +132,21 @@ final class AuthorPresenter {
             )
             viewController?.config(author: author)
         } else {
-            print("ашибка")
             viewController?.showErrorAlert(title: "Ошибка", message: nil, completion: {[weak self] in
                 self?.viewController?.exit()
             })
         }
     }
     
-    func showPodcast(indexPath: IndexPath) {
+    func showPodcast(podcastId: String) {
         if let viewController {
-            let album = albums[indexPath.section]
-            if let id = UUID(uuidString: album.podcasts[indexPath.row]) {
-                podcastService.getPodcastById(id) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(let podcast):
-                        self.router.showPodcastFrom(viewController, podcast: podcast)
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
-                    }
+            podcastService.getPodcastById(UUID(uuidString: podcastId)!) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let podcast):
+                    self.router.showPodcastFrom(viewController, podcast: podcast)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -172,7 +162,7 @@ final class AuthorPresenter {
                 case .success(_):
                     self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
                     self.getInfo()
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }

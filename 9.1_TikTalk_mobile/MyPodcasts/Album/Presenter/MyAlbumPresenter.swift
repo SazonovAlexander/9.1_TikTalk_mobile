@@ -40,12 +40,12 @@ final class MyAlbumPresenter {
                     switch result {
                     case .success(let podcast):
                         if let url = URL(string: podcast.logoUrl) {
-                            podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                            podcastsInAlbum.append(PodcastCell(id: podcast.id.uuidString.lowercased(), name: podcast.name, logoUrl: url))
                         } else {
                             success = false
                         }
                         group.leave()
-                    case .failure(let error):
+                    case .failure(_):
                         success = false
                         errorMessage = "Проверьте соединение"
                         group.leave()
@@ -56,9 +56,8 @@ final class MyAlbumPresenter {
         
         group.notify(queue: .main) {
             if success {
-                let albumWithPodcasts = Album(name: self.album.name, podcasts: podcastsInAlbum.sorted(by: { $0.name > $1.name }))
+                let albumWithPodcasts = Album(id: self.album.id.uuidString.lowercased(), name: self.album.name, podcasts: podcastsInAlbum)
                 self.podcasts = albumWithPodcasts
-                self.podcasts
             } else {
                 self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
             }
@@ -85,7 +84,7 @@ final class MyAlbumPresenter {
                 switch result {
                 case .success(let podcast):
                     router.showMyPodcast(viewController, podcast: podcast)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -108,7 +107,7 @@ final class MyAlbumPresenter {
             switch result {
             case .success(_):
                 self.viewController?.exit()
-            case .failure(let error):
+            case .failure(_):
                 self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }

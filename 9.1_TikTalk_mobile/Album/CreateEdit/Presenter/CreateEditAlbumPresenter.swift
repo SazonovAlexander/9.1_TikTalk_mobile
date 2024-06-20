@@ -27,7 +27,7 @@ final class CreateEditAlbumPresenter {
                 switch result {
                 case .success(_):
                     self.viewController?.exit()
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -38,7 +38,7 @@ final class CreateEditAlbumPresenter {
                 switch result {
                 case .success(_):
                     self.viewController?.exit()
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }

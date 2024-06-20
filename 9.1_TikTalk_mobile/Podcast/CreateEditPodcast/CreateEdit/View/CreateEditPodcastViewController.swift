@@ -66,6 +66,9 @@ final class CreateEditPodcastViewController: UIViewController {
     }()
     
     var textFieldIsEditing: Bool = false
+    var newDesc: String? = nil
+    var newName: String? = nil
+    var isEdit: Bool = false
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -95,15 +98,15 @@ final class CreateEditPodcastViewController: UIViewController {
     }
     
     func config(_ podcast: PodcastInfo?, isEdit: Bool) {
+        self.isEdit = isEdit
         if isEdit {
             audioButton.isHidden = true
             navigationItem.title = "Редактирование подкаста"
         }
         
-        if let podcast {
-            nameTextField.setText(podcast.name)
-            textField.text = podcast.description
-        }
+       
+        nameTextField.setText(podcast?.name ?? "")
+        textField.text = podcast?.description ?? ""
         if presenter.logo != nil {
             logoImageView.kf.setImage(with: presenter.logo!, placeholder: UIImage(named: "Logo"))
         }
@@ -236,7 +239,7 @@ private extension CreateEditPodcastViewController {
     
     @objc
     func didTapSaveButton() {
-        let podcast = PodcastInfo(name: nameTextField.getText(), description: textField.text)
+        let podcast = PodcastInfo(name: nameTextField.getText(), description: newDesc ?? textField.text)
         presenter.save(podcast)
     }
     
@@ -272,5 +275,8 @@ extension CreateEditPodcastViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textFieldIsEditing = false
+        if isEdit {
+            newDesc = textView.text
+        }
     }
 }

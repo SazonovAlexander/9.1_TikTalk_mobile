@@ -145,7 +145,7 @@ private extension AuthViewController {
                 TokenStorage.shared.accessToken = auth.accessToken
                 TokenStorage.shared.refreshToken = auth.refreshToken
                 self.dismiss(animated: true)
-            case .failure(let error):
+            case .failure(_):
                 self.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }

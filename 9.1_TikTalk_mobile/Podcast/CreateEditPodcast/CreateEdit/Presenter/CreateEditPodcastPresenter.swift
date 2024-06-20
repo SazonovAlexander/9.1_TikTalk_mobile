@@ -50,7 +50,7 @@ final class CreateEditPodcastPresenter {
                 case .success(let album):
                     self.album = album
                     group.leave()
-                case .failure(let error):
+                case .failure(_):
                     group.leave()
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение") {
                         self.viewController?.exit()
@@ -76,12 +76,12 @@ final class CreateEditPodcastPresenter {
         }
     }
     
-    func save(_ podcast: PodcastInfo) {
+    func save(_ podcastInfo: PodcastInfo) {
         var podcastModel = PodcastModelWithoutLike(
             id: self.podcast?.id ?? UUID().uuidString,
-            name: podcast.name,
+            name: podcastInfo.name,
             authorId: "",
-            description: podcast.description,
+            description: podcastInfo.description,
             albumId: self.album!.id.uuidString,
             logoUrl: self.logo!.absoluteString,
             audioUrl: self.audio!.absoluteString,
@@ -98,14 +98,14 @@ final class CreateEditPodcastPresenter {
                             switch result {
                             case .success(_):
                                 self.viewController?.exit()
-                            case .failure(let error):
+                            case .failure(_):
                                 self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                             }
                         }
                     } else {
                         self.viewController?.exit()
                     }
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -120,7 +120,7 @@ final class CreateEditPodcastPresenter {
                     podcastModel.id = id
                     group.leave()
                     viewController?.exit()
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                     success = false
                     group.leave()
@@ -135,10 +135,8 @@ final class CreateEditPodcastPresenter {
                         switch result {
                         case .success(_):
                             group1.leave()
-                            print("audio_success")
                         case .failure(_):
                             group1.leave()
-                            print("audio_failure")
                         }
                     }
                     group1.enter()
@@ -146,10 +144,8 @@ final class CreateEditPodcastPresenter {
                         switch result {
                         case .success(_):
                             group1.leave()
-                            print("image_success")
                         case .failure(_):
                             group1.leave()
-                            print("image_failure")
                         }
                     }
                     

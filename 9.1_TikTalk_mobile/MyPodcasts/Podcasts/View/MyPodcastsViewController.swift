@@ -34,13 +34,18 @@ final class MyPodcastsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         completion?()
     }
     
@@ -84,7 +89,7 @@ private extension MyPodcastsViewController {
 
 extension MyPodcastsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showPodcast(indexPath: indexPath)
+        presenter.showPodcast(podcastId: albums[indexPath.section].podcasts[indexPath.row].id)
     }
     
     @objc func headerTapped(_ gesture: UITapGestureRecognizer) {

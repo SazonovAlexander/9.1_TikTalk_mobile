@@ -138,7 +138,7 @@ private extension AuthorProfileViewController {
 
 extension AuthorProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showPodcast(indexPath: indexPath)
+        presenter.showPodcast(podcastId: albums[indexPath.section].podcasts[indexPath.row].id)
     }
 }
 

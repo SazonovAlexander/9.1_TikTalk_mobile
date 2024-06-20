@@ -44,7 +44,7 @@ final class AlbumPresenter {
                     case .success(let podcast):
                         podcastsModels.append(podcast)
                         group.leave()
-                    case .failure(let error):
+                    case .failure(_):
                         success = false
                         errorMessage = "Проверьте соединение"
                         group.leave()
@@ -63,7 +63,7 @@ final class AlbumPresenter {
     }
     
     func getInfo() {
-        viewController?.config(name: album.name, podcasts: podcasts.map{ PodcastCell(name: $0.name, logoUrl: URL(string: $0.logoUrl))})
+        viewController?.config(name: album.name, podcasts: podcasts.map{ PodcastCell(id: $0.id.uuidString.lowercased(), name: $0.name, logoUrl: URL(string: $0.logoUrl))})
     }
     
     func showPodcast(index: Int) {
@@ -79,7 +79,7 @@ final class AlbumPresenter {
                 switch result {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }

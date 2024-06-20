@@ -113,12 +113,10 @@ final class AVAudioFileConverter {
       assetWriter.add(assetWriterAudioInput)
 
     }
-    print("Finsihed Setup of AVAssetReader and AVAssetWriter")
     return true
   }
 
     func startAssetReaderAndWriter(group: DispatchGroup) -> Bool {
-    print("STARTING ASSET WRITER")
     assetWriter.startWriting()
     assetReader.startReading()
     assetWriter.startSession(atSourceTime: CMTime.zero)
@@ -134,7 +132,6 @@ final class AVAudioFileConverter {
           self.assetWriterAudioInput.markAsFinished()
           self.assetReader.cancelReading()
           self.assetWriter.finishWriting {
-            print("Asset Writer Finished Writing")
               group.leave()
               BlockingProgressHUD.dismiss()
           }

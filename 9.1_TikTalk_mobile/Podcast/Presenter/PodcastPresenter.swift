@@ -59,7 +59,7 @@ final class PodcastPresenter {
                         isLiked: !self.podcast.isLiked
                     )
                     self.podcast = newPodcast
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -73,7 +73,7 @@ final class PodcastPresenter {
                 switch result {
                 case .success(let album):
                     self.router.showAlbumFrom(viewController, album: album)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -87,7 +87,7 @@ final class PodcastPresenter {
                 switch result {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -124,8 +124,7 @@ final class PodcastPresenter {
                             )
                     viewController?.config(podcast: podcast)
                 }
-            case .failure(let error):
-                print("fallure")
+            case .failure(_):
                 self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }

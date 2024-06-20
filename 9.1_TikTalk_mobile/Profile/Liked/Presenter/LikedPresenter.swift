@@ -9,7 +9,6 @@ final class LikedPresenter {
     private var profile: ProfileModel
     private lazy var podcasts: [PodcastModel] = [] {
         didSet {
-            print(podcasts)
             getInfo()
         }
     }
@@ -43,7 +42,7 @@ final class LikedPresenter {
                     case .success(let podcast):
                         podcastModels.append(podcast)
                         group.leave()
-                    case .failure(let error):
+                    case .failure(_):
                         success = false
                         errorMessage = "Проверьте соединение"
                         group.leave()
@@ -65,7 +64,7 @@ final class LikedPresenter {
         var podcastsView: [PodcastCell] = []
         podcasts.forEach {
             if let url = URL(string: $0.logoUrl) {
-                podcastsView.append(PodcastCell(name: $0.name, logoUrl: url))
+                podcastsView.append(PodcastCell(id: $0.id.uuidString.lowercased(), name: $0.name, logoUrl: url))
             }
         }
         viewController?.config(podcasts: podcastsView)

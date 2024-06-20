@@ -145,8 +145,7 @@ private extension MyPodcastService {
 
         request.addValue(mulripartData.httpContentTypeHeadeValue, forHTTPHeaderField: "Content-Type")
         request.httpBody = mulripartData.httpBody
-        print(request)
-        
+
         return request
     }
     
@@ -173,7 +172,6 @@ private extension MyPodcastService {
 
         request.addValue(mulripartData.httpContentTypeHeadeValue, forHTTPHeaderField: "Content-Type")
         request.httpBody = mulripartData.httpBody
-        print(request)
         
         return request
     }

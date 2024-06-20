@@ -12,7 +12,6 @@ final class AuthorService {
             guard let self = self else { return }
             switch result {
             case .success(let authorModel):
-                print(authorModel.albums)
                 if TokenStorage.shared.accessToken != "" {
                     isSubscribe(id) { result in
                         switch result {
@@ -26,7 +25,6 @@ final class AuthorService {
                             )
                             completion(.success(author))
                         case .failure(let error):
-                            print("failure is subscrive 1")
                             completion(.failure(error))
                         }
                     }
@@ -41,7 +39,6 @@ final class AuthorService {
                     completion(.success(author))
                 }
             case .failure(let error):
-                print("failure is subscrive 2")
                 completion(.failure(error))
             }
         })
@@ -56,7 +53,6 @@ final class AuthorService {
             case .success(let subscribe):
                 completion(.success(subscribe))
             case .failure(let error):
-                print("failure is subscrive")
                 completion(.failure(error))
             }
         })

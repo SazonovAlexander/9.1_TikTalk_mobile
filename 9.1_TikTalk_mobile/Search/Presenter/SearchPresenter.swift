@@ -33,7 +33,7 @@ final class SearchPresenter {
             case .success(let podcasts):
                 self.podcasts += podcasts
                 lastText = text
-            case .failure(let error):
+            case .failure(_):
                 break
             }
         }
@@ -46,7 +46,7 @@ final class SearchPresenter {
                 switch result {
                 case .success(let podcast):
                     self.router.showPodcastFrom(viewController, podcast: podcast)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -57,7 +57,7 @@ final class SearchPresenter {
         var podcastsView: [PodcastCell] = []
         podcasts.forEach {
             if let url = URL(string: $0.logoUrl) {
-                podcastsView.append(PodcastCell(name: $0.name, logoUrl: url))
+                podcastsView.append(PodcastCell(id: $0.id.uuidString.lowercased(), name: $0.name, logoUrl: url))
             }
         }
         viewController?.update(podcasts: podcastsView)

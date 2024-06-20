@@ -18,7 +18,6 @@ final class ProfileService {
             case .success(let profile):
                 completion(.success(profile))
             case .failure(let error):
-                print("Проверьте соединение")
                 completion(.failure(error))
             }
         })
@@ -77,7 +76,6 @@ private extension ProfileService {
         var mulripartData = MultipartRequest()
         if let imageUrl = URL(string: profile.avatarUrl ?? "") {
             let imageData = try Data(contentsOf: imageUrl)
-            print("\(profile.name).\(imageUrl.pathExtension)")
             mulripartData.add(
                 key: "image",
                 fileName: "@image.\(imageUrl.pathExtension)",
@@ -97,7 +95,6 @@ private extension ProfileService {
 
         request.addValue(mulripartData.httpContentTypeHeadeValue, forHTTPHeaderField: "Content-Type")
         request.httpBody = mulripartData.httpBody
-        print(request)
         
         return request
     }

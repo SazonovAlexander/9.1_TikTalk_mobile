@@ -9,7 +9,6 @@ final class MyPodcastsPresenter {
     private var albums: [AlbumModel] = []
     private var podcasts: [Album] = [] {
         didSet {
-            print(podcasts.count)
             getInfo()
         }
     }
@@ -35,7 +34,6 @@ final class MyPodcastsPresenter {
         var albumModels: [AlbumModel] = []
         var success = true
         var errorMessage = ""
-        print(profile.albums.count)
         profile.albums.forEach {
             dispatchGroup.enter()
             if let id = UUID(uuidString: $0) {
@@ -44,7 +42,7 @@ final class MyPodcastsPresenter {
                     case .success(let album):
                         albumModels.append(album)
                         dispatchGroup.leave()
-                    case .failure(let error):
+                    case .failure(_):
                         success = false
                         errorMessage = "Проверьте соединение"
                         dispatchGroup.leave()
@@ -59,7 +57,6 @@ final class MyPodcastsPresenter {
                 self.albums.sort(by: { $0.name > $1.name })
                 self.getPodcasts()
             } else {
-                print("error 1")
                 self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
                     self.viewController?.exit()
                 }
@@ -87,14 +84,12 @@ final class MyPodcastsPresenter {
                         switch result {
                         case .success(let podcast):
                             if let url = URL(string: podcast.logoUrl) {
-                                podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
+                                podcastsInAlbum.append(PodcastCell(id: podcast.id.uuidString.lowercased(), name: podcast.name, logoUrl: url))
                             } else {
-                                print("error 4")
                                 successed = false
                             }
                             group1.leave()
-                        case .failure(let error):
-                            print("error 3")
+                        case .failure(_):
                             successed = false
                             errorMessage = "Проверьте соединение"
                             group1.leave()
@@ -105,7 +100,7 @@ final class MyPodcastsPresenter {
             
             group1.notify(queue: .main, execute: {
                 if successed {
-                    let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
+                    let albumWithPodcasts = Album(id: album.id.uuidString.lowercased(), name: album.name, podcasts: podcastsInAlbum.sorted(by: {$0.name > $1.name}))
                     albumsView.append(albumWithPodcasts)
                     albumModels.append(album)
                 } else {
@@ -119,11 +114,8 @@ final class MyPodcastsPresenter {
         dispatchGroup.notify(queue: .main) {
             if success {
                 self.podcasts = albumsView
-                self.podcasts.sort(by: {$0.name > $1.name })
                 self.albums = albumModels
-                self.albums.sort(by: {$0.name > $1.name})
             } else {
-                print("error 2")
                 self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
                 self.podcasts = []
             }
@@ -135,18 +127,15 @@ final class MyPodcastsPresenter {
         viewController?.config(albums: podcasts)
     }
     
-    func showPodcast(indexPath: IndexPath) {
+    func showPodcast( podcastId: String) {
         if let viewController {
-            let album = albums[indexPath.section]
-            if let id = UUID(uuidString: album.podcasts[indexPath.row]) {
-                podcastService.getPodcastById(id) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(let podcast):
-                        router.showMyPodcastFrom(viewController, podcast: podcast)
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
-                    }
+            podcastService.getPodcastById(UUID(uuidString: podcastId)!) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let podcast):
+                    router.showMyPodcastFrom(viewController, podcast: podcast)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }

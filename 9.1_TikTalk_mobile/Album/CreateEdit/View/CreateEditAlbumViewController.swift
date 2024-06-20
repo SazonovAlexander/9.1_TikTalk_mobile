@@ -124,7 +124,6 @@ private extension CreateEditAlbumViewController {
     
     @objc
     func didTapSaveButton() {
-        print("save")
         let album = AlbumInfo(name: nameTextField.getText(), description: textField.text)
         presenter.save(album)
     }

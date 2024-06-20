@@ -9,7 +9,6 @@ final class SubsPresenter {
     private var profile: ProfileModel
     private lazy var authors: [AuthorModel] = [] {
         didSet {
-            print(authors)
             getInfo()
         }
     }
@@ -31,14 +30,13 @@ final class SubsPresenter {
         var errorMessage = ""
         profile.subscriptions.forEach {
             group.enter()
-            print("getAuthor")
             if let id = UUID(uuidString: $0) {
                 authorService.getAuthorById(id) {result in
                     switch result {
                     case .success(let author):
                         authors.append(author)
                         group.leave()
-                    case .failure(let error):
+                    case .failure(_):
                         success = false
                         errorMessage = "Проверьте соединение"
                         group.leave()

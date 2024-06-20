@@ -9,7 +9,7 @@ struct PodcastModel {
     let albumId: UUID
     let logoUrl: String
     let audioUrl: String
-    let countLike: Int
+    var countLike: Int
     var isLiked: Bool
 }
 

@@ -49,7 +49,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var likeButton: UIButton = {
         let button = BaseButtonView()
-        button.config(text: "Понравившееся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
+        button.config(text: "Понравившиеся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     

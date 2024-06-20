@@ -18,7 +18,6 @@ final class TokenStorage {
         set (newToken) {
             let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.accessTokenKey)
             guard isSuccess else {
-                print("Token writing error")
                 return
             }
         }
@@ -31,7 +30,6 @@ final class TokenStorage {
         set (newToken) {
             let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.refreshTokenKey)
             guard isSuccess else {
-                print("Token writing error")
                 return
             }
         }
@@ -44,7 +42,6 @@ final class TokenStorage {
         set (newId) {
             let isSuccess = KeychainWrapper.standard.set(newId, forKey: TokenStorage.idKey)
             guard isSuccess else {
-                print("Id writing error")
                 return
             }
         }

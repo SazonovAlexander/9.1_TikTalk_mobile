@@ -32,7 +32,7 @@ final class ReportPresenter {
             switch result {
             case .success(let author):
                 viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
-            case .failure(let error):
+            case .failure(_):
                 viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение", completion: { [weak self] in
                     self?.viewController?.exit()
                 })
@@ -74,7 +74,7 @@ final class ReportPresenter {
                 if let viewController = self?.viewController {
                     self?.reportRouter.dismissReportViewController(viewController)
                 }
-            case .failure(let error):
+            case .failure(_):
                 self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }

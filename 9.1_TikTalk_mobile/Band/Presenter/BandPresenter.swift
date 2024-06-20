@@ -35,12 +35,14 @@ final class BandPresenter {
     
     func updateBand(_ band: Band) {
         bandFactory?.bandType = band.type
+        if self.band?.type != band.type {
+            self.podcast = nil
+        }
         getNextPodcast()
         self.band = band
     }
     
     func getNextPodcast() {
-        print("call")
         bandFactory?.getNextPodcast(completion: { podcast in
             if let podcast {
                 self.podcastService.getIsLiked(podcast.id) { result in
@@ -57,14 +59,14 @@ final class BandPresenter {
                             countLike: podcast.countLike,
                             isLiked: isLiked
                         )
-                        self.castPodcastModelToPodcast(podcast, animation: self.podcast == nil ? .none : .rigth)
-                        self.podcast = podcast
-                    case .failure(let error):
+                        self.bandFactory?.updateLikeWithourChangeCount(isLiked: isLiked, id: podcastModel.id)
+                        self.castPodcastModelToPodcast(podcastModel, animation: self.podcast == nil ? .none : .rigth)
+                        self.podcast = podcastModel
+                    case .failure(_):
                         self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                     }
                 }
             } else {
-                
                 self.viewController?.showErrorAlert(title: "Подкасты закончились", message: nil)
             }
         })
@@ -86,9 +88,10 @@ final class BandPresenter {
                         countLike: podcast.countLike,
                         isLiked: isLiked
                     )
-                    self.castPodcastModelToPodcast(podcast, animation: self.podcast == nil ? .none : .left)
-                    self.podcast = podcast
-                case .failure(let error):
+                    self.bandFactory?.updateLikeWithourChangeCount(isLiked: isLiked, id: podcastModel.id)
+                    self.castPodcastModelToPodcast(podcastModel, animation: self.podcast == nil ? .none : .left)
+                    self.podcast = podcastModel
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -112,13 +115,13 @@ final class BandPresenter {
                             albumId: podcast.albumId,
                             logoUrl: podcast.logoUrl,
                             audioUrl: podcast.audioUrl,
-                            countLike: podcast.countLike + (podcast.isLiked ? -1 : 1),
+                            countLike: podcast.countLike + (!podcast.isLiked ? 1 : -1),
                             isLiked: !podcast.isLiked
                         )
-                        bandFactory?.updateLike()
+                        bandFactory?.updateLike(isLiked: !podcast.isLiked, id: podcast.id)
                         self.podcast = newPodcast
                         castPodcastModelToPodcast(newPodcast, animation: .empty)
-                    case .failure(let error):
+                    case .failure(_):
                         self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                     }
                 }
@@ -133,7 +136,7 @@ final class BandPresenter {
                 switch result {
                 case .success(let album):
                     self.router.showAlbumFrom(viewController, album: album)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -147,7 +150,7 @@ final class BandPresenter {
                 switch result {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
-                case .failure(let error):
+                case .failure(_):
                     self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
@@ -184,7 +187,7 @@ final class BandPresenter {
                             )
                     viewController?.config(podcast: podcast, animation: animation)
                 }
-            case .failure(let error):
+            case .failure(_):
                 self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
