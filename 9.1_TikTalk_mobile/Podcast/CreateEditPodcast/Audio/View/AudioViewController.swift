@@ -225,12 +225,14 @@ private extension AudioViewController {
     
     @objc
     func didTapFileButton() {
+        Analytic.shared.report(event: .click, screen: .audio, item: .file)
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.mp3"], in: .import)
         documentPicker.delegate = self
         present(documentPicker, animated: true, completion: nil)
     }
     
     @objc func recording() {
+        Analytic.shared.report(event: .click, screen: .audio, item: .dictophone)
         if !isRecording {
             
             let audioSession = AVAudioSession.sharedInstance()

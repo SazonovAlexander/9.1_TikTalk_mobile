@@ -71,4 +71,10 @@ extension TabBarController: UITabBarControllerDelegate {
         }
         return true
     }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController is SearchViewController {
+            Analytic.shared.report(event: .open, screen: .search)
+        }
+    }
 }

@@ -71,6 +71,7 @@ private extension PodcastViewController {
 extension PodcastViewController: PodcastDelegate {
     
     func tapLikeButton() {
+        Analytic.shared.report(event: .click, screen: .podcast, item: .like)
         presenter.liked()
     }
     
