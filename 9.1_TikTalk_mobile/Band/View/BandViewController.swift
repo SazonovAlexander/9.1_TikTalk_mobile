@@ -195,10 +195,16 @@ private extension BandViewController {
     }
     
     func addActions() {
-        autoSwitch.addTarget(self, action: #selector(Self.didBandChange), for: .valueChanged)
+        autoSwitch.addTarget(self, action: #selector(Self.didAutoChange), for: .valueChanged)
         bandTypeSegment.addTarget(self, action: #selector(Self.didBandChange), for: .valueChanged)
         view.addGestureRecognizer(swipeLeft)
         view.addGestureRecognizer(swipeRight)
+    }
+    
+    @objc
+    func didAutoChange() {
+        Analytic.shared.report(event: .click, screen: .band, item: .auto)
+        didBandChange()
     }
     
     @objc

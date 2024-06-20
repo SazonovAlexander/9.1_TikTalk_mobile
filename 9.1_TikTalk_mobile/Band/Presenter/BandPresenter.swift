@@ -102,6 +102,7 @@ final class BandPresenter {
         if TokenStorage.shared.accessToken == "" {
             viewController?.showAuthController()
         } else {
+            Analytic.shared.report(event: .click, screen: .band, item: .like)
             if let podcast {
                 podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
                     guard let self else { return }

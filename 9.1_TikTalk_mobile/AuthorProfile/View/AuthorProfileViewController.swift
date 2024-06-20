@@ -132,6 +132,7 @@ private extension AuthorProfileViewController {
     
     @objc
     func didTapSubButton() {
+        Analytic.shared.report(event: .click, screen: .author, item: .subscribe)
         presenter.subscribe()
     }
 }
