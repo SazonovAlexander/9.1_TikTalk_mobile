@@ -49,12 +49,15 @@ private extension BandService {
         if band == .subscriptions {
             url += "subscribed/"
         }
-        let request = URLRequest.makeHTTPRequest(
+        var request = URLRequest.makeHTTPRequest(
             path: url + "?page=\(page)&size=10&sortParam=LIKE_DESK",
             httpMethod: "GET",
             baseURL: DefaultBaseURL
         )
         
+        if band == .subscriptions && TokenStorage.shared.accessToken != "" {
+            request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        }
         return request
     }
 }
