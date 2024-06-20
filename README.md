@@ -1,7 +1,6 @@
 # 9.1 TikTalk Mobile
 
-## Swift 
-## UIKit
+## Swift, UIKit
 
 Собрать приложение в файл нельзя, т. к. нет аккаунта разработчика, поэтому для запуска приложения требуется Xcode и MacOS (желательно последней версии)  
 Выполняем `git clone https://github.com/SazonovAlexander/9.1_TikTalk_mobile.git`
