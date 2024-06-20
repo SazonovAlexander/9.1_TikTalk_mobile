@@ -3,6 +3,8 @@ import WebKit
 
 final class AuthViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .medium)
@@ -41,6 +43,8 @@ final class AuthViewController: UIViewController {
         }
     }
     
+    private let authService = AuthService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -49,6 +53,11 @@ final class AuthViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = ""
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
     }
 }
 
@@ -115,11 +124,30 @@ private extension AuthViewController {
     
     func addActions() {
         registrationButton.addTarget(self, action: #selector(Self.tapRegButton), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(Self.tapAuthButton), for: .touchUpInside)
     }
     
     @objc
     func tapRegButton() {
         self.navigationItem.title = "Вход"
         self.navigationController?.pushViewController(RegistrationViewController(), animated: true)
+    }
+    
+    @objc
+    func tapAuthButton() {
+        let auth = AuthRequest(username: nameTextField.getText(), password: passwordTextField.getText())
+        
+        authService.auth(auth: auth) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let auth):
+                TokenStorage.shared.accessToken = auth.accessToken
+                TokenStorage.shared.refreshToken = auth.refreshToken
+                self.dismiss(animated: true)
+            case .failure(_):
+                self.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+            }
+        }
     }
 }

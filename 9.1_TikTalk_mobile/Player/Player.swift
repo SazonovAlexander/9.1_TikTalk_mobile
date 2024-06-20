@@ -30,7 +30,7 @@ final class Player {
             try audioSession.setCategory(.playback, mode: .default)
             try audioSession.setActive(true)
         } catch {
-            print("Ошибка настройки аудиосессии: \(error.localizedDescription)")
+            print("Ошибка настройки аудиосессии")
         }
         avPlayer.play()
         if changeIcon {

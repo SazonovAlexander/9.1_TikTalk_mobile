@@ -10,8 +10,9 @@ final class CreateEditPodcastRouter {
         viewController.navigationController?.pushViewController(selectAlbum, animated: true)
     }
     
-    func showSelectAudioFrom(_ viewController: UIViewController, completion: (URL) -> Void) {
+    func showSelectAudioFrom(_ viewController: UIViewController, completion: @escaping  (URL) -> Void) {
         let audioViewController = AudioViewController()
+        audioViewController.completion = completion
         viewController.navigationController?.pushViewController(audioViewController, animated: true)
     }
 }

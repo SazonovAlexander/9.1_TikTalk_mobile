@@ -57,7 +57,6 @@ private extension OnboardingViewController {
     }
 
     func activateConstraints() {
-        let superView: UIView = view.superview ?? view
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),

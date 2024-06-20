@@ -17,7 +17,7 @@ final class PodcastPresenter {
     
     private var podcast: PodcastModel {
         didSet {
-            getPodcast()
+            castPodcastModelToPodcast(self.podcast)
         }
     }
     
@@ -36,33 +36,32 @@ final class PodcastPresenter {
     }
     
     func getPodcast() {
-        do {
-            let podcast = try castPodcastModelToPodcast(self.podcast)
-            viewController?.config(podcast: podcast)
-        } catch (let error) {
-            viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-        }
+        castPodcastModelToPodcast(self.podcast)
     }
     
     func liked() {
-        podcastService.changeLike(podcast.id, isLiked: !podcast.isLiked) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(_):
-                let newPodcast = PodcastModel(
-                    id: self.podcast.id,
-                    name: self.podcast.name,
-                    authorId: self.podcast.authorId,
-                    description: self.podcast.description,
-                    albumId: self.podcast.albumId,
-                    logoUrl: self.podcast.logoUrl,
-                    audioUrl: self.podcast.audioUrl,
-                    countLike: self.podcast.countLike + (podcast.isLiked ? -1 : 1),
-                    isLiked: !self.podcast.isLiked
-                )
-                self.podcast = newPodcast
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+        if TokenStorage.shared.accessToken == "" {
+            viewController?.showAuthController()
+        } else {
+            podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    let newPodcast = PodcastModel(
+                        id: self.podcast.id,
+                        name: self.podcast.name,
+                        authorId: self.podcast.authorId,
+                        description: self.podcast.description,
+                        albumId: self.podcast.albumId,
+                        logoUrl: self.podcast.logoUrl,
+                        audioUrl: self.podcast.audioUrl,
+                        countLike: self.podcast.countLike + (podcast.isLiked ? -1 : 1),
+                        isLiked: !self.podcast.isLiked
+                    )
+                    self.podcast = newPodcast
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                }
             }
         }
     }
@@ -74,8 +73,8 @@ final class PodcastPresenter {
                 switch result {
                 case .success(let album):
                     self.router.showAlbumFrom(viewController, album: album)
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -88,8 +87,8 @@ final class PodcastPresenter {
                 switch result {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -107,39 +106,28 @@ final class PodcastPresenter {
         }
     }
     
-    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
-        let authorModel = getAuthor(id: podcastModel.authorId)
-        
-        if let logoUrl = URL(string: podcastModel.logoUrl),
-           let audioUrl = URL(string: podcastModel.audioUrl),
-           let authorModel = authorModel
-        {
-            return Podcast(
-                        name: podcastModel.name,
-                        author: authorModel.name,
-                        countLike: normalizeCountLike(podcastModel.countLike),
-                        isLiked: podcastModel.isLiked,
-                        logoUrl: logoUrl,
-                        audioUrl: audioUrl
-                    )
-        } else {
-            throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
-        }
-    }
-    
-    private func getAuthor(id: UUID) -> AuthorModel? {
-        var author: AuthorModel? = nil
-        authorService.getAuthorById(id) { [weak self] result in
+    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) {
+        authorService.getAuthorById(podcastModel.authorId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let authorModel):
-                author = authorModel
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                if let logoUrl = URL(string: podcastModel.logoUrl),
+                   let audioUrl = URL(string: podcastModel.audioUrl)
+                {
+                    let podcast = Podcast(
+                                name: podcastModel.name,
+                                author: authorModel.name,
+                                countLike: normalizeCountLike(podcastModel.countLike),
+                                isLiked: podcastModel.isLiked,
+                                logoUrl: logoUrl,
+                                audioUrl: audioUrl
+                            )
+                    viewController?.config(podcast: podcast)
+                }
+            case .failure(_):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
-        
-        return author
     }
     
     private func normalizeCountLike(_ count: Int) -> String {

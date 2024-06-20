@@ -7,29 +7,11 @@ final class LikedPresenter {
     private let podcastService: PodcastService
     private let router: LikedRouter
     private var profile: ProfileModel
-    private lazy var podcasts: [PodcastModel] = {
-        var podcastModels: [PodcastModel] = []
-        var success = true
-        var errorMessage: String = ""
-        profile.liked.forEach {
-            podcastService.getPodcastById($0, completion: { result in
-                switch result {
-                case .success(let podcast):
-                    podcastModels.append(podcast)
-                case .failure(let error):
-                    success = false
-                    errorMessage = error.localizedDescription
-                }
-            })
+    private lazy var podcasts: [PodcastModel] = [] {
+        didSet {
+            getInfo()
         }
-        
-        if success {
-            return podcastModels
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
-            return []
-        }
-    }()
+    }
     
     init(profile: ProfileModel,
          podcastService: PodcastService = PodcastService(),
@@ -38,6 +20,7 @@ final class LikedPresenter {
         self.profile = profile
         self.podcastService = podcastService
         self.router = likedRouter
+        getPodcasts()
     }
     
     func showPodcast(index: Int) {
@@ -46,11 +29,42 @@ final class LikedPresenter {
         }
     }
     
+    private func getPodcasts() {
+        let group = DispatchGroup()
+        var podcastModels: [PodcastModel] = []
+        var success = true
+        var errorMessage: String = ""
+        profile.liked.forEach {
+            group.enter()
+            if let id = UUID(uuidString: $0) {
+                podcastService.getPodcastById(id, completion: { result in
+                    switch result {
+                    case .success(let podcast):
+                        podcastModels.append(podcast)
+                        group.leave()
+                    case .failure(_):
+                        success = false
+                        errorMessage = "Проверьте соединение"
+                        group.leave()
+                    }
+                })
+            }
+        }
+        
+        group.notify(queue: .main, execute: {
+            if success {
+                self.podcasts = podcastModels
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+            }
+        })
+    }
+    
     func getInfo() {
         var podcastsView: [PodcastCell] = []
         podcasts.forEach {
             if let url = URL(string: $0.logoUrl) {
-                podcastsView.append(PodcastCell(name: $0.name, logoUrl: url))
+                podcastsView.append(PodcastCell(id: $0.id.uuidString.lowercased(), name: $0.name, logoUrl: url))
             }
         }
         viewController?.config(podcasts: podcastsView)

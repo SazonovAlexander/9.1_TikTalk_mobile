@@ -63,6 +63,11 @@ final class MyAlbumViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -183,7 +188,7 @@ extension MyAlbumViewController: UITableViewDataSource {
         podcastCell.config(podcast: podcasts[indexPath.row])
         
         if indexPath.row == podcasts.count - 1 {
-            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            podcastCell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
         }
 
         return podcastCell

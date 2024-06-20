@@ -3,6 +3,8 @@ import UIKit
 
 final class LikedPodcastsViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
@@ -26,9 +28,19 @@ final class LikedPodcastsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
     }
     
     func config(podcasts: [PodcastCell]) {
@@ -43,7 +55,6 @@ private extension LikedPodcastsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
-        presenter.getInfo()
     }
     
     func setupAppearance() {

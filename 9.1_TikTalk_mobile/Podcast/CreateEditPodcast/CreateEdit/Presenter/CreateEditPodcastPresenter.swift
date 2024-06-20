@@ -34,23 +34,32 @@ final class CreateEditPodcastPresenter {
     private func initialize() {
         if let podcast {
             isEdit = true
-            if let audio = URL(string: podcast.audioUrl) {
+            if let audioUrl = podcast.audioUrl, let audio = URL(string: audioUrl) {
                 self.audio = audio
             }
-            if let logo = URL(string: podcast.logoUrl) {
+            if let logoUrl = podcast.logoUrl, let logo = URL(string: logoUrl) {
                 self.logo = logo
             }
             
-            albumService.getAlbumById(podcast.albumId) { [weak self] result in
+            let selectedAlbum: AlbumModel? = nil
+            let group = DispatchGroup()
+            group.enter()
+            albumService.getAlbumById(UUID(uuidString: podcast.albumId)!) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let album):
                     self.album = album
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription) {
+                    group.leave()
+                case .failure(_):
+                    group.leave()
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение") {
                         self.viewController?.exit()
                     }
                 }
+            }
+            
+            group.notify(queue: .main) {
+                self.album = selectedAlbum
             }
         }
     }
@@ -67,47 +76,82 @@ final class CreateEditPodcastPresenter {
         }
     }
     
-    func save(_ podcast: PodcastInfo) {
-        let podcastModel = PodcastModelWithoutLike(
-            id: self.podcast!.id,
-            name: podcast.name,
-            authorId: UUID(),
-            description: podcast.description,
-            albumId: self.album!.id,
+    func save(_ podcastInfo: PodcastInfo) {
+        var podcastModel = PodcastModelWithoutLike(
+            id: self.podcast?.id ?? UUID().uuidString,
+            name: podcastInfo.name,
+            authorId: "",
+            description: podcastInfo.description,
+            albumId: self.album!.id.uuidString,
             logoUrl: self.logo!.absoluteString,
             audioUrl: self.audio!.absoluteString,
-            countLike: self.podcast!.countLike
+            countLike: self.podcast?.countLike ?? 0
         )
         if isEdit {
-            if let newLogo {
-                podcastService.changePodcastWithLogo(podcast: podcastModel) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(_):
-                        self.viewController?.exit()
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-                    }
-                }
-            } else {
-                podcastService.changePodcastWithoutLogo(podcast: podcastModel) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(_):
-                        self.viewController?.exit()
-                    case .failure(let error):
-                        self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-                    }
-                }
-            }
-        } else {
-            podcastService.createPodcast(podcast: podcastModel) { [weak self] result in
+            podcastService.changePodcast(podcast: podcastModel) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(_):
-                    self.viewController?.exit()
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                    if let newLogo {
+                        podcastService.changeAvatar(podcast: podcastModel) { [weak self] result in
+                            guard let self else { return }
+                            switch result {
+                            case .success(_):
+                                self.viewController?.exit()
+                            case .failure(_):
+                                self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                            }
+                        }
+                    } else {
+                        self.viewController?.exit()
+                    }
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                }
+            }
+        } else {
+            let group = DispatchGroup()
+            group.enter()
+            var success = true
+            podcastService.createPodcast(podcast: podcastModel) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let id):
+                    podcastModel.id = id
+                    group.leave()
+                    viewController?.exit()
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                    success = false
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                if success {
+                    let group1 = DispatchGroup()
+                    group1.enter()
+                    self.podcastService.changeAudio(podcast: podcastModel) { result in
+                        switch result {
+                        case .success(_):
+                            group1.leave()
+                        case .failure(_):
+                            group1.leave()
+                        }
+                    }
+                    group1.enter()
+                    self.podcastService.changeAvatar(podcast: podcastModel) { result in
+                        switch result {
+                        case .success(_):
+                            group1.leave()
+                        case .failure(_):
+                            group1.leave()
+                        }
+                    }
+                    
+                    group1.notify(queue: .main) { [weak self] in
+                        self?.viewController?.exit()
+                    }
                 }
             }
         }
@@ -126,6 +170,7 @@ final class CreateEditPodcastPresenter {
         if let viewController {
             router.showSelectAudioFrom(viewController, completion: { [weak self] audio in
                 self?.audio = audio
+                self?.getInfo()
             })
         }
     }

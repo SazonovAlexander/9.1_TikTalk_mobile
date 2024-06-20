@@ -10,10 +10,24 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private var lastTask: URLSessionTask?
     
-    func changeProfileWithAvatar(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    func getProfile(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
+        lastTask?.cancel()
+        let request = getProfile()
+        let task = urlSession.objectTask(for: request, completion: { (result: Result<ProfileModel, Error>) in
+            switch result {
+            case .success(let profile):
+                completion(.success(profile))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+        lastTask = task
+        task.resume()
+    }
+    
+    func changeProfileName(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            lastTask?.cancel()
-            let request = try changeProfileRequestWithAvatar(profile: profile)
+            let request = try changeProfileNameRequest(profile: profile)
             let task = urlSession.objectTask(for: request, completion: { (result: Result<EmptyResponse, Error>) in
                 switch result {
                 case .success(_):
@@ -22,17 +36,15 @@ final class ProfileService {
                     completion(.failure(error))
                 }
             })
-            lastTask = task
             task.resume()
         } catch (let error) {
             completion(.failure(error))
         }
     }
     
-    func changeProfileWithoutAvatar(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    func changeAvatar(profile: ProfileModel, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            lastTask?.cancel()
-            let request = try changeProfileRequestWithoutAvatar(profile: profile)
+            let request = try changeAvatarRequest(profile: profile)
             let task = urlSession.objectTask(for: request, completion: { (result: Result<EmptyResponse, Error>) in
                 switch result {
                 case .success(_):
@@ -41,7 +53,6 @@ final class ProfileService {
                     completion(.failure(error))
                 }
             })
-            lastTask = task
             task.resume()
         } catch (let error) {
             completion(.failure(error))
@@ -51,51 +62,50 @@ final class ProfileService {
 
 private extension ProfileService {
     
-    func changeProfileRequestWithAvatar(profile: ProfileModel) throws -> URLRequest {
+    func getProfile() -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/person/",
-            httpMethod: "PUT",
+            path: "tiktalk/api/person/me",
+            httpMethod: "GET",
             baseURL: DefaultBaseURL
         )
-        //request.setValue("token", forHTTPHeaderField: "Authorization")
-        let boundary = UUID().uuidString
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        var body = Data()
-        
-        let profileRequest = ProfileRequest(name: profile.name)
-        let jsonData = try JSONEncoder().encode(profileRequest)
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"json\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: application/json\r\n\r\n".data(using: .utf8)!)
-        body.append(jsonData)
-        body.append("\r\n".data(using: .utf8)!)
-
-        if let imageUrl = URL(string: profile.avatarUrl) {
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func changeAvatarRequest(profile: ProfileModel) throws -> URLRequest {
+        var mulripartData = MultipartRequest()
+        if let imageUrl = URL(string: profile.avatarUrl ?? "") {
             let imageData = try Data(contentsOf: imageUrl)
-            let filename = "\(profile.name)\(Date().timeIntervalSince1970).\(imageUrl.pathExtension)"
-            let mimeType = MimeTypeHelper.mimeType(for: imageUrl.pathExtension)
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-            body.append(imageData)
-            body.append("\r\n".data(using: .utf8)!)
+            mulripartData.add(
+                key: "image",
+                fileName: "@image.\(imageUrl.pathExtension)",
+                fileMimeType: MimeTypeHelper.mimeType(for: imageUrl.pathExtension),
+                fileData: imageData
+            )
         } else {
             throw ProfileServiceError.errorParseUrl(message: "Ошибка загрузки файла")
         }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        var request = URLRequest.makeHTTPRequest(
+            path: "tiktalk/api/person/upload",
+            httpMethod: "POST",
+            baseURL: DefaultBaseURL
+        )
+        request.addValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
 
-        request.httpBody = body
+        request.addValue(mulripartData.httpContentTypeHeadeValue, forHTTPHeaderField: "Content-Type")
+        request.httpBody = mulripartData.httpBody
         
         return request
     }
     
-    func changeProfileRequestWithoutAvatar(profile: ProfileModel) throws -> URLRequest {
+    func changeProfileNameRequest(profile: ProfileModel) throws -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
-            path: "/api/person/",
+            path: "tiktalk/api/person/update",
             httpMethod: "PUT",
             baseURL: DefaultBaseURL
         )
+        request.setValue("Bearer \(TokenStorage.shared.accessToken)", forHTTPHeaderField: "Authorization")
         let profileRequest = ProfileRequest(name: profile.name)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let jsonData = try JSONEncoder().encode(profileRequest)

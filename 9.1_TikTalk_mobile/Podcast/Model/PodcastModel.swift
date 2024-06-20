@@ -9,19 +9,30 @@ struct PodcastModel {
     let albumId: UUID
     let logoUrl: String
     let audioUrl: String
-    let countLike: Int
-    let isLiked: Bool
+    var countLike: Int
+    var isLiked: Bool
 }
 
 struct PodcastModelWithoutLike: Decodable {
-    let id: UUID
+    var id: String
     let name: String
-    let authorId: UUID
+    let authorId: String
     let description: String
-    let albumId: UUID
-    let logoUrl: String
-    let audioUrl: String
+    let albumId: String
+    let logoUrl: String?
+    let audioUrl: String?
     let countLike: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case authorId = "personId"
+        case description
+        case albumId
+        case logoUrl = "imageUrl"
+        case audioUrl
+        case countLike = "likes"
+    }
 }
 
 struct Liked: Decodable {

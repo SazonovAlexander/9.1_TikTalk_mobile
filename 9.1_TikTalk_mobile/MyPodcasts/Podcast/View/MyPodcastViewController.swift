@@ -85,6 +85,11 @@ final class MyPodcastViewController: UIViewController {
         setup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        player.stop()
+    }
+    
     func config(podcast: Podcast) {
         player.setAudioFromUrl(podcast.audioUrl)
         logoImageView.kf.setImage(with: podcast.logoUrl, placeholder: UIImage(named: "Logo"))
@@ -119,7 +124,7 @@ private extension MyPodcastViewController {
     
     func setupAppearance() {
         view.backgroundColor = UIColor(named: "Background")
-        navigationItem.backButtonTitle = "Подкаст"
+        self.navigationItem.title = "Мой подкаст"
     }
     
     func addSubviews() {

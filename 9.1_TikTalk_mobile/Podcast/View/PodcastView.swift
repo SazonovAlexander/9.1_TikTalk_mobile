@@ -100,7 +100,7 @@ final class PodcastView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+ 
     func config(podcast: Podcast) {
         player.setAudioFromUrl(podcast.audioUrl)
         logoImageView.kf.setImage(with: podcast.logoUrl, placeholder: UIImage(named: "Logo"))

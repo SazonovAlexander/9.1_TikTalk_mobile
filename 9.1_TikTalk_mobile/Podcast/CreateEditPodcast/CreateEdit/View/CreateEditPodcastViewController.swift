@@ -3,6 +3,8 @@ import UIKit
 
 final class CreateEditPodcastViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -64,6 +66,9 @@ final class CreateEditPodcastViewController: UIViewController {
     }()
     
     var textFieldIsEditing: Bool = false
+    var newDesc: String? = nil
+    var newName: String? = nil
+    var isEdit: Bool = false
     
     private lazy var saveButton: BaseButtonView = {
         let button = BaseButtonView()
@@ -87,15 +92,21 @@ final class CreateEditPodcastViewController: UIViewController {
         setup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        completion?()
+    }
+    
     func config(_ podcast: PodcastInfo?, isEdit: Bool) {
+        self.isEdit = isEdit
         if isEdit {
             audioButton.isHidden = true
+            navigationItem.title = "Редактирование подкаста"
         }
         
-        if let podcast {
-            nameTextField.setText(podcast.name)
-            textField.text = podcast.description
-        }
+       
+        nameTextField.setText(podcast?.name ?? "")
+        textField.text = podcast?.description ?? ""
         if presenter.logo != nil {
             logoImageView.kf.setImage(with: presenter.logo!, placeholder: UIImage(named: "Logo"))
         }
@@ -185,6 +196,7 @@ private extension CreateEditPodcastViewController {
             nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            nameTextField.heightAnchor.constraint(equalToConstant: 70),
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 90),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
@@ -227,7 +239,7 @@ private extension CreateEditPodcastViewController {
     
     @objc
     func didTapSaveButton() {
-        let podcast = PodcastInfo(name: nameTextField.getText(), description: textField.text)
+        let podcast = PodcastInfo(name: nameTextField.getText(), description: newDesc ?? textField.text)
         presenter.save(podcast)
     }
     
@@ -247,9 +259,16 @@ extension CreateEditPodcastViewController: UIImagePickerControllerDelegate & UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             logoImageView.image = pickedImage
-            presenter.logo = URL(string: Mocks.podcast.logoUrl)!
+        }
+        if let imageUrl = info[.imageURL] as? URL {
+            presenter.logo = imageUrl
         }
         picker.dismiss(animated: true, completion: nil)
+        if presenter.isValid() {
+            saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGreen") ?? .green, isEnabled: true)
+        } else {
+            saveButton.config(text: "Сохранить", backgroundColor: UIColor(named: "ButtonGray") ?? .gray, isEnabled: false)
+        }
     }
 }
 
@@ -261,5 +280,8 @@ extension CreateEditPodcastViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textFieldIsEditing = false
+        if isEdit {
+            newDesc = textView.text
+        }
     }
 }

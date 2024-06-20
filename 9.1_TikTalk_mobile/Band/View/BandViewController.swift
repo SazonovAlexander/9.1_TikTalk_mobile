@@ -86,7 +86,6 @@ final class BandViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showAuthController()
         setup()
     }
     
@@ -104,7 +103,7 @@ final class BandViewController: UIViewController {
             NSLayoutConstraint.deactivate(leftNewPodcastConstraints)
             NSLayoutConstraint.activate(rightNewPodcastConstraints)
             newPodcastView.config(podcast: podcast)
-            UIView.animate(withDuration: 0.75, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.contentOffset = CGPoint(x: self.podcastView.frame.width, y: 0)
             }, completion: { completed in
                 if completed {
@@ -117,7 +116,7 @@ final class BandViewController: UIViewController {
             NSLayoutConstraint.deactivate(rightNewPodcastConstraints)
             NSLayoutConstraint.activate(leftNewPodcastConstraints)
             newPodcastView.config(podcast: podcast)
-            UIView.animate(withDuration: 0.75, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.contentOffset = CGPoint(x: -self.podcastView.frame.width, y: 0)
             }, completion: { completed in
                 if completed {
@@ -196,15 +195,28 @@ private extension BandViewController {
     }
     
     func addActions() {
-        autoSwitch.addTarget(self, action: #selector(Self.didBandChange), for: .valueChanged)
+        autoSwitch.addTarget(self, action: #selector(Self.didAutoChange), for: .valueChanged)
         bandTypeSegment.addTarget(self, action: #selector(Self.didBandChange), for: .valueChanged)
         view.addGestureRecognizer(swipeLeft)
         view.addGestureRecognizer(swipeRight)
     }
     
     @objc
+    func didAutoChange() {
+        Analytic.shared.report(event: .click, screen: .band, item: .auto)
+        didBandChange()
+    }
+    
+    @objc
     func didBandChange() {
         let band = Band(type: bandTypeSegment.selectedSegmentIndex == 0 ? .all : .subscriptions, auto: autoSwitch.isOn)
+        if band.type == .subscriptions {
+            if TokenStorage.shared.accessToken == "" {
+                showAuthController()
+                bandTypeSegment.selectedSegmentIndex = 0
+                return
+            }
+        }
         bandPresenter.updateBand(band)
     }
     

@@ -37,7 +37,11 @@ final class AuthorProfileViewController: UIViewController {
     }()
     
     private let presenter: AuthorPresenter
-    private var albums: [Album] = []
+    private var albums: [Album] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: AuthorPresenter) {
         self.presenter = presenter
@@ -128,13 +132,14 @@ private extension AuthorProfileViewController {
     
     @objc
     func didTapSubButton() {
+        Analytic.shared.report(event: .click, screen: .author, item: .subscribe)
         presenter.subscribe()
     }
 }
 
 extension AuthorProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showPodcast(indexPath: indexPath)
+        presenter.showPodcast(podcastId: albums[indexPath.section].podcasts[indexPath.row].id)
     }
 }
 
