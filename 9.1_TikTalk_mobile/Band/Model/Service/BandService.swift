@@ -3,17 +3,17 @@ import Foundation
 
 final class BandService {
     
-    private var lastLoadedPage: Int?
+    var lastLoadedPage: Int?
     private let urlSession = URLSession.shared
     private var lastTask: URLSessionTask?
+    var podcastService: PodcastService = PodcastService()
     
-    
-    func getPodcasts(completion: @escaping (Result<[PodcastModel], Error>) -> Void) {
+    func getPodcasts(band: BandType, completion: @escaping (Result<[PodcastModel], Error>) -> Void) {
         lastTask?.cancel()
             let nextPage = lastLoadedPage == nil
             ? 0
             : lastLoadedPage! + 1
-            let request = bandRequest(page: nextPage)
+            let request = bandRequest(page: nextPage, band: band)
             let task = urlSession.objectTask(for: request, completion: {[weak self] (result: Result<[PodcastModelWithoutLike], Error>) in
                 guard let self else { return }
                 switch result {
@@ -30,7 +30,7 @@ final class BandService {
                         audioUrl: $0.audioUrl ?? "https://www.mfiles.co.uk/mp3-downloads/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3",
                         countLike: $0.countLike,
                         isLiked: false
-                    ) }.filter { $0.authorId.uuidString != TokenStorage.shared.id}))
+                    ) }.filter { $0.authorId.uuidString != TokenStorage.shared.id }))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -44,9 +44,13 @@ final class BandService {
 
 private extension BandService {
     
-    func bandRequest(page: Int) -> URLRequest {
+    func bandRequest(page: Int, band: BandType) -> URLRequest {
+        var url = "/tiktalk/api/podcast/"
+        if band == .subscriptions {
+            url += "subscribed/"
+        }
         let request = URLRequest.makeHTTPRequest(
-            path: "/tiktalk/api/podcast/?page=\(page)&size=10&sortParam=LIKE_DESK",
+            path: url + "?page=\(page)&size=10&sortParam=LIKE_DESK",
             httpMethod: "GET",
             baseURL: DefaultBaseURL
         )

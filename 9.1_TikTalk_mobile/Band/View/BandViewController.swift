@@ -86,9 +86,6 @@ final class BandViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if TokenStorage.shared.accessToken == "" {
-            showAuthController()
-        }
         setup()
     }
     

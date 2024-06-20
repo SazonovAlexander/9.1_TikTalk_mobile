@@ -15,7 +15,6 @@
 		003FD88C2C2220910096818F /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FD88B2C2220910096818F /* Converter.swift */; };
 		007A268C2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268B2BD5B4090040C0F4 /* CreateEditPodcastViewController.swift */; };
 		007A268E2BD5B8CF0040C0F4 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A268D2BD5B8CF0040C0F4 /* AudioViewController.swift */; };
-		007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 007A26932BD5BEAA0040C0F4 /* LookinServer */; };
 		007A269B2BDD8F360040C0F4 /* PodcastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269A2BDD8F360040C0F4 /* PodcastPresenter.swift */; };
 		007A269E2BDD8F5F0040C0F4 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A269D2BDD8F5F0040C0F4 /* Podcast.swift */; };
 		007A26A22BDD907C0040C0F4 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A26A12BDD907C0040C0F4 /* Author.swift */; };
@@ -110,6 +109,7 @@
 		00B60C172BE13C1000DA7951 /* AlbumsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */; };
 		00B60C192BE13C2B00DA7951 /* AlbumsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */; };
 		00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */ = {isa = PBXBuildFile; productRef = 00B60C1C2BE15D5300DA7951 /* RangeUISlider */; };
+		00B671682C23714A0058A369 /* MultipartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B671672C23714A0058A369 /* MultipartData.swift */; };
 		00D834DC2BFE752300996704 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 00D834DB2BFE752300996704 /* ProgressHUD */; };
 		00D834DE2BFE754600996704 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DD2BFE754600996704 /* URLSession+Extension.swift */; };
 		00D834E02BFE755E00996704 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */; };
@@ -231,6 +231,7 @@
 		00B60C102BE12D5F00DA7951 /* CreateEditPodcastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPodcastRouter.swift; sourceTree = "<group>"; };
 		00B60C162BE13C1000DA7951 /* AlbumsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPresenter.swift; sourceTree = "<group>"; };
 		00B60C182BE13C2B00DA7951 /* AlbumsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRouter.swift; sourceTree = "<group>"; };
+		00B671672C23714A0058A369 /* MultipartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartData.swift; sourceTree = "<group>"; };
 		00D834DD2BFE754600996704 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		00D834DF2BFE755E00996704 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		00D834E12BFE758900996704 /* BlockingProgressHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingProgressHud.swift; sourceTree = "<group>"; };
@@ -264,7 +265,6 @@
 				00B60BB32BE0561300DA7951 /* AppMetricaAdSupport in Frameworks */,
 				00B60BB92BE0561300DA7951 /* AppMetricaWebKit in Frameworks */,
 				00B60C1D2BE15D5300DA7951 /* RangeUISlider in Frameworks */,
-				007A26942BD5BEAA0040C0F4 /* LookinServer in Frameworks */,
 				00D834EA2C00BD0000996704 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +374,7 @@
 				00D834F12C0352BC00996704 /* MimeTypeHelper.swift */,
 				00D835062C05004000996704 /* UserDefaultsHelper.swift */,
 				003FD88B2C2220910096818F /* Converter.swift */,
+				00B671672C23714A0058A369 /* MultipartData.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1124,7 +1125,6 @@
 			);
 			name = 9.1_TikTalk_mobile;
 			packageProductDependencies = (
-				007A26932BD5BEAA0040C0F4 /* LookinServer */,
 				007A26A82BDD94380040C0F4 /* Kingfisher */,
 				00B60BB22BE0561300DA7951 /* AppMetricaAdSupport */,
 				00B60BB42BE0561300DA7951 /* AppMetricaCore */,
@@ -1163,7 +1163,6 @@
 			);
 			mainGroup = 007EC1AF2BC5C97A00066A9E;
 			packageReferences = (
-				007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				00B60BB12BE0561300DA7951 /* XCRemoteSwiftPackageReference "appmetrica-sdk-ios" */,
 				00B60C1B2BE15D5300DA7951 /* XCRemoteSwiftPackageReference "RangeUISlider" */,
@@ -1299,6 +1298,7 @@
 				007EC1BC2BC5C97A00066A9E /* AppDelegate.swift in Sources */,
 				00D834F62C036EC900996704 /* MyPodcastService.swift in Sources */,
 				0017314B2C18F261004A88F6 /* Register.swift in Sources */,
+				00B671682C23714A0058A369 /* MultipartData.swift in Sources */,
 				007EC1BE2BC5C97A00066A9E /* SceneDelegate.swift in Sources */,
 				00B60BD42BE06A8B00DA7951 /* ProfileService.swift in Sources */,
 				00D834F22C0352BC00996704 /* MimeTypeHelper.swift in Sources */,
@@ -1540,14 +1540,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QMUI/LookinServer/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.8;
-			};
-		};
 		007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -1591,11 +1583,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		007A26932BD5BEAA0040C0F4 /* LookinServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 007A26922BD5BEAA0040C0F4 /* XCRemoteSwiftPackageReference "LookinServer" */;
-			productName = LookinServer;
-		};
 		007A26A82BDD94380040C0F4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 007A26A72BDD94380040C0F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;

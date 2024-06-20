@@ -41,19 +41,21 @@ final class PodcastService {
         task.resume()
     }
     
-    private func getIsLiked(_ id: UUID, completion: @escaping (Result<Bool, Error>) -> Void) {
-        lastTask?.cancel()
-        let request = isLikedRequest(id: id)
-        let task = urlSession.objectTask(for: request, completion: { (result: Result<Bool, Error>) in
-            switch result {
-            case .success(let liked):
-                completion(.success(liked))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
-        lastTask = task
-        task.resume()
+    func getIsLiked(_ id: UUID, completion: @escaping (Result<Bool, Error>) -> Void) {
+        if TokenStorage.shared.accessToken != "" {
+            let request = isLikedRequest(id: id)
+            let task = urlSession.objectTask(for: request, completion: { (result: Result<Bool, Error>) in
+                switch result {
+                case .success(let liked):
+                    completion(.success(liked))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            })
+            task.resume()
+        } else {
+            completion(.success(false))
+        }
     }
     
     func changeLike(_ id: UUID, isLiked: Bool, completion: @escaping (Result<Void, Error>) -> Void) {

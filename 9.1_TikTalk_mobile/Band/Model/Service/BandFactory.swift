@@ -11,6 +11,7 @@ final class BandFactory {
             
             index = -1
             podcasts.removeAll()
+            bandService.lastLoadedPage = nil
         }
     }
     private var index = -1
@@ -22,13 +23,19 @@ final class BandFactory {
         self.bandService = bandService
     }
     
+    func updateLike() {
+        if index >= 0 {
+            podcasts[index].isLiked.toggle()
+        }
+    }
+    
     private func getPodcasts() {
-        bandService.getPodcasts() { result in
+        bandService.getPodcasts(band: bandType) { result in
             switch result {
             case .success(let podcast):
                 self.podcasts += podcast
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Проверьте соединение")
             }
         }
     }
@@ -41,7 +48,7 @@ final class BandFactory {
         if index >= podcasts.count - 2 {
             group.enter()
             inProgress = true
-            bandService.getPodcasts() { result in
+            bandService.getPodcasts(band: bandType) { result in
                 switch result {
                 case .success(let podcast):
                     self.podcasts += podcast
