@@ -27,31 +27,16 @@ final class ReportPresenter {
     }
     
     func getInfo() {
-        if let author = getAuthor() {
-            viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
-        }
-    }
-    
-    private func getAuthor() -> AuthorModel? {
-        var authorModel: AuthorModel? = nil
-        var errorMessage = ""
         authorService.getAuthorById(podcast.authorId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let author):
-                authorModel = author
-            case .failure(let error):
-                errorMessage = error.localizedDescription
+                viewController?.config(authorName: author.name, podcastName: podcast.name, theme: selectedTheme)
+            case .failure(_):
+                viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение", completion: { [weak self] in
+                    self?.viewController?.exit()
+                })
             }
-        }
-        
-        if let authorModel {
-            return authorModel
-        } else {
-            viewController?.showErrorAlert(title: "Ошибка", message: errorMessage, completion: { [weak self] in
-                self?.viewController?.exit()
-            })
-            return nil
         }
     }
     
@@ -60,14 +45,14 @@ final class ReportPresenter {
             reportRouter.showSelectThemeViewControllerFrom(
                 viewController,
                 themes: [
-                    "Тема 1",
-                    "Тема 2",
-                    "Тема 3",
-                    "Тема 4",
-                    "Тема 5",
-                    "Тема 6",
-                    "Тема 7",
-                    "Тема 8",
+                    "Жестокие высказывания",
+                    "Оскорбления",
+                    "Призыв к опасным действиям",
+                    "Ложная информация",
+                    "Пропаганда терроризма",
+                    "Нарушение законодательства",
+                    "Мошенничество",
+                    "Другая тема"
                 ],
                 selectedTheme: selectedTheme,
                 completion: { [weak self] theme in
@@ -89,8 +74,8 @@ final class ReportPresenter {
                 if let viewController = self?.viewController {
                     self?.reportRouter.dismissReportViewController(viewController)
                 }
-            case .failure(let error):
-                self?.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            case .failure(_):
+                self?.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }

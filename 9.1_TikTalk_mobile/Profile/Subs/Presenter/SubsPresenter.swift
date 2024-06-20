@@ -7,31 +7,11 @@ final class SubsPresenter {
     private let authorService: AuthorService
     private let router: SubsRouter
     private var profile: ProfileModel
-    private lazy var authors: [AuthorModel] = {
-        var authors: [AuthorModel] = []
-        var success = true
-        var errorMessage = ""
-        profile.subscriptions.forEach {
-            authorService.getAuthorById($0) { [weak self] result in
-                switch result {
-                case .success(let author):
-                    authors.append(author)
-                case .failure(let error):
-                    success = false
-                    errorMessage = error.localizedDescription
-                }
-            }
+    private lazy var authors: [AuthorModel] = [] {
+        didSet {
+            getInfo()
         }
-        
-        if success {
-            return authors
-        } else {
-            self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage, completion: { [weak self] in
-                self?.viewController?.exit()
-            })
-            return []
-        }
-    }()
+    }
     
     init(profile: ProfileModel,
          authorService: AuthorService = AuthorService(),
@@ -40,6 +20,40 @@ final class SubsPresenter {
         self.profile = profile
         self.authorService = authorService
         self.router = subsRouter
+        getAuthors()
+    }
+    
+    private func getAuthors() {
+        let group = DispatchGroup()
+        var authors: [AuthorModel] = []
+        var success = true
+        var errorMessage = ""
+        profile.subscriptions.forEach {
+            group.enter()
+            if let id = UUID(uuidString: $0) {
+                authorService.getAuthorById(id) {result in
+                    switch result {
+                    case .success(let author):
+                        authors.append(author)
+                        group.leave()
+                    case .failure(_):
+                        success = false
+                        errorMessage = "Проверьте соединение"
+                        group.leave()
+                    }
+                }
+            }
+        }
+        
+        group.notify(queue: .main, execute: {
+            if success {
+                self.authors = authors
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage, completion: { [weak self] in
+                    self?.viewController?.exit()
+                })
+            }
+        })
     }
     
     func showAuthor(index: Int) {

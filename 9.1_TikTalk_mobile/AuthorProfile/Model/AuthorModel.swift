@@ -9,10 +9,17 @@ struct AuthorModel {
 }
 
 struct AuthorModelWithoutSubscribe: Decodable {
-    let id: UUID
+    let id: String
     let name: String
-    let avatarUrl: String
-    let albums: [UUID]
+    let avatarUrl: String?
+    let albums: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case avatarUrl = "imageUrl"
+        case albums
+    }
 }
 
 struct IsSubscribe: Decodable {

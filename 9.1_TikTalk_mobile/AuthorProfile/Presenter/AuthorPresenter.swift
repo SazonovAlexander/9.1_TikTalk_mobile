@@ -5,31 +5,12 @@ final class AuthorPresenter {
     weak var viewController: AuthorProfileViewController?
     
     private var author: AuthorModel
-    private lazy var albums: [AlbumModel] = {
-        var albumModels: [AlbumModel] = []
-        var success = true
-        var errorMessage = ""
-        author.albums.forEach {
-            self.albumService.getAlbumById($0) { result in
-                switch result {
-                case .success(let album):
-                    albumModels.append(album)
-                case .failure(let error):
-                    success = false
-                    errorMessage = error.localizedDescription
-                }
-            }
+    private var albums: [AlbumModel] = []
+    private var podcasts: [Album] = [] {
+        didSet {
+            getInfo()
         }
-        
-        if success {
-            return albumModels
-        } else {
-            self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
-                self.viewController?.exit()
-            }
-            return []
-        }
-    }()
+    }
     
     private let albumService: AlbumService
     private let podcastService: PodcastService
@@ -47,39 +28,98 @@ final class AuthorPresenter {
         self.podcastService = podcastService
         self.authorService = authorService
         self.router = authorRouter
+        getAlbums()
     }
-        
-    private func getPodcasts() -> ([Album]) {
-        var albumsView: [Album] = []
-        for album in albums {
-            var podcastsInAlbum: [PodcastCell] = []
-            var success = true
-            var errorMessage: String = ""
-            album.podcasts.forEach {
-                podcastService.getPodcastById($0, completion: { result in
-                    switch result {
-                    case .success(let podcast):
-                        if let url = URL(string: podcast.logoUrl) {
-                            podcastsInAlbum.append(PodcastCell(name: podcast.name, logoUrl: url))
-                        } else {
-                            success = false
-                        }
-                    case .failure(let error):
-                        success = false
-                        errorMessage = error.localizedDescription
-                    }
-                })
-            }
-            
-            if success {
-                let albumWithPodcasts = Album(name: album.name, podcasts: podcastsInAlbum)
-                albumsView.append(albumWithPodcasts)
-            } else {
-                viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
-                return []
+    
+    private func getAlbums() {
+        let dispatchGroup = DispatchGroup()
+        var albumModels: [AlbumModel] = []
+        var success = true
+        var errorMessage = ""
+        author.albums.forEach {
+            dispatchGroup.enter()
+            self.albumService.getAlbumById($0) { result in
+                switch result {
+                case .success(let album):
+                    albumModels.append(album)
+                    dispatchGroup.leave()
+                case .failure(_):
+                    success = false
+                    errorMessage = "Проверьте соединение"
+                    dispatchGroup.leave()
+                }
             }
         }
-        return albumsView
+        
+        dispatchGroup.notify(queue: .main) {
+            if success {
+                self.albums = albumModels
+                self.getPodcasts()
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage) {
+                    self.viewController?.exit()
+                }
+                self.albums = []
+            }
+        }
+    }
+        
+    private func getPodcasts() {
+        let dispatchGroup = DispatchGroup()
+        var albumsView: [Album] = []
+        var albumModels: [AlbumModel] = []
+        var success = true
+        var errorMessage: String = ""
+        dispatchGroup.enter()
+        for album in albums {
+            dispatchGroup.enter()
+            var podcastsInAlbum: [PodcastCell] = []
+            var successed = true
+            let group1 = DispatchGroup()
+            album.podcasts.forEach {
+                group1.enter()
+                if let id = UUID(uuidString: $0) {
+                    podcastService.getPodcastById(id, completion: { result in
+                        switch result {
+                        case .success(let podcast):
+                            if let url = URL(string: podcast.logoUrl) {
+                                podcastsInAlbum.append(PodcastCell(id: podcast.id.uuidString.lowercased(), name: podcast.name, logoUrl: url))
+                            } else {
+                                successed = false
+                            }
+                            group1.leave()
+                        case .failure(_):
+                            successed = false
+                            errorMessage = "Проверьте соединение"
+                            group1.leave()
+                        }
+                    })
+                }
+            }
+            
+            group1.notify(queue: .main, execute: {
+                if successed {
+                    let albumWithPodcasts = Album(id: album.id.uuidString.lowercased(), name: album.name, podcasts: podcastsInAlbum)
+                    albumsView.append(albumWithPodcasts)
+                    albumModels.append(album)
+                } else {
+                    success = false
+                }
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.leave()
+        
+        dispatchGroup.notify(queue: .main) {
+            if success {
+                self.podcasts = albumsView
+                self.albums = albumModels
+            } else {
+                self.viewController?.showErrorAlert(title: "Ошибка", message: errorMessage)
+                self.podcasts = []
+            }
+        }
+        
     }
     
     func getInfo() {
@@ -88,7 +128,7 @@ final class AuthorPresenter {
                 name: author.name,
                 avatarUrl: avatarUrl,
                 isSubscribe: author.isSubscribe,
-                albums: getPodcasts()
+                albums: podcasts
             )
             viewController?.config(author: author)
         } else {
@@ -98,30 +138,33 @@ final class AuthorPresenter {
         }
     }
     
-    func showPodcast(indexPath: IndexPath) {
+    func showPodcast(podcastId: String) {
         if let viewController {
-            let album = albums[indexPath.section]
-            podcastService.getPodcastById(album.podcasts[indexPath.row]) { [weak self] result in
+            podcastService.getPodcastById(UUID(uuidString: podcastId)!) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let podcast):
                     self.router.showPodcastFrom(viewController, podcast: podcast)
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
     }
     
     func subscribe() {
-        authorService.changeSubscribe(author.id, isSubscribe: !author.isSubscribe) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(_):
-                self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
-                self.getInfo()
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+        if TokenStorage.shared.accessToken == "" {
+            viewController?.showAuthController()
+        } else {
+            authorService.changeSubscribe(author.id, isSubscribe: !author.isSubscribe) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(_):
+                    self.author = AuthorModel(id: author.id, name: author.name, avatarUrl: author.avatarUrl, isSubscribe: !author.isSubscribe, albums: author.albums)
+                    self.getInfo()
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                }
             }
         }
     }

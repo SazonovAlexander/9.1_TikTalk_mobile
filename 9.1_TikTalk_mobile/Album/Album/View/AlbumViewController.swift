@@ -54,7 +54,11 @@ final class AlbumViewController: UIViewController {
     }()
     
     private let presenter: AlbumPresenter
-    private var podcasts: [PodcastCell] = []
+    private var podcasts: [PodcastCell] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: AlbumPresenter) {
         self.presenter = presenter
@@ -70,8 +74,9 @@ final class AlbumViewController: UIViewController {
         setup()
     }
     
-    func config(name: String) {
+    func config(name: String, podcasts: [PodcastCell]) {
         nameLabel.text = name
+        self.podcasts = podcasts
     }
 }
 
@@ -82,7 +87,7 @@ private extension AlbumViewController {
         addSubviews()
         activateConstraints()
         addActions()
-        podcasts = presenter.getPodcasts()
+        presenter.getInfo()
     }
     
     func setupAppearance() {
@@ -149,6 +154,10 @@ extension AlbumViewController: UITableViewDataSource {
                        
         guard let podcastCell = cell as? PodcastViewCell else {
            return UITableViewCell()
+        }
+        
+        if indexPath.row == podcasts.count - 1 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
         }
         
         podcastCell.config(podcast: podcasts[indexPath.row])

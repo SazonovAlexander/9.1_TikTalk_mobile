@@ -3,6 +3,8 @@ import WebKit
 
 final class AuthViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .medium)
@@ -51,6 +53,11 @@ final class AuthViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = ""
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
     }
 }
 
@@ -138,8 +145,8 @@ private extension AuthViewController {
                 TokenStorage.shared.accessToken = auth.accessToken
                 TokenStorage.shared.refreshToken = auth.refreshToken
                 self.dismiss(animated: true)
-            case .failure(let error):
-                self.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+            case .failure(_):
+                self.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
     }

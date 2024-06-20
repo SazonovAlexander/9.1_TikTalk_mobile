@@ -12,6 +12,7 @@ extension URLSession {
                     completion(result)
                 }
     }
+            BlockingProgressHUD.show()
         let task = dataTask(with: request, completionHandler: { data, response, error in
             if let data = data,
                 let response = response,
@@ -21,20 +22,35 @@ extension URLSession {
                     do {
                         let decoder = JSONDecoder()
                         let object = try decoder.decode(T.self, from: data)
+                        BlockingProgressHUD.dismiss()
+
                         fulfillCompletion(.success(object))
                     } catch {
+                        BlockingProgressHUD.dismiss()
                         fulfillCompletion(.failure(error))
                     }
                 } else {
-                    fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
+                    if statusCode == 401 {
+                        TokenStorage.shared.accessToken = ""
+                        TokenStorage.shared.refreshToken = ""
+                        TokenStorage.shared.id = ""
+                        BlockingProgressHUD.dismiss()
+                        fulfillCompletion(.failure(NetworkError.unauthorized("Неавторизован")))
+                    } else {
+                        BlockingProgressHUD.dismiss()
+                        fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
+                    }
                 }
             } else if let error = error {
+                BlockingProgressHUD.dismiss()
                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
             } else {
+                BlockingProgressHUD.dismiss()
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
         })
         task.resume()
         return task
     }
+   
 }

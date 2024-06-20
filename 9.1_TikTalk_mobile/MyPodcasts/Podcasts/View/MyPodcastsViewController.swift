@@ -3,6 +3,8 @@ import UIKit
 
 final class MyPodcastsViewController: UIViewController {
             
+    var completion: (() -> Void)?
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
@@ -17,7 +19,11 @@ final class MyPodcastsViewController: UIViewController {
     }()
     
     private let presenter: MyPodcastsPresenter
-    private var albums: [Album] = []
+    private var albums: [Album] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: MyPodcastsPresenter) {
         self.presenter = presenter
@@ -28,14 +34,23 @@ final class MyPodcastsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
+    }
+    
     func config(albums: [Album]) {
         self.albums = albums
-        tableView.reloadData()
     }
     
     func exit() {
@@ -74,7 +89,7 @@ private extension MyPodcastsViewController {
 
 extension MyPodcastsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showPodcast(indexPath: indexPath)
+        presenter.showPodcast(podcastId: albums[indexPath.section].podcasts[indexPath.row].id)
     }
     
     @objc func headerTapped(_ gesture: UITapGestureRecognizer) {

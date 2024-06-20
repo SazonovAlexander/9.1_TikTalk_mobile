@@ -36,53 +36,95 @@ final class BandPresenter {
     func updateBand(_ band: Band) {
         bandFactory?.bandType = band.type
         if self.band?.type != band.type {
-            getNextPodcast()
+            self.podcast = nil
         }
+        getNextPodcast()
         self.band = band
     }
     
     func getNextPodcast() {
-        do {
-            if let podcast = bandFactory?.getNextPodcast() {
-                try viewController?.config(podcast: castPodcastModelToPodcast(podcast), animation: self.podcast == nil ? .none : .rigth)
-                self.podcast = podcast
+        bandFactory?.getNextPodcast(completion: { podcast in
+            if let podcast {
+                self.podcastService.getIsLiked(podcast.id) { result in
+                    switch result {
+                    case .success(let isLiked):
+                        let podcastModel = PodcastModel(
+                            id: podcast.id,
+                            name: podcast.name,
+                            authorId: podcast.authorId,
+                            description: podcast.description,
+                            albumId: podcast.albumId,
+                            logoUrl: podcast.logoUrl,
+                            audioUrl: podcast.audioUrl,
+                            countLike: podcast.countLike,
+                            isLiked: isLiked
+                        )
+                        self.bandFactory?.updateLikeWithourChangeCount(isLiked: isLiked, id: podcastModel.id)
+                        self.castPodcastModelToPodcast(podcastModel, animation: self.podcast == nil ? .none : .rigth)
+                        self.podcast = podcastModel
+                    case .failure(_):
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                    }
+                }
             } else {
-                viewController?.showErrorAlert(title: "Подкасты закончились", message: nil)
+                self.viewController?.showErrorAlert(title: "Подкасты закончились", message: nil)
             }
-        } catch (let error) {
-            viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
-        }
+        })
     }
     
     func getPrevPodcast() {
-        do {
-            if let podcast = bandFactory?.getPrevPodcast() {
-                try viewController?.config(podcast: castPodcastModelToPodcast(podcast), animation: self.podcast == nil ? .none : .left)
-                self.podcast = podcast
+        if let podcast = bandFactory?.getPrevPodcast() {
+            self.podcastService.getIsLiked(podcast.id) { result in
+                switch result {
+                case .success(let isLiked):
+                    let podcastModel = PodcastModel(
+                        id: podcast.id,
+                        name: podcast.name,
+                        authorId: podcast.authorId,
+                        description: podcast.description,
+                        albumId: podcast.albumId,
+                        logoUrl: podcast.logoUrl,
+                        audioUrl: podcast.audioUrl,
+                        countLike: podcast.countLike,
+                        isLiked: isLiked
+                    )
+                    self.bandFactory?.updateLikeWithourChangeCount(isLiked: isLiked, id: podcastModel.id)
+                    self.castPodcastModelToPodcast(podcastModel, animation: self.podcast == nil ? .none : .left)
+                    self.podcast = podcastModel
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                }
             }
-        } catch (let error) {
-            viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
         }
     }
-
+    
     func liked() {
-        if let podcast {
-            let newPodcast = PodcastModel(
-                id: podcast.id,
-                name: podcast.name,
-                authorId: podcast.authorId,
-                description: podcast.description,
-                albumId: podcast.albumId,
-                logoUrl: podcast.logoUrl,
-                audioUrl: podcast.audioUrl,
-                countLike: podcast.countLike + (podcast.isLiked ? -1 : 1),
-                isLiked: !podcast.isLiked
-            )
-            self.podcast = newPodcast
-            do {
-                try viewController?.config(podcast: castPodcastModelToPodcast(newPodcast), animation: .empty)
-            } catch (_) {
-                viewController?.showErrorAlert(title: "Ошибка", message: nil)
+        if TokenStorage.shared.accessToken == "" {
+            viewController?.showAuthController()
+        } else {
+            if let podcast {
+                podcastService.changeLike(podcast.id, isLiked: podcast.isLiked) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success(_):
+                        let newPodcast = PodcastModel(
+                            id: podcast.id,
+                            name: podcast.name,
+                            authorId: podcast.authorId,
+                            description: podcast.description,
+                            albumId: podcast.albumId,
+                            logoUrl: podcast.logoUrl,
+                            audioUrl: podcast.audioUrl,
+                            countLike: podcast.countLike + (!podcast.isLiked ? 1 : -1),
+                            isLiked: !podcast.isLiked
+                        )
+                        bandFactory?.updateLike(isLiked: !podcast.isLiked, id: podcast.id)
+                        self.podcast = newPodcast
+                        castPodcastModelToPodcast(newPodcast, animation: .empty)
+                    case .failure(_):
+                        self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
+                    }
+                }
             }
         }
     }
@@ -94,8 +136,8 @@ final class BandPresenter {
                 switch result {
                 case .success(let album):
                     self.router.showAlbumFrom(viewController, album: album)
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -108,8 +150,8 @@ final class BandPresenter {
                 switch result {
                 case .success(let author):
                     self.router.showAuthorFrom(viewController, author: author)
-                case .failure(let error):
-                    self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                case .failure(_):
+                    self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
                 }
             }
         }
@@ -127,39 +169,28 @@ final class BandPresenter {
         }
     }
     
-    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel) throws -> Podcast {
-        let authorModel = getAuthor(id: podcastModel.authorId)
-        
-        if let logoUrl = URL(string: podcastModel.logoUrl),
-           let audioUrl = URL(string: podcastModel.audioUrl),
-           let author = authorModel
-        {
-            return Podcast(
-                        name: podcastModel.name,
-                        author: author.name,
-                        countLike: normalizeCountLike(podcastModel.countLike),
-                        isLiked: podcastModel.isLiked,
-                        logoUrl: logoUrl,
-                        audioUrl: audioUrl
-                    )
-        } else {
-            throw PresenterError.parseUrlError(message: "Не удалось загрузить данные")
-        }
-    }
-    
-    private func getAuthor(id: UUID) -> AuthorModel? {
-        var author: AuthorModel? = nil
-        authorService.getAuthorById(id) { [weak self] result in
+    private func castPodcastModelToPodcast(_ podcastModel: PodcastModel, animation: BandAnimation) {
+        authorService.getAuthorById(podcastModel.authorId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let authorModel):
-                author = authorModel
-            case .failure(let error):
-                self.viewController?.showErrorAlert(title: "Ошибка", message: error.localizedDescription)
+                if let logoUrl = URL(string: podcastModel.logoUrl),
+                   let audioUrl = URL(string: podcastModel.audioUrl)
+                {
+                    let podcast = Podcast(
+                                name: podcastModel.name,
+                                author: authorModel.name,
+                                countLike: normalizeCountLike(podcastModel.countLike),
+                                isLiked: podcastModel.isLiked,
+                                logoUrl: logoUrl,
+                                audioUrl: audioUrl
+                            )
+                    viewController?.config(podcast: podcast, animation: animation)
+                }
+            case .failure(_):
+                self.viewController?.showErrorAlert(title: "Ошибка", message: "Проверьте соединение")
             }
         }
-        
-        return author
     }
     
     private func normalizeCountLike(_ count: Int) -> String {

@@ -2,6 +2,6 @@ import Foundation
 
 
 struct Report {
-    let theme: String
-    let message: String
+    var theme: String
+    var message: String
 }

@@ -4,17 +4,17 @@ import ProgressHUD
 
 final class BlockingProgressHUD {
     
-    private static var window: UIWindow? {
-            return UIApplication.shared.windows.first
-        }
-    
     static func show() {
-        window?.isUserInteractionEnabled = false
-        ProgressHUD.animate(interaction: false)
+        DispatchQueue.main.async {
+            UIApplication.shared.windows.first?.isUserInteractionEnabled = false
+            ProgressHUD.animate(interaction: false)
+        }
     }
     
     static func dismiss() {
-        window?.isUserInteractionEnabled = true
-        ProgressHUD.dismiss()
+        DispatchQueue.main.async {
+            UIApplication.shared.windows.first?.isUserInteractionEnabled = true
+            ProgressHUD.dismiss()
+        }
     }
 }

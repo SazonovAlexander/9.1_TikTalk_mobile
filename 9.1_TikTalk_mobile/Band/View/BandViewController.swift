@@ -86,9 +86,6 @@ final class BandViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if TokenStorage.shared.accessToken == "" {
-            showAuthController()
-        }
         setup()
     }
     
@@ -106,7 +103,7 @@ final class BandViewController: UIViewController {
             NSLayoutConstraint.deactivate(leftNewPodcastConstraints)
             NSLayoutConstraint.activate(rightNewPodcastConstraints)
             newPodcastView.config(podcast: podcast)
-            UIView.animate(withDuration: 0.75, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.contentOffset = CGPoint(x: self.podcastView.frame.width, y: 0)
             }, completion: { completed in
                 if completed {
@@ -119,7 +116,7 @@ final class BandViewController: UIViewController {
             NSLayoutConstraint.deactivate(rightNewPodcastConstraints)
             NSLayoutConstraint.activate(leftNewPodcastConstraints)
             newPodcastView.config(podcast: podcast)
-            UIView.animate(withDuration: 0.75, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.contentOffset = CGPoint(x: -self.podcastView.frame.width, y: 0)
             }, completion: { completed in
                 if completed {
@@ -207,6 +204,13 @@ private extension BandViewController {
     @objc
     func didBandChange() {
         let band = Band(type: bandTypeSegment.selectedSegmentIndex == 0 ? .all : .subscriptions, auto: autoSwitch.isOn)
+        if band.type == .subscriptions {
+            if TokenStorage.shared.accessToken == "" {
+                showAuthController()
+                bandTypeSegment.selectedSegmentIndex = 0
+                return
+            }
+        }
         bandPresenter.updateBand(band)
     }
     

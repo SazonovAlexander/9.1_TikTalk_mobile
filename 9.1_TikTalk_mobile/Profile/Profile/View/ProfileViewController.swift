@@ -49,7 +49,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var likeButton: UIButton = {
         let button = BaseButtonView()
-        button.config(text: "Понравившееся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
+        button.config(text: "Понравившиеся", backgroundColor: UIColor(named: "ProfileButtonBackgorund") ?? .blue)
         return button
     }()
     
@@ -91,6 +91,11 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -114,7 +119,6 @@ private extension ProfileViewController {
         addSubviews()
         activateConstraints()
         addActions()
-        presenter.getInfo()
     }
     
     func setupAppearance() {

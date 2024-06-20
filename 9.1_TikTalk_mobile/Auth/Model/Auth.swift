@@ -31,3 +31,19 @@ struct AuthResponse: Decodable {
         case refreshToken = "refresh_token"
     }
 }
+
+struct IntrospectRequest: Encodable {
+    let client_id: String
+    let client_secret: String
+    let token: String
+    
+    init(client_id: String = AuthConstants.clientId, client_secret: String = AuthConstants.clientSecret, token: String) {
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.token = token
+    }
+}
+
+struct IntrospectResponse: Decodable {
+    let sub: String
+}

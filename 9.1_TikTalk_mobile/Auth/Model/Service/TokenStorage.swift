@@ -7,6 +7,7 @@ final class TokenStorage {
     
     private static let accessTokenKey = "access_token"
     private static let refreshTokenKey = "refresh_token"
+    private static let idKey = "person_id"
     
     private init() {}
      
@@ -14,10 +15,9 @@ final class TokenStorage {
         get {
             return KeychainWrapper.standard.string(forKey: TokenStorage.accessTokenKey) ?? ""
         }
-        set (newToken){
+        set (newToken) {
             let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.accessTokenKey)
             guard isSuccess else {
-                print("Token writing error")
                 return
             }
         }
@@ -27,10 +27,21 @@ final class TokenStorage {
         get {
             return KeychainWrapper.standard.string(forKey: TokenStorage.refreshTokenKey) ?? ""
         }
-        set (newToken){
+        set (newToken) {
             let isSuccess = KeychainWrapper.standard.set(newToken, forKey: TokenStorage.refreshTokenKey)
             guard isSuccess else {
-                print("Token writing error")
+                return
+            }
+        }
+    }
+    
+    var id: String {
+        get {
+            return KeychainWrapper.standard.string(forKey: TokenStorage.idKey) ?? ""
+        }
+        set (newId) {
+            let isSuccess = KeychainWrapper.standard.set(newId, forKey: TokenStorage.idKey)
+            guard isSuccess else {
                 return
             }
         }

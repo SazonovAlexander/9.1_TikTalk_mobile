@@ -3,6 +3,8 @@ import UIKit
 
 final class SubsViewController: UIViewController {
     
+    var completion: (() -> Void)?
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
@@ -26,9 +28,19 @@ final class SubsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        completion?()
     }
     
     func config(authors: [AuthorCell]) {
@@ -47,7 +59,6 @@ private extension SubsViewController {
         setupAppearance()
         addSubviews()
         activateConstraints()
-        presenter.getInfo()
     }
     
     func setupAppearance() {
